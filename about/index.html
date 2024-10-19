@@ -19,15 +19,15 @@
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="\[ E&#x3D;mc^2 \] \(C_{a - 1} ^ {b - 1}\)">
+    <meta name="description" content="\(C_a^b &#x3D; \frac {a!} {b! * (a - b)!}\)     gantt dateFormat  YYYY-MM-DD title Adding GANTT diagram to mermaid  section A section Completed task            :done,    des1, 2014-01-06,2014-01-08 Active">
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于">
 <meta property="og:url" content="http://example.com/about/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="\[ E&#x3D;mc^2 \] \(C_{a - 1} ^ {b - 1}\)">
+<meta property="og:description" content="\(C_a^b &#x3D; \frac {a!} {b! * (a - b)!}\)     gantt dateFormat  YYYY-MM-DD title Adding GANTT diagram to mermaid  section A section Completed task            :done,    des1, 2014-01-06,2014-01-08 Active">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-19T07:40:22.000Z">
-<meta property="article:modified_time" content="2024-10-19T09:48:25.432Z">
+<meta property="article:modified_time" content="2024-10-19T10:39:07.113Z">
 <meta property="article:author" content="KotRin">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -44,8 +44,6 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -253,7 +251,7 @@
         
         
         
-        <a href=https://telegram.org/ class="
+        <a href=https://t.me/+4LnhF5ks80gyZTQ1 class="
            hint--bottom hint--rounded"
            aria-label="Telegram"
            target="_blank"
@@ -265,7 +263,7 @@
         
         
         
-        <a href=hhttp://qm.qq.com/cgi-bin/qm/qr?_wv=1027&amp;k=y3-3_-v_gNDygLoEAQ8NcBZ1BTWVk7IH&amp;authKey=%2F%2BZ3%2BjAGHdeJKR3Qrkx%2B%2FJm1W6QwEH0tErfJsQ05XsmylJmDg9%2FPjuSuSCwmV1t0&amp;noverify=0&amp;group_code=932160686 class="
+        <a href=http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&amp;k=IljppuqVA1r_J2TL6Jyowfbz3if8UR59&amp;authKey=ReftS%2B1u2NVfF6K2UVGSQeNbaa%2B7815DPLI8TlcdkpjIB2OrZjQ3wC0HAdTtjAQz&amp;noverify=0&amp;group_code=932160686 class="
            hint--bottom hint--rounded"
            aria-label="QQ"
            target="_blank"
@@ -280,10 +278,23 @@
 
 <article class="about-content page-content mt-5">
   <div class="markdown-body">
-    <p><span class="math display">\[
-E=mc^2
-\]</span></p>
-<p><span class="math inline">\(C_{a - 1} ^ {b - 1}\)</span></p>
+    <center>
+<span class="math inline">\(C_a^b = \frac {a!} {b! * (a - b)!}\)</span>
+</center>
+
+<pre>
+<code class="mermaid" >
+gantt
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+
+section A section
+Completed task            :done,    des1, 2014-01-06,2014-01-08
+Active task               :active,  des2, 2014-01-09, 3d
+Future task               :         des3, after des2, 5d
+Future task2               :         des4, after des3, 5d
+</code>
+</pre>
 
   </div>
 
@@ -317,6 +328,22 @@ E=mc^2
   
 
 
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
 
 
 
@@ -471,6 +498,49 @@ E=mc^2
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
