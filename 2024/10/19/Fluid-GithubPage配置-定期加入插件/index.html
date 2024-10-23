@@ -21,13 +21,14 @@
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hexo + Fluid Theme + GithubPage 搭建个人博客 前言  Github Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示 Hexo是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提">
+    <meta name="description" content="Hexo + Fluid Theme + GithubPage 搭建个人博客前言  Github Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示 Hexo是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提供">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fluid+GithubPage配置(定期加入插件)">
 <meta property="og:url" content="https://korinall.github.io/2024/10/19/Fluid-GithubPage%E9%85%8D%E7%BD%AE-%E5%AE%9A%E6%9C%9F%E5%8A%A0%E5%85%A5%E6%8F%92%E4%BB%B6/index.html">
 <meta property="og:site_name" content="KRL">
-<meta property="og:description" content="Hexo + Fluid Theme + GithubPage 搭建个人博客 前言  Github Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示 Hexo是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提">
+<meta property="og:description" content="Hexo + Fluid Theme + GithubPage 搭建个人博客前言  Github Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示 Hexo是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提供">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://korinall.github.io/img/T1/gf.png">
 <meta property="og:image" content="https://korinall.github.io/img/T1/ssh.png">
 <meta property="og:image" content="https://korinall.github.io/img/T1/GK.png">
 <meta property="article:published_time" content="2024-10-19T11:02:54.000Z">
@@ -35,7 +36,7 @@
 <meta property="article:author" content="KotRin">
 <meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://korinall.github.io/img/T1/ssh.png">
+<meta name="twitter:image" content="https://korinall.github.io/img/T1/gf.png">
   
   
   
@@ -310,140 +311,115 @@
             
               <div class="markdown-body">
                 
-                <h2 id="hexo-fluid-theme-githubpage-搭建个人博客">Hexo + Fluid Theme +
-GithubPage 搭建个人博客</h2>
-<p>前言</p>
+                <h2 id="Hexo-Fluid-Theme-GithubPage-搭建个人博客"><a href="#Hexo-Fluid-Theme-GithubPage-搭建个人博客" class="headerlink" title="Hexo + Fluid Theme + GithubPage 搭建个人博客"></a>Hexo + Fluid Theme + GithubPage 搭建个人博客</h2><p>前言</p>
 <ul>
-<li>Github
-Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示</li>
-<li>Hexo是一个快速、简洁且高效的博客框架。 Hexo
-使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提供前端页面</li>
+<li>Github Page是静态站点托管服务，它可以读取到你上传至仓库中的html、css、javascript代码，运行并且在对应位置进行显示</li>
+<li>Hexo是一个快速、简洁且高效的博客框架。 Hexo 使用Markdown（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页，Hexo提供服务Fluid提供前端页面</li>
 </ul>
-<h3 id="前置条件">1. 前置条件</h3>
-<h4 id="git的安装与配置">1.1 Git的安装与配置</h4>
-<h5 id="安装">安装</h5>
-<p>两种方式</p>
+<h3 id="1-前置条件"><a href="#1-前置条件" class="headerlink" title="1. 前置条件"></a>1. 前置条件</h3><h4 id="1-1-Git的安装与配置"><a href="#1-1-Git的安装与配置" class="headerlink" title="1.1 Git的安装与配置"></a>1.1 Git的安装与配置</h4><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>两种方式</p>
 <ul>
-<li><p>brew安装 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>git<br></code></pre></td></tr></table></figure></p></li>
-<li><p><a target="_blank" rel="noopener" href="https://git-scm.com/">官方直达</a></p></li>
+<li><p>brew安装</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>git<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://git-scm.com/">官方直达</a></p>
+</li>
 </ul>
 <p>git -v查看版本</p>
-<h6 id="配置">配置</h6>
-<p><a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/techflow/p/13703721.html">参考链接</a></p>
-<p><strong>name对应Github用户名、email对应Github绑定的邮箱</strong>
-<strong>其中[user]一定要配置好，其余的可以没有</strong> <img
-src="/img/T1/gf.png" srcset="/img/loading.gif" lazyload /></p>
-<p><span style="color: red; font-size: 1.2em;">后期常常出现的问题:
-github,Empty reply from server？</span></p>
+<h6 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h6><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/techflow/p/13703721.html">参考链接</a></p>
+<p><strong>name对应Github用户名、email对应Github绑定的邮箱</strong><br><strong>其中[user]一定要配置好，其余的可以没有</strong><br><img src="/img/T1/gf.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><span style = "color: red; font-size: 1.2em;">后期常常出现的问题: github,Empty reply from server？</span></p>
 <p><strong>解决方案</strong></p>
-<p>本地生成公钥，查看公钥内容 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;Github绑定邮箱&quot;</span><br><span class="hljs-built_in">cat</span> ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure></p>
-<p>将cat到的内容放入到New SSH Key中 <img src="/img/T1/ssh.png" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="nodejs安装">1.2 Nodejs安装</h4>
-<p><a
-target="_blank" rel="noopener" href="https://nodejs.org/en">官方直达</a>或者说可以使用brew安装</p>
+<p>本地生成公钥，查看公钥内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;Github绑定邮箱&quot;</span><br><span class="hljs-built_in">cat</span> ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure></p>
+<p>将cat到的内容放入到New SSH Key中<br><img src="/img/T1/ssh.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="1-2-Nodejs安装"><a href="#1-2-Nodejs安装" class="headerlink" title="1.2 Nodejs安装"></a>1.2 Nodejs安装</h4><p><a target="_blank" rel="noopener" href="https://nodejs.org/en">官方直达</a>或者说可以使用brew安装</p>
 <p>node -v查看版本</p>
-<h4 id="github-创建仓库">1.3 Github 创建仓库</h4>
-<p>创建一个名为用户名.github.io的仓库</p>
-<p><em>初体验(所有的操作都在master中进行，记得修改main -&gt;
-master)</em></p>
-<ol type="1">
+<h4 id="1-3-Github-创建仓库"><a href="#1-3-Github-创建仓库" class="headerlink" title="1.3 Github 创建仓库"></a>1.3 Github 创建仓库</h4><p>创建一个名为用户名.github.io的仓库</p>
+<p><em>初体验(所有的操作都在master中进行，记得修改main -&gt; master)</em></p>
+<ol>
 <li>我们可以创建一个html页面index.html</li>
 <li>点击Setting，选择GithubPage</li>
 <li>点击Visit Website，如果404，可以查看Actions，生效后访问</li>
 </ol>
-<h3 id="hexo简单使用与结构分析">2. Hexo简单使用与结构分析</h3>
-<h4 id="hexo初体验">2.1 hexo初体验</h4>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
-<ol type="1">
+<h3 id="2-Hexo简单使用与结构分析"><a href="#2-Hexo简单使用与结构分析" class="headerlink" title="2. Hexo简单使用与结构分析"></a>2. Hexo简单使用与结构分析</h3><h4 id="2-1-hexo初体验"><a href="#2-1-hexo初体验" class="headerlink" title="2.1 hexo初体验"></a>2.1 hexo初体验</h4><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+<ol>
 <li>hexo初始化项目</li>
 </ol>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">hexo</span> init<span class="hljs-meta"> [可选]</span><br></code></pre></td></tr></table></figure>
-<p>hexo init 直接在当前文件夹下创建项目内容、hexo init my-blog
-创建一个my-blog文件夹，同时在里面创建项目内容</p>
+<p>hexo init 直接在当前文件夹下创建项目内容、hexo init my-blog 创建一个my-blog文件夹，同时在里面创建项目内容</p>
 <p>项目结构</p>
 <blockquote>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stylus">├── _config<span class="hljs-selector-class">.fluid</span><span class="hljs-selector-class">.yml</span><br>├── _config<span class="hljs-selector-class">.landscape</span><span class="hljs-selector-class">.yml</span><br>├── _config<span class="hljs-selector-class">.yml</span><br>├── db<span class="hljs-selector-class">.json</span><br>├── node_modules<br>├── package-lock<span class="hljs-selector-class">.json</span><br>├── package<span class="hljs-selector-class">.json</span><br>├── public<br>├── scaffolds<br>├── <span class="hljs-selector-tag">source</span><br>├── themes<br>└── yarn.lock<br></code></pre></td></tr></table></figure>
 </blockquote>
-<p>启动项目 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo s</span><br></code></pre></td></tr></table></figure></p>
+<p>启动项目<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo s</span><br></code></pre></td></tr></table></figure></p>
 <p>接着去浏览器里访问localhost:4000，会看到初始化好的界面</p>
-<p>配置完整后hexo的操作为 <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scss">hexo clean<br><br>hexo <span class="hljs-selector-tag">g</span><br><br>hexo s<span class="hljs-selector-attr">[预览、可选]</span><br><br>hexo <span class="hljs-built_in">d</span>(下面介绍)<br></code></pre></td></tr></table></figure></p>
-<h4 id="hexo-theme引入">2.2 Hexo-Theme引入</h4>
-<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">Themes</a></p>
+<p>配置完整后hexo的操作为<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scss">hexo clean<br><br>hexo <span class="hljs-selector-tag">g</span><br><br>hexo s<span class="hljs-selector-attr">[预览、可选]</span><br><br>hexo <span class="hljs-built_in">d</span>(下面介绍)<br></code></pre></td></tr></table></figure></p>
+<h4 id="2-2-Hexo-Theme引入"><a href="#2-2-Hexo-Theme引入" class="headerlink" title="2.2 Hexo-Theme引入"></a>2.2 Hexo-Theme引入</h4><p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">Themes</a></p>
 <p>本篇文章只介绍Fluid主题的相关配置</p>
-<h5 id="在博客目录下创建_config.fluid.yml">2.2.1
-在博客目录下创建_config.fluid.yml</h5>
-<p>默认情况下_config.yml是博客的配置入口，fluid主题将_config.fluid.yml
-优先级设置的比较高，可能是考虑到不小心把_config.yml改乱了，所以接下来我们只需要设置_config.fluid.yml就可以了</p>
+<h5 id="2-2-1-在博客目录下创建-config-fluid-yml"><a href="#2-2-1-在博客目录下创建-config-fluid-yml" class="headerlink" title="2.2.1 在博客目录下创建_config.fluid.yml"></a>2.2.1 在博客目录下创建_config.fluid.yml</h5><p>默认情况下_config.yml是博客的配置入口，fluid主题将_config.fluid.yml 优先级设置的比较高，可能是考虑到不小心把_config.yml改乱了，所以接下来我们只需要设置_config.fluid.yml就可以了</p>
 <ul>
 <li>_config.fluid.yml配置</li>
 </ul>
-<p>基本配置 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">title:</span> 标签页内容<br><span class="hljs-symbol">theme:</span> fluid<br><span class="hljs-symbol">author:</span> 设置成自己名(可选)<br><span class="hljs-symbol">language:</span> <span class="hljs-built_in">zh</span>-CN<br></code></pre></td></tr></table></figure></p>
-<p>添加deploy便于后期上传 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">deploy:</span><br><span class="hljs-symbol">    type:</span> git<br><span class="hljs-symbol">    repo:</span> git@github.com:KoRinALL/KoRinALL.github.io.git (这里我建议使用ssh)<br><span class="hljs-symbol">    branch:</span> master<br></code></pre></td></tr></table></figure></p>
+<p>基本配置<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">title:</span> 标签页内容<br><span class="hljs-symbol">theme:</span> fluid<br><span class="hljs-symbol">author:</span> 设置成自己名(可选)<br><span class="hljs-symbol">language:</span> <span class="hljs-built_in">zh</span>-CN<br></code></pre></td></tr></table></figure></p>
+<p>添加deploy便于后期上传<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">deploy:</span><br><span class="hljs-symbol">    type:</span> git<br><span class="hljs-symbol">    repo:</span> git@github.com:KoRinALL/KoRinALL.github.io.git (这里我建议使用ssh)<br><span class="hljs-symbol">    branch:</span> master<br></code></pre></td></tr></table></figure></p>
 <p>部署好后，我们可以使用<code>hexo d</code>进行上传文件到仓库中</p>
 <ul>
 <li>博客目录下主要文件介绍</li>
 </ul>
-<p>public: 主要前端文件 html、css、javascript source: - _posts
-管理md文章的文件 - about 需要自己创建，对应about界面 - img
-需要自己创建，图片路径优先级比themes下_config.yml 优先级高</p>
-<p>node_modules - hexo-themes-fluid - <em>config.yml 主题配置文件 </em>
-img和刚才创建的img对应</p>
-<h3 id="插件引入">3. 插件引入</h3>
-<p>-&gt; hexo-themes-fluid/_config.yml</p>
+<p>public: 主要前端文件 html、css、javascript<br>source:</p>
+<pre><code class="hljs">- _posts 管理md文章的文件
+- about 需要自己创建，对应about界面
+- img 需要自己创建，图片路径优先级比themes下_config.yml 优先级高
+</code></pre><p>node_modules</p>
+<pre><code class="hljs">- hexo-themes-fluid 
+    - _config.yml 主题配置文件
+    _ img和刚才创建的img对应
+</code></pre><h3 id="3-插件引入"><a href="#3-插件引入" class="headerlink" title="3. 插件引入"></a>3. 插件引入</h3><p>-&gt; hexo-themes-fluid/_config.yml</p>
 <blockquote>
 <p>图片更换，文本的更改以及一些很基础的操作这里就不介绍了，我相信各位大佬能自行解决同时学到些新知识～</p>
 </blockquote>
-<p>评论插件包括utterances | disqus | gitalk | valine | waline | changyan
-| livere | remark42 | twikoo | cusdis | giscus |
-discuss，我使用的主要是gitalk</p>
-<h4 id="gitalk-op">3.1 Gitalk OP</h4>
-<p><img src="/img/T1/GK.png" srcset="/img/loading.gif" lazyload /></p>
-<ol type="1">
-<li><p>来到Github/Setting/Developer Setting/OAuth Apps/New OAuth
-Apps</p></li>
-<li><p>Homepage URL 和Authorization callback URL
-填写自己仓库地址(一定要是https协议) ex:https://korinall.github.io/
-，里面会提供Client ID和Client secrets</p></li>
+<p>评论插件包括utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus | discuss，我使用的主要是gitalk</p>
+<h4 id="3-1-Gitalk-OP"><a href="#3-1-Gitalk-OP" class="headerlink" title="3.1 Gitalk OP"></a>3.1 Gitalk OP</h4><p><img src="/img/T1/GK.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<ol>
+<li><p>来到Github/Setting/Developer Setting/OAuth Apps/New OAuth Apps </p>
+</li>
+<li><p>Homepage URL 和Authorization callback URL 填写自己仓库地址(一定要是https协议) ex:<a href="https://korinall.github.io/">https://korinall.github.io/</a> ，里面会提供Client ID和Client secrets </p>
+</li>
 </ol>
-<p>3.其他设置 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">repo:</span>仓库名<br>owner、admin: 用户名<br><span class="hljs-symbol">language:</span> <span class="hljs-built_in">zh</span>-CN<br>其余默认<br></code></pre></td></tr></table></figure></p>
+<p>3.其他设置<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">repo:</span>仓库名<br>owner、admin: 用户名<br><span class="hljs-symbol">language:</span> <span class="hljs-built_in">zh</span>-CN<br>其余默认<br></code></pre></td></tr></table></figure></p>
 <p>Tip： 效果只有在部署后，初始化给予权限后才可以使用</p>
-<h4 id="latex">3.2 Latex</h4>
-<ol type="1">
+<h4 id="3-2-Latex"><a href="#3-2-Latex" class="headerlink" title="3.2 Latex"></a>3.2 Latex</h4><ol>
 <li>更改主题配置</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post:</span><br>  <span class="hljs-attr">math:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">specific:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">engine:</span> <span class="hljs-string">mathjax</span><br></code></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>更换渲染器
-渲染器只允许同时存在一个，所以我们需要删除默认的，下载支持Latex的
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm uninstall hexo-renderer-marked <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure></li>
+<ol>
+<li>更换渲染器<br>渲染器只允许同时存在一个，所以我们需要删除默认的，下载支持Latex的<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm uninstall hexo-renderer-marked <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>mathjax: <code>npm install hexo-renderer-kramed --save</code></p>
-<p>katex:
-<code>npm install @upupming/hexo-renderer-markdown-it-plus --save</code></p>
-<p>下载好后，我们只需要在对应的md文章Front
-Matter部分添加<code>math: true</code></p>
-<p>Front Matter指的是如下部分 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">ssssss</span><br><span class="hljs-attr">math:</span> <span class="hljs-literal">true</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure></p>
-<h4 id="添加看板娘">3.3 添加看板娘</h4>
-<ol type="1">
-<li><p>git clone<a
-target="_blank" rel="noopener" href="https://github.com/stevenjoezhang/live2d-widget">live2d-widget</a>到主题的<font color="red">source</font>目录下</p></li>
-<li><p>在主题的<font color="red">layout</font>目录下找到<strong>head.js</strong>添加如下代码
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/live2d-widget/autoload.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>修改autoload.js文件 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">// const live2d_path <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/&quot;</span><span class="hljs-comment">;</span><br>const live2d_path <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/live2d-widget/&quot;</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>更改autoload.js下的CDN地址 默认CND地址不可以进行换装，这里使用<a
-target="_blank" rel="noopener" href="https://akilar.top/posts/5b8f515f/">Akilarの糖果屋</a>的CDN，模型多放心使用
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">cdnPath:</span> <span class="hljs-string">&quot;https://npm.elemecdn.com/akilar-live2dapi@latest/&quot;</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>为了防止看板娘被挡住，我们可以将其图层设置为999，具体操作更改<font color="blue">live2d-widget</font>下的<font color="blue">waifu.css</font>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-meta">#waifu &#123;</span><br>    z-<span class="hljs-keyword">index</span>: <span class="hljs-number">999</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p></li>
-<li><p>调整看板娘位于右下角，修改配置如下</p></li>
+<p>katex: <code>npm install @upupming/hexo-renderer-markdown-it-plus --save</code></p>
+<p>下载好后，我们只需要在对应的md文章Front Matter部分添加<code>math: true</code></p>
+<p>Front Matter指的是如下部分<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">ssssss</span><br><span class="hljs-attr">math:</span> <span class="hljs-literal">true</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure></p>
+<h4 id="3-3-添加看板娘"><a href="#3-3-添加看板娘" class="headerlink" title="3.3 添加看板娘"></a>3.3 添加看板娘</h4><ol>
+<li><p>git clone<a target="_blank" rel="noopener" href="https://github.com/stevenjoezhang/live2d-widget">live2d-widget</a>到主题的<font color="red">source</font>目录下</p>
+</li>
+<li><p>在主题的<font color="red">layout</font>目录下找到<strong>head.js</strong>添加如下代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/live2d-widget/autoload.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改autoload.js文件</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">// const live2d_path <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/&quot;</span><span class="hljs-comment">;</span><br>const live2d_path <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/live2d-widget/&quot;</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>更改autoload.js下的CDN地址<br>默认CND地址不可以进行换装，这里使用<a target="_blank" rel="noopener" href="https://akilar.top/posts/5b8f515f/">Akilarの糖果屋</a>的CDN，模型多放心使用</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">cdnPath:</span> <span class="hljs-string">&quot;https://npm.elemecdn.com/akilar-live2dapi@latest/&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>为了防止看板娘被挡住，我们可以将其图层设置为999，具体操作更改<font color="blue">live2d-widget</font>下的<font color="blue">waifu.css</font></p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-meta">#waifu &#123;</span><br>    z-<span class="hljs-keyword">index</span>: <span class="hljs-number">999</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>调整看板娘位于右下角，修改配置如下</p>
+</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-id">#waifu</span> &#123;<br>	<span class="hljs-attribute">bottom</span>: -<span class="hljs-number">1000px</span>;<br>	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;<br>	<span class="hljs-attribute">line-height</span>: <span class="hljs-number">0</span>;<br>	<span class="hljs-attribute">margin-bottom</span>: -<span class="hljs-number">10px</span>;<br>	<span class="hljs-attribute">position</span>: fixed;<br>	<span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">3px</span>);<br>	<span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">3s</span> ease-in-out, bottom <span class="hljs-number">3s</span> ease-in-out;<br>	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">999</span>;<br>&#125;<br><br><br><span class="hljs-selector-id">#waifu-tool</span> &#123;<br>	<span class="hljs-attribute">color</span>: <span class="hljs-number">#aaa</span>;<br>	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>	<span class="hljs-attribute">position</span>: absolute;<br>	<span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>;<br>	<span class="hljs-attribute">top</span>: <span class="hljs-number">70px</span>;<br>	<span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">1s</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="其他">3.4 其他</h4>
-<p>更改光标样式，修改背景，雪花/樱花飘落等等，详见<a
-target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2142662">Fluid美化</a></p>
-<p>至此，博客已经搭建完毕，其余的内容自行探索，学习永无止境^_^ echo
-Bye！</p>
+<h4 id="3-4-其他"><a href="#3-4-其他" class="headerlink" title="3.4 其他"></a>3.4 其他</h4><p>更改光标样式，修改背景，雪花/樱花飘落等等，详见<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2142662">Fluid美化</a></p>
+<p>至此，博客已经搭建完毕，其余的内容自行探索，学习永无止境^_^<br>echo Bye！</p>
 
                 
               </div>
@@ -560,19 +536,24 @@ Bye！</p>
   
     <article id="comments" lazyload>
       
-  <div id="gitalk-container"></div>
+  <div id="waline"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
         var options = Object.assign(
-          {"clientID":"Ov23liVeZ0OLANFnkOZ3","clientSecret":"a7c4e5c16cdac5ddf0a4e56d09a0974407df63de","repo":"KoRinALL.github.io","owner":"KoRinALL","admin":["KoRinALL"],"language":"zh-CN","labels":["Gitalk"],"perPage":15,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {"serverURL":"https://ko-rin-all-github-al80xd09b-korinalls-projects.vercel.app/","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
           {
-            id: '42e7b9842f865c2d1bf583926c5a5ac7'
+            el: '#waline',
+            path: window.location.pathname
           }
         )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
       });
     });
   </script>
