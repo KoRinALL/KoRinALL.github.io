@@ -20,22 +20,22 @@
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最后更新于：2025&#x2F;4&#x2F;19 PM            Java按值或者是按引用本质上都是值传递。  基本数据类型：int、char、boolean，传递的是值的副本，对方法参数修改，不会影响值本身 引用数据类型：传递的是引用的副本、可以对引用对象属性修改，但是引用无法修改  引用类型的变量存储的是堆内存中的地址">
+    <meta name="description" content="最后更新于：2025&#x2F;4&#x2F;21 PM            基本类型：Java有8种基本数据类型(int,long,short,float,double,char,byte,boolean)，它们是存储值的变量，存储在栈上(局部变量存储在栈上、成员变量存储在栈或者是堆上) 包装类型：每一个基本类型都有其对应的包装类，因为是类所以存储在堆中 区别 性能  基本类型占用内存小">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java传值按值还是按照引用">
-<meta property="og:url" content="https://korinall.github.io/2025/04/19/Java%E4%BC%A0%E5%80%BC%E6%8C%89%E5%80%BC%E8%BF%98%E6%98%AF%E6%8C%89%E7%85%A7%E5%BC%95%E7%94%A8/index.html">
+<meta property="og:title" content="包装类和基本类型区别是什么？">
+<meta property="og:url" content="https://korinall.github.io/2025/04/21/%E5%8C%85%E8%A3%85%E7%B1%BB%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="KRL">
-<meta property="og:description" content="最后更新于：2025&#x2F;4&#x2F;19 PM            Java按值或者是按引用本质上都是值传递。  基本数据类型：int、char、boolean，传递的是值的副本，对方法参数修改，不会影响值本身 引用数据类型：传递的是引用的副本、可以对引用对象属性修改，但是引用无法修改  引用类型的变量存储的是堆内存中的地址">
+<meta property="og:description" content="最后更新于：2025&#x2F;4&#x2F;21 PM            基本类型：Java有8种基本数据类型(int,long,short,float,double,char,byte,boolean)，它们是存储值的变量，存储在栈上(局部变量存储在栈上、成员变量存储在栈或者是堆上) 包装类型：每一个基本类型都有其对应的包装类，因为是类所以存储在堆中 区别 性能  基本类型占用内存小">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-19T09:54:30.525Z">
-<meta property="article:modified_time" content="2025-04-19T09:54:50.179Z">
+<meta property="article:published_time" content="2025-04-21T12:15:34.839Z">
+<meta property="article:modified_time" content="2025-04-21T12:16:10.344Z">
 <meta property="article:author" content="KotRin">
 <meta property="article:tag" content="八股文">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Java传值按值还是按照引用 - KRL</title>
+  <title>包装类和基本类型区别是什么？ - KRL</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -221,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java传值按值还是按照引用"></span>
+            <span id="subtitle" data-typed-text="包装类和基本类型区别是什么？"></span>
           
         </div>
 
@@ -232,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-19 17:54" pubdate>
-          2025年4月19日 下午
+        <time datetime="2025-04-21 20:15" pubdate>
+          2025年4月21日 晚上
         </time>
       </span>
     
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          107 字
+          257 字
         
       </span>
     
@@ -255,7 +255,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -292,20 +292,45 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Java传值按值还是按照引用</h1>
+            <h1 id="seo-header">包装类和基本类型区别是什么？</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-info">
-            <p>最后更新于：2025/4/19 PM</p>
+            <p>最后更新于：2025/4/21 PM</p>
           </div>
-<p>Java按值或者是按引用本质上都是值传递。</p>
+<p>基本类型：Java有8种基本数据类型(<code>int</code>,<code>long</code>,<code>short</code>,<code>float</code>,<code>double</code>,<code>char</code>,<code>byte</code>,<code>boolean</code>)，它们是存储值的变量，存储在栈上(局部变量存储在栈上、成员变量存储在栈或者是堆上)</p>
+<p>包装类型：每一个基本类型都有其对应的包装类，因为是类所以存储在堆中</p>
+<h2 id="区别">区别</h2>
+<h3 id="性能">性能</h3>
 <ul>
-<li>基本数据类型：<code>int</code>、<code>char</code>、<code>boolean</code>，传递的是值的副本，对方法参数修改，不会影响值本身</li>
-<li>引用数据类型：传递的是引用的副本、可以对引用对象属性修改，但是引用无法修改</li>
+<li>基本类型占用内存小</li>
+<li>包装类型设计GC、内存分配等、性能低</li>
 </ul>
-<p>引用类型的变量存储的是堆内存中的地址</p>
+<h3 id="等号比较">等号比较</h3>
+<ul>
+<li>基本类型用==</li>
+<li>包装类 == 比较的是对象的内存地址，equal比较的是对象的值</li>
+</ul>
+<h3 id="默认值">默认值</h3>
+<ul>
+<li>基本类型要不0要不false等</li>
+<li>包装类型null</li>
+</ul>
+<h3 id="赋值">赋值</h3>
+<ul>
+<li>直接</li>
+<li>new</li>
+</ul>
+<h2 id="扩展">扩展</h2>
+<h3 id="自动装箱自动拆箱">自动装箱、自动拆箱</h3>
+<p>在某些特定的类中如ArrayList，要求数据类型必须是Object，需要转换</p>
+<p>装箱：基本类型转换为包装型</p>
+<p>拆箱：包装型转换为基本类型</p>
+<p>缓存机制</p>
+<p>例如Interger会对(-128 ~ 127)数据缓存</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Interger</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>; <span class="hljs-type">Interger</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>sout(a == b) <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -376,8 +401,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java传值按值还是按照引用</div>
-      <div>https://korinall.github.io/2025/04/19/Java传值按值还是按照引用/</div>
+      <div>包装类和基本类型区别是什么？</div>
+      <div>https://korinall.github.io/2025/04/21/包装类和基本类型的区别是什么/</div>
     </div>
     <div class="license-meta">
       
@@ -389,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月19日</div>
+          <div>2025年4月21日</div>
         </div>
       
       
@@ -421,9 +446,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/21/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0StringBuffer%EF%BC%9F/" title="如何实现StringBuffer？">
+                      <a href="/2025/04/21/%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB/" title="接口和抽象类的区别">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何实现StringBuffer？</span>
+                        <span class="hidden-mobile">接口和抽象类的区别</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -431,8 +456,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%8C%BA%E5%88%AB/" title="面向对象和面向过程编程区别">
-                        <span class="hidden-mobile">面向对象和面向过程编程区别</span>
+                      <a href="/2025/04/21/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0StringBuffer%EF%BC%9F/" title="如何实现StringBuffer？">
+                        <span class="hidden-mobile">如何实现StringBuffer？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
