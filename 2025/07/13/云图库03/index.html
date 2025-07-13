@@ -1,0 +1,1113 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<script src="/live2d-widget/autoload.js"></script>
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sun.png">
+  <link rel="icon" href="/img/sun.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="KotRin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最后更新于：2025&#x2F;7&#x2F;13 PM            闲话微叙 昨天和朋友时隔多年小聚，休息一天 我发现我认知中的和朋友聚会的场所永远都是网吧，还没怎么去过别的地方 可能是我比较喜欢网吧吧，吹着空调打着游戏岂不美哉！ 不多说了，今天让我们来完成图片模块(后端部分) Let us go！！！ 一、需求分析 1）管理员  图片上传、创建 图片管理 修改图片  2）用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KR云图库Day03">
+<meta property="og:url" content="https://korinall.github.io/2025/07/13/%E4%BA%91%E5%9B%BE%E5%BA%9303/index.html">
+<meta property="og:site_name" content="KRL">
+<meta property="og:description" content="最后更新于：2025&#x2F;7&#x2F;13 PM            闲话微叙 昨天和朋友时隔多年小聚，休息一天 我发现我认知中的和朋友聚会的场所永远都是网吧，还没怎么去过别的地方 可能是我比较喜欢网吧吧，吹着空调打着游戏岂不美哉！ 不多说了，今天让我们来完成图片模块(后端部分) Let us go！！！ 一、需求分析 1）管理员  图片上传、创建 图片管理 修改图片  2）用户">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713115045934.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713115432785.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713120032390.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713122011086.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713122849681.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713123744582.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713123953119.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713125018437.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713133454692.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713133724807.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713140240788.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713154408587.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713160825149.png">
+<meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713173905563.png">
+<meta property="article:published_time" content="2025-07-13T14:02:54.000Z">
+<meta property="article:modified_time" content="2025-07-13T15:55:38.534Z">
+<meta property="article:author" content="KotRin">
+<meta property="article:tag" content="项目实战">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://korinall.github.io/img/pictureLibrary/image-20250713115045934.png">
+  
+  
+  
+  <title>KR云图库Day03 - KRL</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/reward.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"korinall.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong class="navbar-title">KR Notepad</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="KR云图库Day03"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-13 22:02" pubdate>
+          2025年7月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">KR云图库Day03</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="note note-info">
+            <p>最后更新于：2025/7/13 PM</p>
+          </div>
+<h1 id="闲话微叙">闲话微叙</h1>
+<p>昨天和朋友时隔多年小聚，休息一天</p>
+<p>我发现我认知中的和朋友聚会的场所永远都是网吧，还没怎么去过别的地方</p>
+<p>可能是我比较喜欢网吧吧，吹着空调打着游戏岂不美哉！</p>
+<p>不多说了，今天让我们来完成图片模块(后端部分)</p>
+<p>Let us go！！！</p>
+<h2 id="一需求分析">一、需求分析</h2>
+<p>1）管理员</p>
+<ul>
+<li>图片上传、创建</li>
+<li>图片管理</li>
+<li>修改图片</li>
+</ul>
+<p>2）用户</p>
+<ul>
+<li>主页查看搜索图片</li>
+<li>图片详情</li>
+<li>图片下载</li>
+</ul>
+<h2 id="二方案设计">二、方案设计</h2>
+<p>1、图片库表设计</p>
+<p>2、图片上传和下载如何实现</p>
+<p>3、创建图片流程</p>
+<p>4、如何解析图片数据</p>
+<h3 id="库表设计">库表设计</h3>
+<p>像<code>user</code>表一样，我们同样要存储图片到本地，接下来我们将设计<code>picture</code>表</p>
+<p>为了保证和教程一致，我直接拷贝</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 图片表  </span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> picture  <br>(  <br>    id           <span class="hljs-type">bigint</span> auto_increment comment <span class="hljs-string">&#x27;id&#x27;</span> <span class="hljs-keyword">primary</span> key,  <br>    url          <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>)                       <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片 url&#x27;</span>,  <br>    name         <span class="hljs-type">varchar</span>(<span class="hljs-number">128</span>)                       <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片名称&#x27;</span>,  <br>    introduction <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>)                       <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;简介&#x27;</span>,  <br>    category     <span class="hljs-type">varchar</span>(<span class="hljs-number">64</span>)                        <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;分类&#x27;</span>,  <br>    tags         <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>)                      <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;标签（JSON 数组）&#x27;</span>,  <br>    picSize      <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片体积&#x27;</span>,  <br>    picWidth     <span class="hljs-type">int</span>                                <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片宽度&#x27;</span>,  <br>    picHeight    <span class="hljs-type">int</span>                                <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片高度&#x27;</span>,  <br>    picScale     <span class="hljs-keyword">double</span>                             <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片宽高比例&#x27;</span>,  <br>    picFormat    <span class="hljs-type">varchar</span>(<span class="hljs-number">32</span>)                        <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片格式&#x27;</span>,  <br>    userId       <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建用户 id&#x27;</span>,  <br>    createTime   datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span>,  <br>    editTime     datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;编辑时间&#x27;</span>,  <br>    updateTime   datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,  <br>    isDelete     tinyint  <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除&#x27;</span>,  <br>    INDEX idx_name (name),                 <span class="hljs-comment">-- 提升基于图片名称的查询性能  </span><br>    INDEX idx_introduction (introduction), <span class="hljs-comment">-- 用于模糊搜索图片简介  </span><br>    INDEX idx_category (category),         <span class="hljs-comment">-- 提升基于分类的查询性能  </span><br>    INDEX idx_tags (tags),                 <span class="hljs-comment">-- 提升基于标签的查询性能  </span><br>    INDEX idx_userId (userId)              <span class="hljs-comment">-- 提升基于用户 ID 的查询性能  </span><br>) comment <span class="hljs-string">&#x27;图片&#x27;</span> <span class="hljs-keyword">collate</span> <span class="hljs-operator">=</span> utf8mb4_unicode_ci;<br><br></code></pre></td></tr></table></figure>
+<p>针对于图片我们需要的字段往往包含，图片名称、url、简介、标签、分类、格式方面、创建用户、创建更新时间以及逻辑删除</p>
+<p>为了方便我们通过名称、标签、分类、创建用户、简介查询，我们需要为其设置索引</p>
+<h3 id="图片上传下载如何实现">图片上传、下载如何实现？</h3>
+<p><strong>思考图片上传到哪里？从哪里下载？</strong></p>
+<p>最简单的方式是使用Java API将图片上传至后端Java
+Web服务器，ex：Tomcat</p>
+<p>显然这是不现实的，像tomcat服务器这种往往空间都是有限的，在更换服务器资源迁移是很费劲的，只能通过文件管理器管理</p>
+<p>所以这种简单的方式只适用于存储临时文件</p>
+<p>这里我们使用第三方工具，腾讯云<a
+target="_blank" rel="noopener" href="https://console.cloud.tencent.com/cos">对象存储COS</a>，或者阿里云(OSS)</p>
+<p>COS 在存储图片的同时，为每一张图片分配URL对应数据库中URL</p>
+<p>购买资源包，这里不掩饰了，第一次购买只需要1元</p>
+<h3 id="创建图片流程">创建图片流程</h3>
+<p>上传图片 + 图片保存至数据库</p>
+<p>这里主要包含两种形式</p>
+<p>1）上传图片后，生成URL后用户填写任意信息，点击提交后保存数据库</p>
+<p>2）上传图片，系统自动生成其他信息，无需点击提交，直接保存至数据库，后续再创建已有图片，在此基础上修改</p>
+<p>方案一固然简单，但是用户不提交，图片资源残留，浪费空间，所以我们选择第二种方式</p>
+<h3 id="如何解析图片信息">如何解析图片信息</h3>
+<p>两种形式</p>
+<p>1）Java 自带处理图片库</p>
+<p>2）第三方云存储</p>
+<p>腾讯云COS提供了数据万象CI 直接提取图片元数据</p>
+<p><a
+target="_blank" rel="noopener" href="https://console.cloud.tencent.com/ci">数据万象</a>需要自己开通</p>
+<h2 id="三后端开发">三、后端开发</h2>
+<h3 id="创建使用存储桶">创建使用存储桶</h3>
+<p>所属地域选择离自己近的，因为作者是辽宁的，这里选择北京</p>
+<p>权限控制方面选择公有读私有写，保证用户可以查看公有图片，但是无法查看存储桶中的资源</p>
+<p>默认告警打开，对象存储和访问是计费的，防止出现扣费不知道的情况</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713115045934.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713115045934" />
+<figcaption aria-hidden="true">image-20250713115045934</figcaption>
+</figure>
+<p>这里直接下一步</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713115432785.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713115432785" />
+<figcaption aria-hidden="true">image-20250713115432785</figcaption>
+</figure>
+<p>下一步点击创建成功即可</p>
+<h4 id="手动上传图片测试">手动上传图片测试</h4>
+<p>可以看到COS为我们上传的图片分配了一个URL</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713120032390.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713120032390" />
+<figcaption aria-hidden="true">image-20250713120032390</figcaption>
+</figure>
+<p>注意如果使用默认域名会报高风险的提示，因为默认域名一旦设置无法更改，暴露出去被攻击后，只能换一个存储桶了，后续讲该如何解决。</p>
+<h3 id="后端操作cos">后端操作COS</h3>
+<p>现在我们已经配置好了COS，该如何去操作他呢？</p>
+<p>没错，需要我们引入COS 的Java SDK，去使用内部各式各样的方法</p>
+<p>可以参考<a
+target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/10199">快速上手</a></p>
+<h4 id="初始化客户端">1、初始化客户端</h4>
+<p>1）引入COS 依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 腾讯云 cos 服务 --&gt;</span>  <br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>  <br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.qcloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>  <br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>cos_api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>  <br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.6.227<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>  <br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>2）编写CosClientConfig类，并创建一个COS客户端的Bean</p>
+<p>官方给出了两种CosClient的写法，这里我们使用永久密钥</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713122011086.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713122011086" />
+<figcaption aria-hidden="true">image-20250713122011086</figcaption>
+</figure>
+<p>参考示例代码，我们实际上只需要传入secretId、secretKey以及根据region创建的clientConfig，就可以创建最后的cosClient</p>
+<p><code>@ConfigurationProperties(prefix = "cos.client")</code>
+会从配置文件<code>application.yml</code>中读取所有以<code>cos.client</code>开头的属性，将属性注入到CosClientConfig类中对应的字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;cos.client&quot;)</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CosClientConfig</span> &#123;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 域名  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String host;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * secretId  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String secretId;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 密钥（注意不要泄露）  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String secretKey;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 区域  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String region;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 桶名  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String bucket;  <br>  <br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> COSClient <span class="hljs-title function_">cosClient</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 初始化用户身份信息(secretId, secretKey)  </span><br>        <span class="hljs-type">COSCredentials</span> <span class="hljs-variable">cred</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicCOSCredentials</span>(secretId, secretKey);<br>        <span class="hljs-comment">// 设置bucket的区域, COS地域的简称请参照 https://www.qcloud.com/document/product/436/6224  </span><br>        <span class="hljs-type">ClientConfig</span> <span class="hljs-variable">clientConfig</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClientConfig</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Region</span>(region));<br>        <span class="hljs-comment">// 生成cos客户端  </span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">COSClient</span>(cred, clientConfig);  <br>    &#125;  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>3）填写配置文件</p>
+<p>为了防止敏感信息泄漏，我们可以新建<code>application-local.yml</code>，并在<code>.gitignore</code>中忽略该文件提交</p>
+<p><code>.gitignore</code>
+翻译过来就是git忽略，可以帮助我们在git提交的时候忽略某些特定文件</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713122849681.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713122849681" />
+<figcaption aria-hidden="true">image-20250713122849681</figcaption>
+</figure>
+<p>application-local.yml配置如下</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># 对象存储配置（需要从腾讯云获取）  </span><br><span class="hljs-attr">cos:</span>  <br>  <span class="hljs-attr">client:</span>  <br>    <span class="hljs-attr">host:</span> <span class="hljs-string">xxx</span>  <br>    <span class="hljs-attr">secretId:</span> <span class="hljs-string">xxx</span>  <br>    <span class="hljs-attr">secretKey:</span> <span class="hljs-string">xxx</span>  <br>    <span class="hljs-attr">region:</span> <span class="hljs-string">xxx</span>  <br>    <span class="hljs-attr">bucket:</span> <span class="hljs-string">xxx</span><br><br></code></pre></td></tr></table></figure>
+<p>如何获取各个信息呢</p>
+<p>host</p>
+<p>点击桶详情</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713123744582.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713123744582" />
+<figcaption aria-hidden="true">image-20250713123744582</figcaption>
+</figure>
+<p>secretID、secretKey参考<a
+target="_blank" rel="noopener" href="https://console.cloud.tencent.com/cam/capi">https://console.cloud.tencent.com/cam/capi</a>，新建密钥，复制粘贴</p>
+<p>region参考<a
+target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/6224">https://cloud.tencent.com/document/product/436/6224</a>
+根据创建的桶选择地域简称</p>
+<p>bucket 名称</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713123953119.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713123953119" />
+<figcaption aria-hidden="true">image-20250713123953119</figcaption>
+</figure>
+<h4 id="通用功能类">2、通用功能类</h4>
+<p>新建manager包，创建CosManager类，提供文件上传、文件下载等功能</p>
+<p>注入对象存储配置类和COSClient，用于与COS交互</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CosManager</span> &#123;  <br>  <br>    <span class="hljs-meta">@Resource</span>  <br>    <span class="hljs-keyword">private</span> CosClientConfig cosClientConfig;  <br>  <br>    <span class="hljs-meta">@Resource</span>  <br>    <span class="hljs-keyword">private</span> COSClient cosClient;  <br>    <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="文件上传">3、文件上传</h4>
+<p>参考<a
+target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/65935">文档</a>，对象上传部分</p>
+<p>这里我们选择简单接口里的上传本地文件</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713125018437.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713125018437" />
+<figcaption aria-hidden="true">image-20250713125018437</figcaption>
+</figure>
+<p>通过观察，我们会发现最核心的代码只有两句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PutObjectRequest</span> <span class="hljs-variable">putObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PutObjectRequest</span>(bucketName, key, localFile);<br><span class="hljs-type">PutObjectResult</span> <span class="hljs-variable">putObjectResult</span> <span class="hljs-operator">=</span> cosClient.putObject(putObjectRequest);<br></code></pre></td></tr></table></figure>
+<p>1）CosManager新增上传对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> PutObjectResult <span class="hljs-title function_">putObject</span><span class="hljs-params">(String key, File file)</span> &#123;<br>    <span class="hljs-type">PutObjectRequest</span> <span class="hljs-variable">putObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PutObjectRequest</span>(cosClientConfig.getBucket(), key, file);<br>    <span class="hljs-keyword">return</span> cosClient.putObject(putObjectRequest);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>2）创建FileController 测试接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@AuthCheck(mustRole = UserConstant.ADMIN_ROLE)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/test/upload&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;String&gt; <span class="hljs-title function_">testUploadFile</span><span class="hljs-params">(<span class="hljs-meta">@RequestPart(&quot;file&quot;)</span> MultipartFile multipartFile)</span> &#123;<br>        <span class="hljs-comment">//文件目录</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> multipartFile.getOriginalFilename();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">filepath</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;/test/%s&quot;</span>,fileName);<br>        <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//上传文件</span><br>            file = File.createTempFile(filepath,<span class="hljs-literal">null</span>);<br>            multipartFile.transferTo(file);<br>            cosManager.putObject(filepath,file);<br><br>            <span class="hljs-keyword">return</span> ResultUtils.success(filepath);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;file upload error&quot;</span> + filepath,e);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.SYSTEM_ERROR,<span class="hljs-string">&quot;上传失败&quot;</span>);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span>(file != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-type">boolean</span> <span class="hljs-variable">del</span> <span class="hljs-operator">=</span> file.delete();<br>                <span class="hljs-keyword">if</span>(!del) &#123;<br>                    log.error(<span class="hljs-string">&quot;file delete error,filepath=&#123;&#125;&quot;</span>,filepath);<br>                &#125;<br>            &#125;<br>        &#125;<br><br><br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>这里我起初对<code>file = File.createTempFile(filepath,null);</code>这串代码有疑问，不理解参数的含义</p>
+<p>通过查看源码我们可以发现createTempFile可以两个参数也可以三个参数</p>
+<p><code>createTempFile(prefix, suffix,directory)</code>参数分别为前缀后缀以及临时文件存放在哪里(默认根据操作系统存放指定路径)</p>
+<p>例如prefix = "hhhh",sufffix = ".txt"结果就是<code>hhhh.txt</code></p>
+<p>对比<code>multipartFile.transferTo(file);</code>前后，我们会发现在此之前File.length()是0，而之后就是你传入文件的字节大小了</p>
+<p>应用<code>application-local.yml</code>配置</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713133454692.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713133454692" />
+<figcaption aria-hidden="true">image-20250713133454692</figcaption>
+</figure>
+<p>打开Swagger，测试文件上传</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713133724807.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713133724807" />
+<figcaption aria-hidden="true">image-20250713133724807</figcaption>
+</figure>
+<h4 id="文件下载">4、文件下载</h4>
+<p>COS主要提供三种下载文件的方式</p>
+<p>1）将COS文件存储到后端服务器</p>
+<p>2）获取文件下载输入流</p>
+<p>3）URL下载</p>
+<p>针对于我们的项目，图片是公开的，直接使用第三种方式</p>
+<p>同理，观察示例代码，提取核心部分</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713140240788.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713140240788" />
+<figcaption aria-hidden="true">image-20250713140240788</figcaption>
+</figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">GetObjectRequest</span> <span class="hljs-variable">getObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetObjectRequest</span>(bucketName, key);<br><span class="hljs-type">COSObject</span> <span class="hljs-variable">cosObject</span> <span class="hljs-operator">=</span> cosClient.getObject(getObjectRequest);<br></code></pre></td></tr></table></figure>
+<p>1）CosManager新增下载对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> COSObject <span class="hljs-title function_">getObject</span><span class="hljs-params">(String key)</span> &#123;<br>        <span class="hljs-type">GetObjectRequest</span> <span class="hljs-variable">getObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetObjectRequest</span>(cosClientConfig.getBucket(), key);<br>        <span class="hljs-keyword">return</span> cosClient.getObject(getObjectRequest);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>2）FileController测试下载对象接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**  </span><br><span class="hljs-comment"> * 测试文件下载  </span><br><span class="hljs-comment"> *  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> filepath 文件路径  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> response 响应对象  </span><br><span class="hljs-comment"> */</span>  <br><span class="hljs-meta">@AuthCheck(mustRole = UserConstant.ADMIN_ROLE)</span>  <br><span class="hljs-meta">@GetMapping(&quot;/test/download/&quot;)</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testDownloadFile</span><span class="hljs-params">(String filepath, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> IOException &#123;  <br>    <span class="hljs-type">COSObjectInputStream</span> <span class="hljs-variable">cosObjectInput</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;  <br>    <span class="hljs-keyword">try</span> &#123;  <br>      	<span class="hljs-comment">//根据路径获取COS对象</span><br>        <span class="hljs-type">COSObject</span> <span class="hljs-variable">cosObject</span> <span class="hljs-operator">=</span> cosManager.getObject(filepath);  <br>      	<span class="hljs-comment">//将对象文件输入流</span><br>        cosObjectInput = cosObject.getObjectContent();  <br>        <span class="hljs-comment">// 处理下载到的流  </span><br>        <span class="hljs-type">byte</span>[] bytes = IOUtils.toByteArray(cosObjectInput);  <br>        <span class="hljs-comment">// 设置响应头  </span><br>        response.setContentType(<span class="hljs-string">&quot;application/octet-stream;charset=UTF-8&quot;</span>);  <br>        response.setHeader(<span class="hljs-string">&quot;Content-Disposition&quot;</span>, <span class="hljs-string">&quot;attachment; filename=&quot;</span> + filepath);  <br>        <span class="hljs-comment">// 写入响应  </span><br>        response.getOutputStream().write(bytes);  <br>        response.getOutputStream().flush();  <br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;  <br>        log.error(<span class="hljs-string">&quot;file download error, filepath = &quot;</span> + filepath, e);  <br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.SYSTEM_ERROR, <span class="hljs-string">&quot;下载失败&quot;</span>);  <br>    &#125; <span class="hljs-keyword">finally</span> &#123;  <br>        <span class="hljs-keyword">if</span> (cosObjectInput != <span class="hljs-literal">null</span>) &#123;  <br>            cosObjectInput.close();  <br>        &#125;  <br>    &#125;  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>打开Swagger，调用该接口</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713154408587.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713154408587" />
+<figcaption aria-hidden="true">image-20250713154408587</figcaption>
+</figure>
+<p>根据状态吗和大小可以判断已经下载成功了，但是由于我们并没有指定本地路径，所以暂时什么都看不到</p>
+<h3 id="图片代码生成">图片代码生成</h3>
+<p>同理，利用Mybatis-plusX生成图片的基础层级结构</p>
+<p>优化Picture实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@TableId(type = IdType.ASSIGN_ID)</span><br><span class="hljs-keyword">private</span> Long id;<br><br><span class="hljs-meta">@TableLogic</span><br><span class="hljs-keyword">private</span> Integer isDelete;<br></code></pre></td></tr></table></figure>
+<h3 id="图片上传">图片上传</h3>
+<h4 id="图片上传封装类">1）图片上传封装类</h4>
+<p>新建<code>/dto/picture</code>，由于支持重复上传，我们需要保留图片ID</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureUploadRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片 id（用于修改）  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Long id;  <br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>在我们上传成功后，需要返回给前端返回上传成功的信息</p>
+<p>编写PictureVO，同时提供 PictureVO和Picture互相转换的函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureVO</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * id  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Long id;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片 url  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String url;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片名称  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String name;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 简介  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String introduction;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 标签  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> List&lt;String&gt; tags;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 分类  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String category;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 文件体积  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Long picSize;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片宽度  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Integer picWidth;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片高度  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Integer picHeight;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片比例  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Double picScale;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片格式  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String picFormat;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 用户 id  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Long userId;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 创建时间  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Date createTime;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 编辑时间  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Date editTime;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 更新时间  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Date updateTime;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 创建用户信息  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> UserVO user;  <br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 封装类转对象  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Picture <span class="hljs-title function_">voToObj</span><span class="hljs-params">(PictureVO pictureVO)</span> &#123;  <br>        <span class="hljs-keyword">if</span> (pictureVO == <span class="hljs-literal">null</span>) &#123;  <br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;  <br>        &#125;  <br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Picture</span>();  <br>        BeanUtils.copyProperties(pictureVO, picture);  <br>        <span class="hljs-comment">// 类型不同，需要转换  </span><br>        picture.setTags(JSONUtil.toJsonStr(pictureVO.getTags()));  <br>        <span class="hljs-keyword">return</span> picture;  <br>    &#125;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 对象转封装类  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> PictureVO <span class="hljs-title function_">objToVo</span><span class="hljs-params">(Picture picture)</span> &#123;  <br>        <span class="hljs-keyword">if</span> (picture == <span class="hljs-literal">null</span>) &#123;  <br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;  <br>        &#125;  <br>        <span class="hljs-type">PictureVO</span> <span class="hljs-variable">pictureVO</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PictureVO</span>();  <br>        BeanUtils.copyProperties(picture, pictureVO);  <br>        <span class="hljs-comment">// 类型不同，需要转换  </span><br>        pictureVO.setTags(JSONUtil.toList(picture.getTags(), String.class));  <br>        <span class="hljs-keyword">return</span> pictureVO;  <br>    &#125;  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="通用文件上传服务类">2）通用文件上传服务类</h4>
+<p>虽然说之前编写了COS对象存储操作管理类CosManager，但是没有任何校验机制，需要我们指定</p>
+<p>这里我们编写图片上传服务FileManager，该服务提供图片上传后返回信息的接口</p>
+<p>FileManager可以理解成服务实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileManager</span> &#123;  <br>  <br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> CosClientConfig cosClientConfig;<br>  <br>    <span class="hljs-meta">@Resource</span>  <br>    <span class="hljs-keyword">private</span> CosManager cosManager;  <br>  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>图片解析结果包装类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UploadPictureResult</span> &#123;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片地址  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String url;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片名称  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String picName;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 文件体积  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Long picSize;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片宽度  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> picWidth;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片高度  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> picHeight;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片宽高比  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> Double picScale;  <br>  <br>    <span class="hljs-comment">/**  </span><br><span class="hljs-comment">     * 图片格式  </span><br><span class="hljs-comment">     */</span>  <br>    <span class="hljs-keyword">private</span> String picFormat;  <br>  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>采用数据万象，增添<a
+target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/55377">持久化处理</a></p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713160825149.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713160825149" />
+<figcaption aria-hidden="true">image-20250713160825149</figcaption>
+</figure>
+<p>核心代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PutObjectRequest</span> <span class="hljs-variable">putObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PutObjectRequest</span>(bucketName, key, localFile);<br><span class="hljs-type">PicOperations</span> <span class="hljs-variable">picOperations</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>();<br><br>putObjectRequest.setPicOperations(picOperations);<br><br><span class="hljs-type">PutObjectResult</span> <span class="hljs-variable">putObjectResult</span> <span class="hljs-operator">=</span> cosClient.putObject(putObjectRequest);<br></code></pre></td></tr></table></figure>
+<p>CosManager 更新方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//上传对象</span><br><span class="hljs-keyword">public</span> PutObjectResult <span class="hljs-title function_">putPictureObject</span><span class="hljs-params">(String key, File file)</span> &#123;<br>  <span class="hljs-type">PutObjectRequest</span> <span class="hljs-variable">putObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PutObjectRequest</span>(cosClientConfig.getBucket(), key, file);<br>  <span class="hljs-type">PicOperations</span> <span class="hljs-variable">picOperations</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>();<br><br>  picOperations.setIsPicInfo(<span class="hljs-number">1</span>);<br><br>  putObjectRequest.setPicOperations(picOperations);<br><br>  <span class="hljs-keyword">return</span> cosClient.putObject(putObjectRequest);<br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>针对于之前的putObject有什么区别吗？</strong></p>
+<blockquote>
+<p>putPictureObject有图片处理的机制，以及可以返回图片元信息，后续允许图片裁剪、缩放等功能</p>
+</blockquote>
+<h4 id="filemanager编写图片上传">3）FileManager编写图片上传</h4>
+<p>开始前讲一下MultipartFile和File的关系</p>
+<p>在浏览器上传本地文件后，会在请求头中添加以下代码</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Content-Disposition: form-data; <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;file&quot;</span>; <span class="hljs-attribute">filename</span>=<span class="hljs-string">&quot;example.jpg&quot;</span><br></code></pre></td></tr></table></figure>
+<p>这串代码可以通过Spring的MultipartFile解析成为File对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">MultipartFile</span> &#123;<br>    String <span class="hljs-title function_">getOriginalFilename</span><span class="hljs-params">()</span>; <span class="hljs-comment">// 获取客户端原始文件名</span><br>    InputStream <span class="hljs-title function_">getInputStream</span><span class="hljs-params">()</span>; <span class="hljs-comment">// 获取文件流</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">transferTo</span><span class="hljs-params">(File dest)</span>;   <span class="hljs-comment">// 转存为本地文件</span><br>    <span class="hljs-comment">// ...其他方法</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>上传图片</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> UploadPictureResult <span class="hljs-title function_">uploadPicture</span><span class="hljs-params">(MultipartFile multipartFile, String uploadPrefix)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">//检查文件是否合法</span><br>        validPicture(multipartFile);<br><br>        <span class="hljs-comment">//图片上传地址</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">uuid</span> <span class="hljs-operator">=</span> RandomUtil.randomString(<span class="hljs-number">16</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">originalFilename</span> <span class="hljs-operator">=</span> multipartFile.getOriginalFilename();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">uploadFilename</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;%s_%s.%s&quot;</span>, DateUtil.formatDate(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()), uuid, FileUtil.getSuffix(originalFilename));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">uploadPath</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;/%s/%s&quot;</span>, uploadPrefix, uploadFilename);<br>        <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            file = File.createTempFile(<span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-string">&quot;.png&quot;</span>);<br>            multipartFile.transferTo(file);<br><br>            <span class="hljs-comment">//上传图片</span><br>            <span class="hljs-type">PutObjectResult</span> <span class="hljs-variable">putObjectResult</span> <span class="hljs-operator">=</span> cosManager.putPictureObject(uploadPath, file);<br>            <span class="hljs-type">ImageInfo</span> <span class="hljs-variable">imageInfo</span> <span class="hljs-operator">=</span> putObjectResult.getCiUploadResult().getOriginalInfo().getImageInfo();<br><br>            <span class="hljs-comment">//封装返回结果</span><br>            <span class="hljs-type">UploadPictureResult</span> <span class="hljs-variable">uploadPictureResult</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UploadPictureResult</span>();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">picWidth</span> <span class="hljs-operator">=</span> imageInfo.getWidth();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">picHeight</span> <span class="hljs-operator">=</span> imageInfo.getHeight();<br>            <span class="hljs-type">double</span> <span class="hljs-variable">picScale</span> <span class="hljs-operator">=</span> NumberUtil.round(picWidth * <span class="hljs-number">1.0</span> / picHeight, <span class="hljs-number">2</span>).doubleValue();<br>            uploadPictureResult.setPicName(FileUtil.mainName(originalFilename));<br>            uploadPictureResult.setPicSize(FileUtil.size(file));<br>            uploadPictureResult.setPicWidth(picWidth);<br>            uploadPictureResult.setPicHeight(picHeight);<br>            uploadPictureResult.setPicScale(picScale);<br>            uploadPictureResult.setPicFormat(imageInfo.getFormat());<br>            uploadPictureResult.setUrl(cosClientConfig.getHost() + <span class="hljs-string">&quot;/&quot;</span> + uploadPath);<br><br>            <span class="hljs-keyword">return</span> uploadPictureResult;<br><br><br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;上传图片到COS失败&quot;</span>,e);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.SYSTEM_ERROR,<span class="hljs-string">&quot;上传失败&quot;</span>);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            deletePicture(file);<br>        &#125;<br><br>    &#125;<br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">validPicture</span><span class="hljs-params">(MultipartFile multipartFile)</span> &#123;<br>        ThrowUtils.throwIf(multipartFile == <span class="hljs-literal">null</span>, ErrorCode.PARAMS_ERROR, <span class="hljs-string">&quot;文件不能为空&quot;</span>);<br><br>        <span class="hljs-comment">//1.校验文件大小</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">fileSize</span> <span class="hljs-operator">=</span> multipartFile.getSize();<br>        <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">ONE_MB</span> <span class="hljs-operator">=</span> <span class="hljs-number">1024</span> * <span class="hljs-number">1024L</span>;<br>        ThrowUtils.throwIf(fileSize &gt; <span class="hljs-number">2</span> * ONE_MB, ErrorCode.PARAMS_ERROR, <span class="hljs-string">&quot;文件大小不能大于2MB&quot;</span>);<br>        <span class="hljs-comment">//2.检查文件后缀</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileSuffix</span> <span class="hljs-operator">=</span> FileUtil.getSuffix(multipartFile.getOriginalFilename());<br><br>        <span class="hljs-comment">//允许上传的后缀</span><br>        <span class="hljs-keyword">final</span> List&lt;String&gt; ALLOW_FORMAT_LIST = Arrays.asList(<span class="hljs-string">&quot;jpeg&quot;</span>, <span class="hljs-string">&quot;jpg&quot;</span>, <span class="hljs-string">&quot;png&quot;</span>, <span class="hljs-string">&quot;webp&quot;</span>);<br><br>        ThrowUtils.throwIf(!ALLOW_FORMAT_LIST.contains(fileSuffix), ErrorCode.PARAMS_ERROR, <span class="hljs-string">&quot;文件类型出错&quot;</span>);<br><br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deletePicture</span><span class="hljs-params">(File file)</span> &#123;<br>        <span class="hljs-keyword">if</span> (file == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">deleteResult</span> <span class="hljs-operator">=</span> file.delete();<br>        <span class="hljs-keyword">if</span>(!deleteResult) &#123;<br>            log.error(<span class="hljs-string">&quot;file delete error&quot;</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>乍眼一看有点复杂，其实还好这里简单解释一下代码</p>
+<p>文件名构造 = 日期 + 随机数 + 原始图片后缀</p>
+<p>路径 = / + 用户传入的路径 + / + 文件名</p>
+<p>首先应该校验文件大小和文件格式是否满足条件</p>
+<p>内部代码将传入文件放入临时文件，上传完图片后，数据万象解析出图片信息，将信息填充到上传文件返回结果通用类，文件用完后占用空间，最后需要删除</p>
+<p>我觉得最难的可能是Hutool工具类中的方法，有点恶心，有点多，虽然说这个东西忘了就查，但是常用的还是简单记一下</p>
+<h4 id="服务开发">4）服务开发</h4>
+<p>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">PictureVO <span class="hljs-title function_">uploadPicture</span><span class="hljs-params">(MultipartFile file, PictureUploadRequest pictureUploadRequest, User loginUser)</span>;<br></code></pre></td></tr></table></figure>
+<p>接口实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> PictureVO <span class="hljs-title function_">uploadPicture</span><span class="hljs-params">(MultipartFile multipartFile, PictureUploadRequest pictureUploadRequest, User loginUser)</span> &#123;<br>        ThrowUtils.throwIf(loginUser == <span class="hljs-literal">null</span>, ErrorCode.NO_AUTH_ERROR);<br><br><br>        <span class="hljs-comment">//判断是新增图片还是更新图片</span><br>        <span class="hljs-type">Long</span> <span class="hljs-variable">pictureId</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">if</span>(pictureUploadRequest != <span class="hljs-literal">null</span>) &#123;<br>            pictureId = pictureUploadRequest.getId();<br>        &#125;<br><br>        <span class="hljs-comment">//更新图片</span><br>        <span class="hljs-keyword">if</span>(pictureId != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-type">boolean</span> <span class="hljs-variable">exists</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.lambdaQuery()<br>                    .eq(picture -&gt; picture.getId(),pictureId)<br>                    .exists();<br><br>            ThrowUtils.throwIf(!exists,ErrorCode.NOT_FOUND_ERROR,<span class="hljs-string">&quot;图片不存在&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">//用户ID划分目录</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">uploadPathPrefix</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;public/%s&quot;</span>,loginUser.getId());<br>        <span class="hljs-type">UploadPictureResult</span> <span class="hljs-variable">uploadPictureResult</span> <span class="hljs-operator">=</span> fileManager.uploadPicture(multipartFile,uploadPathPrefix);<br><br>        <span class="hljs-comment">//构造入库信息</span><br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Picture</span>();<br>        picture.setUrl(uploadPictureResult.getUrl());<br>        picture.setName(uploadPictureResult.getPicName());<br>        picture.setPicSize(uploadPictureResult.getPicSize());<br>        picture.setPicWidth(uploadPictureResult.getPicWidth());<br>        picture.setPicHeight(uploadPictureResult.getPicHeight());<br>        picture.setPicScale(uploadPictureResult.getPicScale());<br>        picture.setPicFormat(uploadPictureResult.getPicFormat());<br>        picture.setUserId(loginUser.getId());<br><br><br>        <span class="hljs-comment">//如果图片是更新</span><br>        <span class="hljs-keyword">if</span>(pictureId != <span class="hljs-literal">null</span>) &#123;<br>            picture.setId(pictureId);<br>            picture.setEditTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>        &#125;<br><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.saveOrUpdate(picture);<br>        ThrowUtils.throwIf(!res, ErrorCode.OPERATION_ERROR,<span class="hljs-string">&quot;图片上传失败&quot;</span>);<br><br>        <span class="hljs-keyword">return</span> PictureVO.objToVo(picture);<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>注意点</p>
+<p>1、这里我们使用/public/用户ID作为文件目录</p>
+<p>2、通过检查传入参数PictureID是否有与之对应的图片，来决定是更新还是创建</p>
+<h4 id="接口开发">5）接口开发</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/upload&quot;)</span><br><span class="hljs-keyword">public</span> BaseResponse&lt;PictureVO&gt; <span class="hljs-title function_">uploadPicture</span><span class="hljs-params">(<span class="hljs-meta">@RequestPart(&quot;file&quot;)</span> MultipartFile multipartFile, PictureUploadRequest pictureUploadRequest, HttpServletRequest request)</span> &#123;<br>    <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br><br>    <span class="hljs-type">PictureVO</span> <span class="hljs-variable">pictureVO</span> <span class="hljs-operator">=</span> pictureService.uploadPicture(multipartFile, pictureUploadRequest, loginUser);<br><br>    <span class="hljs-keyword">return</span> ResultUtils.success(pictureVO);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>当我们上传图片过大的时候，会报错。这是因为Tomcat限制了请求文件上传的大小，可以更改<code>application.yml</code>解除限制</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span>  <br>  <span class="hljs-comment"># 开放更大的文件上传体积  </span><br>  <span class="hljs-attr">servlet:</span>  <br>    <span class="hljs-attr">multipart:</span>  <br>      <span class="hljs-attr">max-file-size:</span> <span class="hljs-string">10MB</span><br></code></pre></td></tr></table></figure>
+<p>测试，成功！！！</p>
+<p>如果新建图片的话，保证<code>PictureUploadRequest</code>为空，只有当更新图片才传入ID</p>
+<figure>
+<img src="/img/pictureLibrary/image-20250713173905563.png" srcset="/img/loading.gif" lazyload
+alt="image-20250713173905563" />
+<figcaption aria-hidden="true">image-20250713173905563</figcaption>
+</figure>
+<p>扩展</p>
+<p>当然在我们文件上传的时候，总是要创建临时文件赋值。为了提高性能可以通过流的方式将请求的文件上传到COS</p>
+<h3 id="图片管理">图片管理</h3>
+<h4 id="需求分析">需求分析</h4>
+<ul>
+<li>根据ID删除图片(管理员)</li>
+<li>更新图片(管理员)</li>
+<li>分页获取图片列表(管理员)</li>
+<li>根据ID获取图片(管理员)</li>
+<li>分页获取图片列表(需要脱敏)</li>
+<li>修改图片</li>
+</ul>
+<h4 id="请求类封装">请求类封装</h4>
+<p>1）图片更新请求封装类(管理员)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureUpdateRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 简介</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String introduction;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分类</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String category;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 标签</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; tags;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>2）图片更新请求封装类(用户)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureEditRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 简介</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String introduction;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分类</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String category;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 标签</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; tags;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>3）图片分页查询请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EqualsAndHashCode(callSuper = true)</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureQueryRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PageRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 简介</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String introduction;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分类</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String category;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 标签</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; tags;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 文件体积</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long picSize;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片宽度</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer picWidth;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片高度</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer picHeight;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片比例</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Double picScale;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片格式</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String picFormat;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 搜索词（同时搜名称、简介等）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String searchText;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 用户 id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long userId;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="服务开发-1">服务开发</h4>
+<p>1）由于需要频繁验证用户身份，userService新增isAdmin实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span>  <br><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAdmin</span><span class="hljs-params">(User user)</span> &#123;  <br>    <span class="hljs-keyword">return</span> user != <span class="hljs-literal">null</span> &amp;&amp; UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>2）针对于图片分页查询，需要设计与用户getQueryWrapper一样的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> QueryWrapper&lt;Picture&gt; <span class="hljs-title function_">getQueryWrapper</span><span class="hljs-params">(PictureQueryRequest pictureQueryRequest)</span> &#123;<br><br>        QueryWrapper&lt;Picture&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span>(pictureQueryRequest == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> queryWrapper;<br>        &#125;<br><br>        <span class="hljs-type">Long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> pictureQueryRequest.getId();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> pictureQueryRequest.getName();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">introduction</span> <span class="hljs-operator">=</span> pictureQueryRequest.getIntroduction();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">category</span> <span class="hljs-operator">=</span> pictureQueryRequest.getCategory();<br>        List&lt;String&gt; tags = pictureQueryRequest.getTags();<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">picSize</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPicSize();<br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">picWidth</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPicWidth();<br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">picHeight</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPicHeight();<br>        <span class="hljs-type">Double</span> <span class="hljs-variable">picScale</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPicScale();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">picFormat</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPicFormat();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">searchText</span> <span class="hljs-operator">=</span> pictureQueryRequest.getSearchText();<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> pictureQueryRequest.getUserId();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">sortField</span> <span class="hljs-operator">=</span> pictureQueryRequest.getSortField();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">sortOrder</span> <span class="hljs-operator">=</span> pictureQueryRequest.getSortOrder();<br><br>        <span class="hljs-comment">//从多个字段中搜索</span><br>        <span class="hljs-keyword">if</span>(StrUtil.isNotBlank(searchText)) &#123;<br>            queryWrapper.and(qw -&gt; qw.like(<span class="hljs-string">&quot;name&quot;</span>,searchText)<br>                    .or()<br>                    .like(<span class="hljs-string">&quot;introduction&quot;</span>,searchText)<br>            );<br>        &#125;<br><br><br>        queryWrapper.eq(ObjUtil.isNotEmpty(id),<span class="hljs-string">&quot;id&quot;</span>,id);<br>        queryWrapper.eq(ObjUtil.isNotEmpty(userId),<span class="hljs-string">&quot;userId&quot;</span>,userId);<br>        queryWrapper.like(StrUtil.isNotBlank(name),<span class="hljs-string">&quot;name&quot;</span>,name);<br>        queryWrapper.like(StrUtil.isNotBlank(introduction),<span class="hljs-string">&quot;introduction&quot;</span>,introduction);<br>        queryWrapper.like(StrUtil.isNotBlank(picFormat),<span class="hljs-string">&quot;picFormat&quot;</span>,picFormat);<br>        queryWrapper.eq(StrUtil.isNotBlank(category),<span class="hljs-string">&quot;category&quot;</span>,category);<br>        queryWrapper.eq(ObjUtil.isNotEmpty(picSize),<span class="hljs-string">&quot;picSize&quot;</span>,picSize);<br>        queryWrapper.eq(ObjUtil.isNotEmpty(picWidth),<span class="hljs-string">&quot;picWidth&quot;</span>,picWidth);<br>        queryWrapper.eq(ObjUtil.isNotEmpty(picHeight),<span class="hljs-string">&quot;picHeight&quot;</span>,picHeight);<br>        queryWrapper.eq(ObjUtil.isNotEmpty(picScale),<span class="hljs-string">&quot;picScale&quot;</span>,picScale);<br><br>        <span class="hljs-keyword">if</span>(CollUtil.isNotEmpty(tags)) &#123;<br>            <span class="hljs-keyword">for</span>(String tag : tags) &#123;<br>                queryWrapper.like(<span class="hljs-string">&quot;tags&quot;</span>,<span class="hljs-string">&quot;\&quot;&quot;</span> + tag + <span class="hljs-string">&quot;\&quot;&quot;</span>);<br>            &#125;<br>        &#125;<br><br>        queryWrapper.orderBy(StrUtil.isNotEmpty(sortField),sortOrder.equals(<span class="hljs-string">&quot;ascend&quot;</span>),sortField);<br><br>        <span class="hljs-keyword">return</span> queryWrapper;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>注意</p>
+<p>1、searchText 是从name和introduction中搜索</p>
+<p>2、tags在数据库中存储的是JSON格式字符串，提取出的每一个标签都需要模糊查询</p>
+<p>3）编写获取图片封装方法，关联创建用户信息</p>
+<p>获取单张图片封装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> PictureVO <span class="hljs-title function_">getPictureVO</span><span class="hljs-params">(Picture picture, HttpServletRequest request)</span> &#123;<br>    <span class="hljs-type">PictureVO</span> <span class="hljs-variable">pictureVO</span> <span class="hljs-operator">=</span> PictureVO.objToVo(picture);<br><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> pictureVO.getUserId();<br>    <span class="hljs-keyword">if</span>(userId != <span class="hljs-literal">null</span> &amp;&amp; userId &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userService.getById(userId);<br>        <span class="hljs-type">UserVO</span> <span class="hljs-variable">userVO</span> <span class="hljs-operator">=</span> userService.getUserVO(user);<br><br>        pictureVO.setUser(userVO);<br><br>    &#125;<br>    <span class="hljs-keyword">return</span> pictureVO;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分页获取图片封装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> Page&lt;PictureVO&gt; <span class="hljs-title function_">getPictureVOPage</span><span class="hljs-params">(Page&lt;Picture&gt; picturePage, HttpServletRequest request)</span> &#123;<br>    List&lt;Picture&gt; pictureList = picturePage.getRecords();<br>    Page&lt;PictureVO&gt; pictureVOPage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(picturePage.getCurrent(), picturePage.getSize(),picturePage.getTotal());<br><br>    <span class="hljs-keyword">if</span>(CollUtil.isEmpty(pictureList)) &#123;<br>        <span class="hljs-keyword">return</span> pictureVOPage;<br>    &#125;<br><br><br>    List&lt;PictureVO&gt; pictureVOList = pictureList.stream().map(PictureVO::objToVo).collect(Collectors.toList());<br><br>    Set&lt;Long&gt; userIdSet = pictureVOList.stream().map(PictureVO::getUserId).collect(Collectors.toSet());<br>    Map&lt;Long, List&lt;User&gt;&gt; userIdUserListMap = userService.listByIds(userIdSet).stream().collect(Collectors.groupingBy(User::getId));<br><br><br>    pictureVOList.forEach(pictureVO -&gt; &#123;<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> pictureVO.getUserId();<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">if</span>(userIdUserListMap.containsKey(userId)) &#123;<br>            user = userIdUserListMap.get(userId).get(<span class="hljs-number">0</span>);<br>        &#125;<br><br>        pictureVO.setUser(userService.getUserVO(user));<br>    &#125;);<br><br>    pictureVOPage.setRecords(pictureVOList);<br><br><br>    <span class="hljs-keyword">return</span> pictureVOPage;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面代码可能有些复杂，但归根结底只做了<code>Page&lt;Picture&gt;</code>
+转化为<code>Page&lt;PictureVO&gt;</code>，为内部PictureVO插入创建用户字段</p>
+<p>4）编写图片数据校验方法，在图片更新和修改的时候判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">validPicture</span><span class="hljs-params">(Picture picture)</span> &#123;<br>    ThrowUtils.throwIf(picture == <span class="hljs-literal">null</span>,ErrorCode.PARAMS_ERROR);<br><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> picture.getId();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> picture.getUrl();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">introduction</span> <span class="hljs-operator">=</span> picture.getIntroduction();<br><br>    ThrowUtils.throwIf(ObjUtil.isNull(id),ErrorCode.PARAMS_ERROR,<span class="hljs-string">&quot;id不能为空&quot;</span>);<br>    <span class="hljs-keyword">if</span>(StrUtil.isNotBlank(url)) &#123;<br>        ThrowUtils.throwIf(url.length() &gt; <span class="hljs-number">1024</span>,ErrorCode.PARAMS_ERROR,<span class="hljs-string">&quot;url过长&quot;</span>);<br>    &#125;<br><br><br>    <span class="hljs-keyword">if</span>(StrUtil.isNotBlank(introduction)) &#123;<br>        ThrowUtils.throwIf(introduction.length() &gt; <span class="hljs-number">800</span>,ErrorCode.PARAMS_ERROR,<span class="hljs-string">&quot;简介过长&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里主要对图片id、url、introduction进行约束，如果想要增添规则自己加</p>
+<h4 id="接口开发-1">接口开发</h4>
+<p>上述功能都是样板代码，俗称增删改查</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/delete&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Boolean&gt; <span class="hljs-title function_">deletePicture</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> DeleteRequest deleteRequest, HttpServletRequest request)</span> &#123;<br>        ThrowUtils.throwIf(deleteRequest == <span class="hljs-literal">null</span> || deleteRequest.getId() &lt;= <span class="hljs-number">0</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> deleteRequest.getId();<br><br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> pictureService.getById(id);<br>        ThrowUtils.throwIf(picture == <span class="hljs-literal">null</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-keyword">if</span> (!loginUser.getId().equals(picture.getUserId()) &amp;&amp; !UserConstant.ADMIN_ROLE.equals(loginUser.getUserRole())) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.NO_AUTH_ERROR);<br>        &#125;<br><br><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> pictureService.removeById(picture);<br>        ThrowUtils.throwIf(!res, ErrorCode.PARAMS_ERROR);<br>        <span class="hljs-keyword">return</span> ResultUtils.success(<span class="hljs-literal">true</span>);<br>    &#125;<br><br><br><br>    <span class="hljs-meta">@PostMapping(&quot;/update&quot;)</span><br>    <span class="hljs-meta">@AuthCheck(mustRole = UserConstant.ADMIN_ROLE)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Boolean&gt; <span class="hljs-title function_">updatePicture</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureUpdateRequest pictureUpdateRequest)</span> &#123;<br>        ThrowUtils.throwIf(pictureUpdateRequest == <span class="hljs-literal">null</span> || pictureUpdateRequest.getId() &lt;= <span class="hljs-number">0</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Picture</span>();<br>        BeanUtils.copyProperties(pictureUpdateRequest,picture);<br>        <br>        picture.setTags(JSONUtil.toJsonStr(pictureUpdateRequest.getTags()));<br>        <span class="hljs-type">long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> pictureUpdateRequest.getId();<br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">oldPicture</span> <span class="hljs-operator">=</span> pictureService.getById(id);<br><br>        ThrowUtils.throwIf(oldPicture == <span class="hljs-literal">null</span>,ErrorCode.NOT_FOUND_ERROR);<br><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> pictureService.updateById(picture);<br>        ThrowUtils.throwIf(!res,ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-keyword">return</span> ResultUtils.success(<span class="hljs-literal">true</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/get&quot;)</span><br>    <span class="hljs-meta">@AuthCheck(mustRole = UserConstant.ADMIN_ROLE)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Picture&gt; <span class="hljs-title function_">getPicture</span><span class="hljs-params">(<span class="hljs-type">long</span> id)</span> &#123;<br>        ThrowUtils.throwIf(id &lt;= <span class="hljs-number">0</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> pictureService.getById(id);<br><br>        ThrowUtils.throwIf(picture == <span class="hljs-literal">null</span>,ErrorCode.NOT_FOUND_ERROR);<br><br>        <span class="hljs-keyword">return</span> ResultUtils.success(picture);<br>    &#125;<br><br><br>    <span class="hljs-meta">@GetMapping(&quot;/get/vo&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;PictureVO&gt; <span class="hljs-title function_">getPictureVO</span><span class="hljs-params">(<span class="hljs-type">long</span> id,HttpServletRequest request)</span> &#123;<br>        ThrowUtils.throwIf(id &lt;= <span class="hljs-number">0</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> pictureService.getById(id);<br><br>        ThrowUtils.throwIf(picture == <span class="hljs-literal">null</span>,ErrorCode.NOT_FOUND_ERROR);<br><br><br>        <span class="hljs-keyword">return</span> ResultUtils.success(pictureService.getPictureVO(picture,request));<br>    &#125;<br><br><br><br>    <span class="hljs-meta">@PostMapping(&quot;/list/page&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Page&lt;Picture&gt;&gt; <span class="hljs-title function_">listPictureByPage</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureQueryRequest pictureQueryRequest)</span> &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> pictureQueryRequest.getCurrent();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPageSize();<br><br>        <span class="hljs-comment">// 限制爬虫</span><br>        ThrowUtils.throwIf(size &gt; <span class="hljs-number">20</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-comment">// 查询数据库</span><br>        Page&lt;Picture&gt; picturePage = pictureService.page(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, size),<br>                pictureService.getQueryWrapper(pictureQueryRequest)<br>        );<br><br>        <span class="hljs-comment">// 获取封装类</span><br>        <span class="hljs-keyword">return</span> ResultUtils.success(picturePage);<br>    &#125;<br><br><br>    <span class="hljs-meta">@PostMapping(&quot;/list/page/vo&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Page&lt;PictureVO&gt;&gt; <span class="hljs-title function_">listPictureVOByPage</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureQueryRequest pictureQueryRequest,HttpServletRequest request)</span> &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> pictureQueryRequest.getCurrent();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPageSize();<br><br>        <span class="hljs-comment">// 限制爬虫</span><br>        ThrowUtils.throwIf(size &gt; <span class="hljs-number">20</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-comment">// 查询数据库</span><br>        Page&lt;Picture&gt; picturePage = pictureService.page(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, size),<br>                pictureService.getQueryWrapper(pictureQueryRequest)<br>        );<br><br>        <span class="hljs-comment">// 获取封装类</span><br>        <span class="hljs-keyword">return</span> ResultUtils.success(pictureService.getPictureVOPage(picturePage, request));<br>    &#125;<br><br><br>    <span class="hljs-comment">//编辑图片(用户)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/edit&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Boolean&gt; <span class="hljs-title function_">editPicture</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureEditRequest pictureEditRequest,HttpServletRequest request)</span> &#123;<br>        ThrowUtils.throwIf(pictureEditRequest == <span class="hljs-literal">null</span> || pictureEditRequest.getId() &lt;= <span class="hljs-number">0</span>,ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">picture</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Picture</span>();<br>        BeanUtils.copyProperties(pictureEditRequest,picture);<br><br>        picture.setTags(JSONUtil.toJsonStr(pictureEditRequest.getTags()));<br>        picture.setEditTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br><br>        <span class="hljs-type">long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> pictureEditRequest.getId();<br>        <span class="hljs-type">Picture</span> <span class="hljs-variable">oldPicture</span> <span class="hljs-operator">=</span> pictureService.getById(id);<br>        ThrowUtils.throwIf(oldPicture == <span class="hljs-literal">null</span>,ErrorCode.NOT_FOUND_ERROR);<br><br>        <span class="hljs-comment">//仅本人和管理员可以编辑</span><br>        <span class="hljs-keyword">if</span>(!oldPicture.getUserId().equals(loginUser.getId()) || !UserConstant.ADMIN_ROLE.equals(loginUser.getUserRole())) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.NO_AUTH_ERROR);<br>        &#125;<br><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> pictureService.updateById(oldPicture);<br><br>        ThrowUtils.throwIf(!res,ErrorCode.OPERATION_ERROR);<br><br>        <span class="hljs-keyword">return</span> ResultUtils.success(<span class="hljs-literal">true</span>);<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>注意，编辑和更新图片的时候，由于tags类型不一致，我们需要将List集合转化为字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">picture.setTags(JSONUtil.toJsonStr(pictureEditRequest.getTags()));<br></code></pre></td></tr></table></figure>
+<h3 id="设置预置标签和类型">设置预置标签和类型</h3>
+<p>用户需要通过标签和类型进行搜索图片</p>
+<p>我们可以设置一组固定的数值初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/tag_category&quot;)</span>  <br><span class="hljs-keyword">public</span> BaseResponse&lt;PictureTagCategory&gt; <span class="hljs-title function_">listPictureTagCategory</span><span class="hljs-params">()</span> &#123;  <br>    <span class="hljs-type">PictureTagCategory</span> <span class="hljs-variable">pictureTagCategory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PictureTagCategory</span>();  <br>    List&lt;String&gt; tagList = Arrays.asList(<span class="hljs-string">&quot;热门&quot;</span>, <span class="hljs-string">&quot;搞笑&quot;</span>, <span class="hljs-string">&quot;生活&quot;</span>, <span class="hljs-string">&quot;高清&quot;</span>, <span class="hljs-string">&quot;艺术&quot;</span>, <span class="hljs-string">&quot;校园&quot;</span>, <span class="hljs-string">&quot;背景&quot;</span>, <span class="hljs-string">&quot;简历&quot;</span>, <span class="hljs-string">&quot;创意&quot;</span>);  <br>    List&lt;String&gt; categoryList = Arrays.asList(<span class="hljs-string">&quot;模板&quot;</span>, <span class="hljs-string">&quot;电商&quot;</span>, <span class="hljs-string">&quot;表情包&quot;</span>, <span class="hljs-string">&quot;素材&quot;</span>, <span class="hljs-string">&quot;海报&quot;</span>);  <br>    pictureTagCategory.setTagList(tagList);  <br>    pictureTagCategory.setCategoryList(categoryList);  <br>    <span class="hljs-keyword">return</span> ResultUtils.success(pictureTagCategory);  <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此后端部分完结！！！</p>
+<p>已经有点晕了，感觉都在乱写了。。。。。</p>
+
+                
+              </div>
+            
+            <hr/>
+
+
+                        <!-- 添加打赏模块 -->
+            <div class="reward-container">
+              
+                <button id="rewardBtn" class="reward-btn">
+                   
+                    ❤ 打赏
+                  	
+                </button>
+                <p class="tea">“觉得不错的话，给点打赏吧 ୧(๑•̀⌄•́๑)૭”</p>
+                <div id="rewardImgContainer" class="reward-img-container">
+                      <div class="singleImgContainer">
+                          <img id="wechatImg" class="reward-img" src="/img/donate/wechat.jpg" srcset="/img/loading.gif" lazyload alt="微信二维码">
+                            <p class="wechatPay">微信支付</p>
+                        </div>
+                        <div class="singleImgContainer">
+                            <img id="alipayImg" class="reward-img" src="/img/donate/SS.jpg" srcset="/img/loading.gif" lazyload alt="支付宝二维码">
+                            <p class="aliPay"></p>
+                        </div>
+                </div>
+              
+            </div>
+
+
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="category-chain-item">项目实战</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="print-no-link">#项目实战</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>KR云图库Day03</div>
+      <div>https://korinall.github.io/2025/07/13/云图库03/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>KotRin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/11/%E4%BA%91%E5%9B%BE%E5%BA%9302/" title="KR云图库Day02">
+                        <span class="hidden-mobile">KR云图库Day02</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://kotrin.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+
+
+   
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/typing-effect.js"></script>
+<script src="/js/reward.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
