@@ -20,17 +20,21 @@
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="页面不存在">
-<meta property="og:url" content="https://korinall.github.io/404.html">
+    <meta name="description" content="可直接使用键盘数字输入进行计算                &nbsp;         0                       789+Back         456–Ans         123×M+         0.EXP&#x2F;M-         ±RNDAC&#x3D;MR                       sincostanDegRad">
+<meta property="og:type" content="website">
+<meta property="og:title" content="在线计算器">
+<meta property="og:url" content="https://korinall.github.io/calculator/index.html">
 <meta property="og:site_name" content="KRL">
+<meta property="og:description" content="可直接使用键盘数字输入进行计算                &nbsp;         0                       789+Back         456–Ans         123×M+         0.EXP&#x2F;M-         ±RNDAC&#x3D;MR                       sincostanDegRad">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-19T10:56:00.307Z">
+<meta property="article:modified_time" content="2025-07-19T10:56:00.307Z">
 <meta property="article:author" content="KotRin">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>页面不存在 - KRL</title>
+  <title>在线计算器 - KRL</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -92,7 +96,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 85vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -342,7 +346,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="页面不存在"></span>
+            <span id="subtitle" data-typed-text="在线计算器"></span>
           
         </div>
 
@@ -360,18 +364,78 @@
 
   <main>
     
-      
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
 
+<article class="page-content">
+  
+<!-- 这里是你要粘贴的HTML内容 -->
+<div class="calc-box">
+    <div id="sciout">
+      <h2>可直接使用键盘数字输入进行计算</h2>
+      <div id="sciPut">
+        <div id="sciInPut">&nbsp;</div>
+        <div id="sciOutPut">0</div>
+      </div>
+      <div class="calc-stand">
+        <div><span onclick="r(7)" class="scinm">7</span><span onclick="r(8)" class="scinm">8</span><span onclick="r(9)" class="scinm">9</span><span onclick="r('+')" class="sciop">+</span><span onclick="r('bk')" class="sciop">Back</span></div>
+        <div><span onclick="r(4)" class="scinm">4</span><span onclick="r(5)" class="scinm">5</span><span onclick="r(6)" class="scinm">6</span><span onclick="r('-')" class="sciop">–</span><span onclick="r('ans')" class="sciop">Ans</span></div>
+        <div><span onclick="r(1)" class="scinm">1</span><span onclick="r(2)" class="scinm">2</span><span onclick="r(3)" class="scinm">3</span><span onclick="r('*')" class="sciop">×</span><span onclick="r('M+')" class="sciop">M+</span></div>
+        <div><span onclick="r(0)" class="scinm">0</span><span onclick="r('.')" class="scinm">.</span><span onclick="r('EXP')" class="sciop">EXP</span><span onclick="r('/')" class="sciop">/</span><span onclick="r('M-')" class="sciop">M-</span></div>
+        <div><span onclick="r('+/-')" class="sciop">±</span><span onclick="r('RND')" class="sciop">RND</span><span onclick="r('C')" class="scieq calc-key-ac">AC</span><span onclick="r('=')" class="scieq">=</span><span onclick="r('MR')" class="sciop" id="scimrc">MR</span></div>
+      </div>
+      <div class="calc-sci">
+        <div><span onclick="r('sin')" class="scifunc">sin</span><span onclick="r('cos')" class="scifunc">cos</span><span onclick="r('tan')" class="scifunc">tan</span><span class="scird"><label for="scirdsettingd"><input id="scirdsettingd" type="radio" name="scirdsetting" value="deg" onclick="cnDegreeRadians='degree';" checked=""><b>Deg</b></label><label for="scirdsettingr"><input id="scirdsettingr" type="radio" name="scirdsetting" value="rad" onclick="cnDegreeRadians='radians';"><b>Rad</b></label></span></div>
+        <div><span onclick="r('asin')" class="scifunc">sin<sup>-1</sup></span><span onclick="r('acos')" class="scifunc">cos<sup>-1</sup></span><span onclick="r('atan')" class="scifunc">tan<sup>-1</sup></span><span onclick="r('pi')" class="scifunc">π</span><span onclick="r('e')" class="scifunc">e</span></div>
+        <div><span onclick="r('pow')" class="scifunc">x<sup>y</sup></span><span onclick="r('x3')" class="scifunc">x<sup>3</sup></span><span onclick="r('x2')" class="scifunc">x<sup>2</sup></span><span onclick="r('ex')" class="scifunc">e<sup>x</sup></span><span onclick="r('10x')" class="scifunc">10<sup>x</sup></span></div>
+        <div><span onclick="r('apow')" class="scifunc"><sup>y</sup>√x</span><span onclick="r('3x')" class="scifunc"><sup>3</sup>√x</span><span onclick="r('sqrt')" class="scifunc">√x</span><span onclick="r('ln')" class="scifunc">ln</span><span onclick="r('log')" class="scifunc">log</span></div>
+        <div><span onclick="r('(')" class="scifunc">(</span><span onclick="r(')')" class="scifunc">)</span><span onclick="r('1/x')" class="scifunc">1/x</span><span onclick="r('pc')" class="scifunc">%</span><span onclick="r('n!')" class="scifunc">n!</span></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    
+    <div class="scihistorybox">
+      <div class="scihistorytitle"><span>显示最近5条计算信息（刷新时清空）</span><strong>在线计算历史记录</strong></div>
+      <div id="scihistory"></div>
+    </div>
+</div>
+
+<!-- 引入CSS -->
+<link rel="stylesheet" href="/calculator/calchome.css">
+<link rel="stylesheet" href="/calculator/index.css">
+<link rel="stylesheet" href="/calculator/css.css">
+
+<!-- 引入JS -->
+<script src="/calculator/calchome.js"></script>
+
+<!-- 加载检查 -->
 <script>
-  function redirect() {
-    location.href = "/";
+document.addEventListener('DOMContentLoaded', function() {
+  if(typeof r === 'undefined') {
+    console.error('计算器脚本未加载，请检查路径');
   }
-
-  
-    setTimeout(redirect, 5000)
-  
+});
 </script>
 
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
 
     
