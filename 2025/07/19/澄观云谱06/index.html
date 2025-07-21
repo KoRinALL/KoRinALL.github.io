@@ -281,9 +281,9 @@
                   
                   
                   
-                  <a class="dropdown-item" href="/messagebd/" target="_self">
+                  <a class="dropdown-item" href="/shuoshuo/" target="_self">
                     <i class="iconfont icon-comment"></i>
-                    <span>留言板</span>
+                    <span>说说</span>
                   </a>
                 
               </div>
@@ -446,9 +446,9 @@
                 <div class="note note-info">
             <p>最后更新于：2025/7/19 PM</p>
           </div>
-<h1 id="闲话环节">闲话环节</h1>
+<h1>闲话环节</h1>
 <p>不多说了，直接开始。。。。</p>
-<h1 id="图片优化">图片优化</h1>
+<h1>图片优化</h1>
 <h2 id="本节重点">本节重点</h2>
 <p>迄今为止，我们的智能图库项目已经是一个可以上线的项目</p>
 <p>但是在此之前，还有很多优化空间，在这节中会分享很多优化的技术</p>
@@ -458,7 +458,7 @@
 <li>加载优化～懒加载、缩略图、CDN加速、浏览器缓存</li>
 <li>存储优化～冷热数据分离、清理策略</li>
 </ul>
-<h2 id="一图片查询优化">一、图片查询优化</h2>
+<h2 id="一、图片查询优化">一、图片查询优化</h2>
 <h3 id="缓存">缓存</h3>
 <p>对于经常访问的数据，如果从数据库中(磁盘中)读取会很慢，我们可以使用更NB的存储来快速读取，即缓存</p>
 <p><strong>什么时候使用缓存</strong></p>
@@ -468,7 +468,7 @@
 <li>短延迟</li>
 </ul>
 <p>在我们项目中，主页调用的获取图片列表非常适合缓存，即使更新存在延迟对用户也不会产生太大影响</p>
-<h3 id="redis分布式缓存">Redis分布式缓存</h3>
+<h3 id="Redis分布式缓存">Redis分布式缓存</h3>
 <blockquote>
 <p>分布式缓存指的是存储部署在多台服务器上，高并发容错高</p>
 </blockquote>
@@ -494,9 +494,8 @@
 <p>对应Redis数据结构都是string</p>
 <p>3）缓存过期时间</p>
 <p>一定要设置，要不然缓存堵死，建议设置5 ～60分钟</p>
-<h4 id="如何操作redis呢">如何操作Redis呢？</h4>
-<p>Java提供了很多Redis操作库，例如Jedis，Lettuce，但是这里我们使用Spring
-Data Redis(底层Lettuce实现) 操作Redis，更加贴合Spring Boot项目</p>
+<h4 id="如何操作Redis呢？">如何操作Redis呢？</h4>
+<p>Java提供了很多Redis操作库，例如Jedis，Lettuce，但是这里我们使用Spring Data Redis(底层Lettuce实现) 操作Redis，更加贴合Spring Boot项目</p>
 <h4 id="后端开发">后端开发</h4>
 <p>1）引入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Redis --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
@@ -510,19 +509,11 @@ Data Redis(底层Lettuce实现) 操作Redis，更加贴合Spring Boot项目</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/list/page/vo/cache&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;Page&lt;PictureVO&gt;&gt; <span class="hljs-title function_">listPictureVOByPageWithCache</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureQueryRequest pictureQueryRequest,</span><br><span class="hljs-params">                                                             HttpServletRequest request)</span> &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> pictureQueryRequest.getCurrent();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> pictureQueryRequest.getPageSize();<br>        <span class="hljs-comment">// 限制爬虫</span><br>        ThrowUtils.throwIf(size &gt; <span class="hljs-number">20</span>, ErrorCode.PARAMS_ERROR);<br><br>        <span class="hljs-comment">//构建缓存Key</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">queryCondition</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(pictureQueryRequest);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">hashKey</span> <span class="hljs-operator">=</span> DigestUtils.md5DigestAsHex(queryCondition.getBytes());<br>        <span class="hljs-type">String</span> <span class="hljs-variable">redisKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;krpicture:listPictureVOByPage:&quot;</span> + hashKey;<br><br>        <span class="hljs-comment">//Redis缓存查询</span><br>        ValueOperations&lt;String, String&gt; valueOps = stringRedisTemplate.opsForValue();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">cacheVal</span> <span class="hljs-operator">=</span> valueOps.get(redisKey);<br>        <span class="hljs-keyword">if</span>(cacheVal != <span class="hljs-literal">null</span>) &#123;<br>            Page&lt;PictureVO&gt; cachePage = JSONUtil.toBean(cacheVal, Page.class);<br>            <span class="hljs-keyword">return</span> ResultUtils.success(cachePage);<br>        &#125;<br><br>        <span class="hljs-comment">// 查询数据库</span><br>        pictureQueryRequest.setReviewStatus(PictureReviewStatusEnum.PASS.getValue());<br>        Page&lt;Picture&gt; picturePage = pictureService.page(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, size),<br>                pictureService.getQueryWrapper(pictureQueryRequest));<br><br>        <span class="hljs-comment">//获取封装类</span><br>        Page&lt;PictureVO&gt; pictureVOPage = pictureService.getPictureVOPage(picturePage,request);<br><br>        <span class="hljs-comment">//存入Redis缓存</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">cacheValue</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(pictureVOPage);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">cacheExpireTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">300</span> + RandomUtil.randomInt(<span class="hljs-number">0</span>,<span class="hljs-number">300</span>);<br>        valueOps.set(redisKey,cacheValue,cacheExpireTime, TimeUnit.SECONDS);<br><br>        <span class="hljs-keyword">return</span> ResultUtils.success(pictureVOPage);<br>    &#125;<br></code></pre></td></tr></table></figure>
 <p>测试</p>
 <p>缓存前626ms</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719131207543.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719131207543" />
-<figcaption aria-hidden="true">image-20250719131207543</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719131207543.png" srcset="/img/loading.gif" lazyload alt="image-20250719131207543"></p>
 <p>缓存后52ms</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719131219569.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719131219569" />
-<figcaption aria-hidden="true">image-20250719131219569</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719131219569.png" srcset="/img/loading.gif" lazyload alt="image-20250719131219569"></p>
 <p>注意：大小其实也发生了变化，这是因为JSON和Java对象转换的时候过滤掉了一些null的字段</p>
-<h3 id="caffeine本地缓存">Caffeine本地缓存</h3>
+<h3 id="Caffeine本地缓存">Caffeine本地缓存</h3>
 <p>顾名思义，不需要通过网络、直接缓存到内存中(JVM)中</p>
 <p>相对于分布式缓存，本地缓存更快</p>
 <p>应用场景</p>
@@ -532,11 +523,11 @@ alt="image-20250719131219569" />
 <li>高频、低延迟</li>
 </ul>
 <p>本地缓存不需要引入中间件，如果只是想要提高数据访问能力，优先考虑</p>
-<h4 id="缓存设计-1">缓存设计</h4>
+<h4 id="缓存设计-2">缓存设计</h4>
 <p>相比于Redis缓存，区别在于</p>
 <p>1、需要自己初始化缓存结构</p>
 <p>2、由于是单机，key可以不添加项目前缀</p>
-<h4 id="后端开发-1">后端开发</h4>
+<h4 id="后端开发-2">后端开发</h4>
 <p>1）引入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 本地缓存 Caffeine --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.ben-manes.caffeine<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>caffeine<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.1.8<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
 <p>2）构造本地缓存，设置容量和过期时间</p>
@@ -547,17 +538,13 @@ alt="image-20250719131219569" />
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"> Page&lt;Picture&gt; picturePage = pictureService.page(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, size),<br>                pictureService.getQueryWrapper(pictureQueryRequest));<br><br>        <span class="hljs-comment">//获取封装类</span><br>        Page&lt;PictureVO&gt; pictureVOPage = pictureService.getPictureVOPage(picturePage,request);<br><br>        <span class="hljs-comment">//存入Redis缓存</span><br><span class="hljs-comment">//        String cacheValue = JSONUtil.toJsonStr(pictureVOPage);</span><br><span class="hljs-comment">//        int cacheExpireTime = 300 + RandomUtil.randomInt(0,300);</span><br><span class="hljs-comment">//        valueOps.set(redisKey,cacheValue,cacheExpireTime, TimeUnit.SECONDS);</span><br><br><br>        <span class="hljs-comment">//存入本地缓存</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">cacheValue</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(pictureVOPage);<br>        LOCAL_CACHE.put(cacheKey,cacheValue);<br></code></pre></td></tr></table></figure>
 <p>4）测试</p>
 <p>可以看到现在耗时38ms，比分布式缓存还快</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719133505297.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719133505297" />
-<figcaption aria-hidden="true">image-20250719133505297</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719133505297.png" srcset="/img/loading.gif" lazyload alt="image-20250719133505297"></p>
 <h3 id="多级缓存">多级缓存</h3>
 <p>工作流程</p>
 <p>1、第一层：Caffeine本地缓存，优先从本地缓存中读取，如果命中，直接返回</p>
 <p>2、第二层：Redis分布式缓存，如果本地缓存没命中，Redis缓存命中了，存入本地缓存，之后返回</p>
 <p>3、数据库查询：如果都没命中，查询数据库，插入两层缓存</p>
-<h4 id="后端开发-2">后端开发</h4>
+<h4 id="后端开发-3">后端开发</h4>
 <p>1）优先读取本地缓存</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-comment">//构建缓存Key</span><br><span class="hljs-type">String</span> <span class="hljs-variable">queryCondition</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(pictureQueryRequest);<br><span class="hljs-type">String</span> <span class="hljs-variable">hashKey</span> <span class="hljs-operator">=</span> DigestUtils.md5DigestAsHex(queryCondition.getBytes());<br><br><span class="hljs-type">String</span> <span class="hljs-variable">cacheKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;krpicture:listPictureVOByPage:&quot;</span> + hashKey;<br><span class="hljs-type">String</span> <span class="hljs-variable">cachedValue</span> <span class="hljs-operator">=</span> LOCAL_CACHE.getIfPresent(cacheKey);<br><br><span class="hljs-keyword">if</span>(cachedValue != <span class="hljs-literal">null</span>) &#123;<br>  Page&lt;PictureVO&gt; cachePage = JSONUtil.toBean(cachedValue, Page.class);<br>  <span class="hljs-keyword">return</span> ResultUtils.success(cachePage);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>2）接着读取分布式缓存</p>
@@ -566,10 +553,10 @@ alt="image-20250719133505297" />
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">pictureQueryRequest.setReviewStatus(PictureReviewStatusEnum.PASS.getValue());<br>Page&lt;Picture&gt; picturePage = pictureService.page(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Page</span>&lt;&gt;(current, size),<br>                                                pictureService.getQueryWrapper(pictureQueryRequest));<br><br><span class="hljs-comment">//获取封装类</span><br>Page&lt;PictureVO&gt; pictureVOPage = pictureService.getPictureVOPage(picturePage,request);<br><br><span class="hljs-comment">//存入Redis缓存</span><br><span class="hljs-type">String</span> <span class="hljs-variable">cacheValue</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(pictureVOPage);<br>valueOps.set(cacheKey,cacheValue,<span class="hljs-number">5</span>, TimeUnit.MINUTES);<br>LOCAL_CACHE.put(cacheKey,cacheValue);<br></code></pre></td></tr></table></figure>
 <p>还有一些缓存相关的问题，例如缓存雪崩、缓存击穿等八股文内容，感兴趣的可以在网上了解</p>
 <p>博主后期也会每天更新八股文的博客(等写完这个项目的)</p>
-<h2 id="二图片上传优化">二、图片上传优化</h2>
+<h2 id="二、图片上传优化">二、图片上传优化</h2>
 <h3 id="图片压缩">图片压缩</h3>
 <p>图片压缩往往都是将图片转化为体积更小的格式，例如webp</p>
-<h4 id="图片压缩格式">1、图片压缩格式</h4>
+<h4 id="1、图片压缩格式">1、图片压缩格式</h4>
 <p>1）webp：Google开发的图片格式</p>
 <p>相比于传统优势</p>
 <ul>
@@ -582,63 +569,36 @@ alt="image-20250719133505297" />
 <li>图片小，清晰</li>
 <li>支持透明背景</li>
 </ul>
-<h4 id="图片压缩方案">2、图片压缩方案</h4>
+<h4 id="2、图片压缩方案">2、图片压缩方案</h4>
 <p>由于我们使用了COS，腾讯云同时提供了数据万象(CI) 对图片进行处理</p>
-<p>参考<a
-target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113299">官方文档</a></p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719135418955.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719135418955" />
-<figcaption aria-hidden="true">image-20250719135418955</figcaption>
-</figure>
+<p>参考<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113299">官方文档</a></p>
+<p><img src="/img/pictureLibrary/image-20250719135418955.png" srcset="/img/loading.gif" lazyload alt="image-20250719135418955"></p>
 <p>上图什么意思呢，可能第一次看没看懂？</p>
 <p>意思就是我们PicOperation对象包含两个参数<code>is_pic_info</code>和<code>rules</code>两个参数</p>
 <p><code>is_pic_info</code>的意思就是是否返回图片元信息，比如宽高。。。</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719140914860.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719140914860" />
-<figcaption aria-hidden="true">image-20250719140914860</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719140914860.png" srcset="/img/loading.gif" lazyload alt="image-20250719140914860"></p>
 <p>rules参数内部两个参数<code>fielid</code>和<code>rule</code>，设置的对象分别是转化格式后对象本身和转化的格式</p>
 <p><code>&lt;Format&gt;</code> 对应的是你想填入的格式</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719141157219.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719141157219" />
-<figcaption aria-hidden="true">image-20250719141157219</figcaption>
-</figure>
-<h4 id="后端开发-3">3、后端开发</h4>
+<p><img src="/img/pictureLibrary/image-20250719141157219.png" srcset="/img/loading.gif" lazyload alt="image-20250719141157219"></p>
+<h4 id="3、后端开发">3、后端开发</h4>
 <p>1）修改CosManager上传图片方法，转后缀为.webp</p>
-<p><a
-target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113299">参考文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113299">参考文档</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//上传对象</span><br>    <span class="hljs-keyword">public</span> PutObjectResult <span class="hljs-title function_">putPictureObject</span><span class="hljs-params">(String key, File file)</span> &#123;<br>        <span class="hljs-type">PutObjectRequest</span> <span class="hljs-variable">putObjectRequest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PutObjectRequest</span>(cosClientConfig.getBucket(), key, file);<br>        <span class="hljs-type">PicOperations</span> <span class="hljs-variable">picOperations</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>();<br><br>        picOperations.setIsPicInfo(<span class="hljs-number">1</span>);<br>        List&lt;PicOperations.Rule&gt; rules = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>        <span class="hljs-comment">//图片压缩</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">webpKey</span> <span class="hljs-operator">=</span> FileUtil.mainName(key) + <span class="hljs-string">&quot;.webp&quot;</span>;<br>        PicOperations.<span class="hljs-type">Rule</span> <span class="hljs-variable">compressRule</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>.Rule();<br>        compressRule.setRule(<span class="hljs-string">&quot;imageMogr2/format/webp&quot;</span>);<br>        compressRule.setBucket(cosClientConfig.getBucket());<br>        compressRule.setFileId(webpKey);<br>        rules.add(compressRule);<br><br>        picOperations.setRules(rules);<br>        putObjectRequest.setPicOperations(picOperations);<br><br>        <span class="hljs-keyword">return</span> cosClient.putObject(putObjectRequest);<br><br><br>    &#125;<br></code></pre></td></tr></table></figure>
 <p>2）修改PictureUploadTemplate上传图片方法，获取缩略图，设置到返回结果中</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> &#123;  <br>            <span class="hljs-comment">// 3. 创建临时文件  </span><br>            file = File.createTempFile(uploadPath, <span class="hljs-literal">null</span>);  <br>            <span class="hljs-comment">// 处理文件来源（本地或 URL）  </span><br>            processFile(inputSource, file);  <br>  <br>            <span class="hljs-comment">// 4. 上传图片到对象存储  </span><br>            <span class="hljs-type">PutObjectResult</span> <span class="hljs-variable">putObjectResult</span> <span class="hljs-operator">=</span> cosManager.putPictureObject(uploadPath, file);<br>            <span class="hljs-type">ImageInfo</span> <span class="hljs-variable">imageInfo</span> <span class="hljs-operator">=</span> putObjectResult.getCiUploadResult().getOriginalInfo().getImageInfo();<br>            <span class="hljs-type">ProcessResults</span> <span class="hljs-variable">processResults</span> <span class="hljs-operator">=</span> putObjectResult.getCiUploadResult().getProcessResults();<br>            List&lt;CIObject&gt; objectList = processResults.getObjectList();<br>            <span class="hljs-keyword">if</span>(CollUtil.isNotEmpty(objectList)) &#123;<br>                <span class="hljs-type">CIObject</span> <span class="hljs-variable">compressCiObject</span> <span class="hljs-operator">=</span> objectList.get(<span class="hljs-number">0</span>);<br>                <span class="hljs-keyword">return</span> buildResult(originFilename,compressCiObject);<br>            &#125;<br><br>            <span class="hljs-comment">// 5. 封装返回结果  </span><br>            <span class="hljs-keyword">return</span> buildResult(originFilename, file, uploadPath, imageInfo);  <br>        &#125;<br></code></pre></td></tr></table></figure>
 <p>3）编写封装返回结果，从压缩图中获取图片信息，设置url</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> UploadPictureResult <span class="hljs-title function_">buildResult</span><span class="hljs-params">(String originFilename, CIObject compressedCiObject)</span> &#123;<br>    <span class="hljs-type">UploadPictureResult</span> <span class="hljs-variable">uploadPictureResult</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UploadPictureResult</span>();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">picWidth</span> <span class="hljs-operator">=</span> compressedCiObject.getWidth();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">picHeight</span> <span class="hljs-operator">=</span> compressedCiObject.getHeight();<br>    <span class="hljs-type">double</span> <span class="hljs-variable">picScale</span> <span class="hljs-operator">=</span> NumberUtil.round(picWidth * <span class="hljs-number">1.0</span> / picHeight, <span class="hljs-number">2</span>).doubleValue();<br>    uploadPictureResult.setPicName(FileUtil.mainName(originFilename));<br>    uploadPictureResult.setPicWidth(picWidth);<br>    uploadPictureResult.setPicHeight(picHeight);<br>    uploadPictureResult.setPicScale(picScale);<br>    uploadPictureResult.setPicFormat(compressedCiObject.getFormat());<br>    uploadPictureResult.setPicSize(compressedCiObject.getSize().longValue());<br>    <span class="hljs-comment">// 设置图片为压缩后的地址</span><br>    uploadPictureResult.setUrl(cosClientConfig.getHost() + <span class="hljs-string">&quot;/&quot;</span> + compressedCiObject.getKey());<br>    <span class="hljs-keyword">return</span> uploadPictureResult;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="测试">4、测试</h4>
-<figure>
-<img src="/img/pictureLibrary/image-20250719150037785.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719150037785" />
-<figcaption aria-hidden="true">image-20250719150037785</figcaption>
-</figure>
-<figure>
-<img src="/img/pictureLibrary/image-20250719150051616.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719150051616" />
-<figcaption aria-hidden="true">image-20250719150051616</figcaption>
-</figure>
-<h2 id="三图片加载优化">三、图片加载优化</h2>
+<h4 id="4、测试">4、测试</h4>
+<p><img src="/img/pictureLibrary/image-20250719150037785.png" srcset="/img/loading.gif" lazyload alt="image-20250719150037785"></p>
+<p><img src="/img/pictureLibrary/image-20250719150051616.png" srcset="/img/loading.gif" lazyload alt="image-20250719150051616"></p>
+<h2 id="三、图片加载优化">三、图片加载优化</h2>
 <p>图片加载优化的目的就是为了更快的加载图片，好让用户有一个很好的体验</p>
 <p>这里分别从缩略图、懒加载、CDN加速、浏览器缓存来优化</p>
 <h3 id="缩略图">缩略图</h3>
-<h4 id="实现方案">1、实现方案</h4>
-<p><a
-target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113295">参考文档</a></p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719150418373.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719150418373" />
-<figcaption aria-hidden="true">image-20250719150418373</figcaption>
-</figure>
-<h4 id="后端开发-4">2、后端开发</h4>
+<h4 id="1、实现方案">1、实现方案</h4>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/436/113295">参考文档</a></p>
+<p><img src="/img/pictureLibrary/image-20250719150418373.png" srcset="/img/loading.gif" lazyload alt="image-20250719150418373"></p>
+<h4 id="2、后端开发">2、后端开发</h4>
 <p>1）picture表新增缩略url</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> picture<br>    <span class="hljs-comment">-- 添加新列</span><br>    <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> thumbnailUrl <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>) <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;缩略图 url&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
 <p>2）PictureMapper.xml新增字段</p>
@@ -646,11 +606,7 @@ alt="image-20250719150418373" />
 <p>3）数据模型新增字段(Picture、PictureVO、UploadPictureResult)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 缩略图 url</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> String thumbnailUrl;<br><br></code></pre></td></tr></table></figure>
 <p>4）缩略图处理</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719151445010.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719151445010" />
-<figcaption aria-hidden="true">image-20250719151445010</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719151445010.png" srcset="/img/loading.gif" lazyload alt="image-20250719151445010"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//缩略图处理</span><br>PicOperations.<span class="hljs-type">Rule</span> <span class="hljs-variable">thumbnailRule</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>.Rule();<br>thumbnailRule.setBucket(cosClientConfig.getBucket());<br><span class="hljs-type">String</span> <span class="hljs-variable">thumbnailKey</span> <span class="hljs-operator">=</span> FileUtil.mainName(key) + <span class="hljs-string">&quot;_thumbnail.&quot;</span> + FileUtil.getSuffix(key);<br>thumbnailRule.setFileId(thumbnailKey);<br>thumbnailRule.setRule(String.format(<span class="hljs-string">&quot;imageMogr2/thumbnail/%sx%s&quot;</span>,<span class="hljs-number">128</span>,<span class="hljs-number">128</span>));<br><br>rules.add(thumbnailRule);<br></code></pre></td></tr></table></figure>
 <p>修改PictureUploadTemplate上传图片方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(CollUtil.isNotEmpty(objectList)) &#123;<br>                <span class="hljs-type">CIObject</span> <span class="hljs-variable">compressCiObject</span> <span class="hljs-operator">=</span> objectList.get(<span class="hljs-number">0</span>);<br>                <span class="hljs-type">CIObject</span> <span class="hljs-variable">thumbnailCiObject</span> <span class="hljs-operator">=</span> objectList.get(<span class="hljs-number">1</span>);<br>                <br>                <span class="hljs-keyword">return</span> buildResult(originFilename,compressCiObject,thumbnailCiObject);<br>            &#125;<br></code></pre></td></tr></table></figure>
@@ -659,48 +615,39 @@ alt="image-20250719151445010" />
 <p>补充PictureService上传图片方法设置thumb字段</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">picture.setUrl(uploadPictureResult.getUrl());<br>picture.setThumbnailUrl(uploadPictureResult.getThumbnailUrl());<br><span class="hljs-type">String</span> <span class="hljs-variable">picName</span> <span class="hljs-operator">=</span> uploadPictureResult.getPicName();<br></code></pre></td></tr></table></figure>
 <p>5）测试结果</p>
-<figure>
-<img src="/img/pictureLibrary/image-20250719152344512.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719152344512" />
-<figcaption aria-hidden="true">image-20250719152344512</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719152344512.png" srcset="/img/loading.gif" lazyload alt="image-20250719152344512"></p>
 <p>但是有一个小问题，如果我们上传的图像过于小的话，可能缩略图比原图都大</p>
 <p>这里我们可以优化CosManager，保证传入的图片不能小于20KB</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (file.length() &gt; <span class="hljs-number">2</span> * <span class="hljs-number">1024</span>) &#123;<br>    PicOperations.<span class="hljs-type">Rule</span> <span class="hljs-variable">thumbnailRule</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PicOperations</span>.Rule();<br>    thumbnailRule.setBucket(cosClientConfig.getBucket());<br>    <span class="hljs-type">String</span> <span class="hljs-variable">thumbnailKey</span> <span class="hljs-operator">=</span> FileUtil.mainName(key) + <span class="hljs-string">&quot;_thumbnail.&quot;</span> + FileUtil.getSuffix(key);<br>    thumbnailRule.setFileId(thumbnailKey);<br>    thumbnailRule.setRule(String.format(<span class="hljs-string">&quot;imageMogr2/thumbnail/%sx%s&gt;&quot;</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>));<br>    rules.add(thumbnailRule);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>同时修改PictureUploadTemplate，只有返回缩略图，才获取</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(CollUtil.isNotEmpty(objectList)) &#123;<br>               <span class="hljs-type">CIObject</span> <span class="hljs-variable">compressCiObject</span> <span class="hljs-operator">=</span> objectList.get(<span class="hljs-number">0</span>);<br>               <span class="hljs-type">CIObject</span> <span class="hljs-variable">thumbnailCiObject</span> <span class="hljs-operator">=</span> compressCiObject;<br>               <span class="hljs-keyword">if</span>(objectList.size() &gt; <span class="hljs-number">1</span>) &#123;<br>                   thumbnailCiObject = objectList.get(<span class="hljs-number">1</span>);<br>               &#125;<br><br>               <span class="hljs-keyword">return</span> buildResult(originFilename,compressCiObject,thumbnailCiObject);<br>           &#125;<br></code></pre></td></tr></table></figure>
-<h4 id="前端开发">3、前端开发</h4>
+<h4 id="3、前端开发">3、前端开发</h4>
 <p>首页图片优先展示缩略图</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template #cover&gt;<br>&lt;img<br>     style=&quot;height: 200px;object-fit: cover&quot;<br>     :alt=&quot;picture.name&quot;<br>     :src=&quot;picture.thumbnailUrl ?? picture.url&quot;<br>     loading=&quot;lazy&quot;<br>     /&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/img/pictureLibrary/image-20250719153048295.png" srcset="/img/loading.gif" lazyload
-alt="image-20250719153048295" />
-<figcaption aria-hidden="true">image-20250719153048295</figcaption>
-</figure>
+<p><img src="/img/pictureLibrary/image-20250719153048295.png" srcset="/img/loading.gif" lazyload alt="image-20250719153048295"></p>
 <p>可以发现明显第一章图片变模糊了</p>
 <h3 id="懒加载">懒加载</h3>
-<p>1）使用html5种<code>loading="lazy"</code>属性</p>
+<p>1）使用html5种<code>loading=&quot;lazy&quot;</code>属性</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;img src=&quot;image.jpg&quot; alt=&quot;示例图片&quot; loading=&quot;lazy&quot; /&gt;<br></code></pre></td></tr></table></figure>
 <p>这种方法不支持IE，动画等复杂图片展示</p>
 <p>2）使用JS的Intersection Observe，检测是否元素进入视觉窗口</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ts">&lt;img data-src=<span class="hljs-string">&quot;image.jpg&quot;</span> alt=<span class="hljs-string">&quot;示例图片&quot;</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;lazy&quot;</span> /&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">data-src</span>=<span class="hljs-string">&quot;image2.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;示例图片&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;lazy&quot;</span> /&gt;</span></span><br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-comment">// 获取所有需要懒加载的图片</span></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-keyword">const</span> lazyImages = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;img.lazy&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-comment">// 创建 Intersection Observer</span></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">IntersectionObserver</span>(<span class="hljs-function">(<span class="hljs-params">entries, observer</span>) =&gt;</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">    entries.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-keyword">if</span> (entry.<span class="hljs-property">isIntersecting</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-keyword">const</span> img = entry.<span class="hljs-property">target</span>;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-comment">// 将 data-src 的值赋给 src 属性</span></span></span><br><span class="language-javascript"><span class="language-xml">        img.<span class="hljs-property">src</span> = img.<span class="hljs-property">dataset</span>.<span class="hljs-property">src</span>;</span></span><br><span class="language-javascript"><span class="language-xml">        img.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&#x27;lazy&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">        observer.<span class="hljs-title function_">unobserve</span>(img); <span class="hljs-comment">// 停止观察已加载的图片</span></span></span><br><span class="language-javascript"><span class="language-xml">      &#125;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">  &#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-comment">// 观察每个图片</span></span></span><br><span class="language-javascript"><span class="language-xml">  lazyImages.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">image</span> =&gt;</span> observer.<span class="hljs-title function_">observe</span>(image));</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
 <p>3）使用JS滑动时间，当图片进入窗口后，添加src属性</p>
 <p>4）使用现成lazysizes库</p>
-<p>扩展：Ant Design
-Vue提供了渐进加载，图片先加载模糊的，等图片完全加载后替换</p>
-<h3 id="cdn加速">CDN加速</h3>
-<h4 id="什么是cdn">1、什么是CDN</h4>
+<p>扩展：Ant Design Vue提供了渐进加载，图片先加载模糊的，等图片完全加载后替换</p>
+<h3 id="CDN加速">CDN加速</h3>
+<h4 id="1、什么是CDN">1、什么是CDN</h4>
 <p>内容分发网络，服务节点部署在世界各地，当用户访问图片资源去找就近节点获取资源，如果就近节点没有，它会作为代理去访问，同时缓存，方便下次用户查询</p>
-<h4 id="cdn优势">2、CDN优势</h4>
+<h4 id="2、CDN优势">2、CDN优势</h4>
 <p>CDN优势主要凸显在网络请求，可以保护源站地址</p>
 <p>而COS优势在于存储，两者搭配天衣无缝</p>
-<h4 id="如何使用cdn">3、如何使用CDN</h4>
+<h4 id="3、如何使用CDN">3、如何使用CDN</h4>
 <p>使用CDN后，数据库中保存的就不再是源站地址了，而是CDN自动分配的地址</p>
 <p>由于我们并没有需要加速的域名，等后期解析域名再来配置CDN</p>
 <h3 id="浏览器缓存">浏览器缓存</h3>
 <p>通过设置请求头信息，可以将浏览器资源缓存到本地，当用户再次访问，直接走本地缓存。</p>
 <p>CDN服务提供配置浏览器缓存，后期再做</p>
-<h2 id="四图片存储优化">四、图片存储优化</h2>
+<h2 id="四、图片存储优化">四、图片存储优化</h2>
 <h3 id="数据沉降">数据沉降</h3>
 <p>数据沉降主要指的是一些热度低的数据可以放到低频访问存储中，防止占据重要资源。</p>
 <p>就比如：我们将常常使用的文件放到固态中，不怎么用的放到机械硬盘中</p>
@@ -711,21 +658,20 @@ Vue提供了渐进加载，图片先加载模糊的，等图片完全加载后�
 <p>2）手动清理：管理员手动清理</p>
 <p>3）定期清理：设置定时任务</p>
 <p>4）惰性清理：存储空间不足了，再清理</p>
-<h4 id="实现方案-1">实现方案</h4>
+<h4 id="实现方案">实现方案</h4>
 <p>针对于我们的项目，考虑节约成本，采用前三种</p>
-<h4 id="后端开发-5">后端开发</h4>
+<h4 id="后端开发-4">后端开发</h4>
 <p>1）CosManager补充删除对象</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 删除对象</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> key 文件 key</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteObject</span><span class="hljs-params">(String key)</span> <span class="hljs-keyword">throws</span> CosClientException &#123;<br>    cosClient.deleteObject(cosClientConfig.getBucket(), key);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>2）服务开发清理对象方法</p>
 <p>需要判断是否存在多张图片URL指向一个文件的情况</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Async</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearPictureFile</span><span class="hljs-params">(Picture oldPicture)</span> &#123;<br>    <span class="hljs-comment">// 判断该图片是否被多条记录使用</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">pictureUrl</span> <span class="hljs-operator">=</span> oldPicture.getUrl();<br>    <span class="hljs-type">long</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.lambdaQuery()<br>            .eq(Picture::getUrl, pictureUrl)<br>            .count();<br>    <span class="hljs-comment">// 有不止一条记录用到了该图片，不清理</span><br>    <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-comment">// FIXME 注意，这里的 url 包含了域名，实际上只要传 key 值（存储路径）就够了</span><br>    cosManager.deleteObject(oldPicture.getUrl());<br>    <span class="hljs-comment">// 清理缩略图</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">thumbnailUrl</span> <span class="hljs-operator">=</span> oldPicture.getThumbnailUrl();<br>    <span class="hljs-keyword">if</span> (StrUtil.isNotBlank(thumbnailUrl)) &#123;<br>        cosManager.deleteObject(thumbnailUrl);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>上述代码使用了@Aspect
-表示方法可以被异步调用，需要在启动类上添加@EnableAsync才可以使用</p>
+<p>上述代码使用了@Aspect 表示方法可以被异步调用，需要在启动类上添加@EnableAsync才可以使用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableAsync</span><br><span class="hljs-meta">@MapperScan(&quot;com.kroot.krpicturebackend.mapper&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KrPictureBackendApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(KrPictureBackendApplication.class, args);<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h2 id="五优化用户登录">五、优化用户登录</h2>
+<h2 id="五、优化用户登录">五、优化用户登录</h2>
 <p>本项目中，我们会发现每当我们重启后，用户都需要重新登录</p>
 <p>我们可以通过使用Redis整合Session，维护登录状态</p>
-<h3 id="redis分布式session">Redis分布式Session</h3>
+<h3 id="Redis分布式Session">Redis分布式Session</h3>
 <p>1）引入spring-session-data-redis包</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Spring Session + Redis --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.session<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-session-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
 <p>2）修改yml配置文件</p>
