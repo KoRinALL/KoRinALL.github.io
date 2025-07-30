@@ -1,7 +1,9 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
+  <script type="text/javascript" src="/js/jquery.js"></script>
 
 
 
@@ -24,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="澄观云谱2-项目初始化">
 <meta property="og:url" content="https://korinall.github.io/2025/07/11/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B102/index.html">
-<meta property="og:site_name" content="KRL">
+<meta property="og:site_name" content="岚码集隅">
 <meta property="og:description" content="最后更新于：2025&#x2F;7&#x2F;11 PM            项目开始前闲话 通过昨天的努力，我们终于来到了用户模块 我认为今天的进度可以学完用户模块 有一说一，感觉在文字教程的基础上写博客分享自己的见解是一件很有趣的事情 如果让我只照着文字教程做，不写笔记的话，说真的我可能半途而废了(之前试过hhh) COME ON！把手头的闲杂事情放一放开始今天的学习 用户模块（后端开">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250711123351901.png">
@@ -51,7 +53,7 @@
   
   
   
-  <title>澄观云谱2-项目初始化 - KRL</title>
+  <title>澄观云谱2-项目初始化 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -118,6 +120,52 @@
   
 
   <header>
+    <div class="full-bg-img">
+      
+      <div id="banner_video_insert"></div>
+      <script>
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = isIphone || isAndroid;
+
+        function set_video_attr(id){
+          var height = document.body.children[0].clientHeight
+          var width = document.body.children[0].clientWidth
+          var video_item = document.getElementById(id);
+
+          if (height / width < 0.56){
+            video_item.setAttribute('width', '100%');
+            video_item.setAttribute('height', 'auto');
+          } else {
+            video_item.setAttribute('height', '100%');
+            video_item.setAttribute('width', 'auto');
+          }
+        }
+
+        $.getJSON('/js/video_url.json', function(data){
+          if (!isMobile){
+            var video_list_length = data.length
+            var seed = Math.random()
+            index = Math.floor(seed * video_list_length)
+            
+            video_url = data[index]
+            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+
+            document.getElementById("banner_video_insert").innerHTML = video_html_res;
+            set_video_attr('video_item')
+          }
+        });
+
+        if (!isMobile){
+          window.onresize = function(){
+            set_video_attr('video_item')
+          }
+        }
+      </script>
+      
+    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
@@ -344,7 +392,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">

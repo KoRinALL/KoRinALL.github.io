@@ -1,7 +1,9 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
+  <script type="text/javascript" src="/js/jquery.js"></script>
 
 
 
@@ -23,14 +25,14 @@
     <meta property="og:type" content="website">
 <meta property="og:title" content="归档">
 <meta property="og:url" content="https://korinall.github.io/archives/index.html">
-<meta property="og:site_name" content="KRL">
+<meta property="og:site_name" content="岚码集隅">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="KotRin">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>归档 - KRL</title>
+  <title>归档 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -91,6 +93,52 @@
   
 
   <header>
+    <div class="full-bg-img">
+      
+      <div id="banner_video_insert"></div>
+      <script>
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = isIphone || isAndroid;
+
+        function set_video_attr(id){
+          var height = document.body.children[0].clientHeight
+          var width = document.body.children[0].clientWidth
+          var video_item = document.getElementById(id);
+
+          if (height / width < 0.56){
+            video_item.setAttribute('width', '100%');
+            video_item.setAttribute('height', 'auto');
+          } else {
+            video_item.setAttribute('height', '100%');
+            video_item.setAttribute('width', 'auto');
+          }
+        }
+
+        $.getJSON('/js/video_url.json', function(data){
+          if (!isMobile){
+            var video_list_length = data.length
+            var seed = Math.random()
+            index = Math.floor(seed * video_list_length)
+            
+            video_url = data[index]
+            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+
+            document.getElementById("banner_video_insert").innerHTML = video_html_res;
+            set_video_attr('video_item')
+          }
+        });
+
+        if (!isMobile){
+          window.onresize = function(){
+            set_video_attr('video_item')
+          }
+        }
+      </script>
+      
+    </div>
     
 
 <div class="header-inner" style="height: 60vh;">
@@ -317,7 +365,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -351,13 +399,19 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 13 篇文章</p>
+  <p class="h4">共计 14 篇文章</p>
   <hr>
   
   
     
       
       <p class="h5">2025</p>
+    
+    <a href="/2025/07/30/%E5%85%AB%E8%82%A1%E6%96%87%E8%83%8C%E8%AF%B5Day01/" class="list-group-item list-group-item-action">
+      <time>07-30</time>
+      <div class="list-group-item-title">八股文背诵Day01</div>
+    </a>
+  
     
     <a href="/2025/07/25/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B110/" class="list-group-item list-group-item-action">
       <time>07-25</time>
@@ -410,12 +464,6 @@
     <a href="/2025/07/11/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B102/" class="list-group-item list-group-item-action">
       <time>07-11</time>
       <div class="list-group-item-title">澄观云谱2-项目初始化</div>
-    </a>
-  
-    
-    <a href="/2025/07/10/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B101/" class="list-group-item list-group-item-action">
-      <time>07-10</time>
-      <div class="list-group-item-title">澄观云谱1-项目总览</div>
     </a>
   
 </div>

@@ -1,7 +1,9 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
+  <script type="text/javascript" src="/js/jquery.js"></script>
 
 
 
@@ -24,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="澄观云谱1-项目总览">
 <meta property="og:url" content="https://korinall.github.io/2025/07/10/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B101/index.html">
-<meta property="og:site_name" content="KRL">
+<meta property="og:site_name" content="岚码集隅">
 <meta property="og:description" content="最后更新于：2025&#x2F;7&#x2F;10 PM            前言 基于之前一直观看视频学习，没有记录笔记感觉并没有真正学到什么，有点自欺欺人的感觉 再加上本人比较迷恋游戏，不知不觉浪费的半个多月的时间 所以从今天开始根据文字教程依次学习，把自己在项目中遇到的问题解决收集一些陌生的概念和语法 废话少说现在开始。。。。。 项目介绍 概述 在开始之前，我们需要对我们要做的项目有">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/user_modal.png">
@@ -63,7 +65,7 @@
   
   
   
-  <title>澄观云谱1-项目总览 - KRL</title>
+  <title>澄观云谱1-项目总览 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -130,6 +132,52 @@
   
 
   <header>
+    <div class="full-bg-img">
+      
+      <div id="banner_video_insert"></div>
+      <script>
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = isIphone || isAndroid;
+
+        function set_video_attr(id){
+          var height = document.body.children[0].clientHeight
+          var width = document.body.children[0].clientWidth
+          var video_item = document.getElementById(id);
+
+          if (height / width < 0.56){
+            video_item.setAttribute('width', '100%');
+            video_item.setAttribute('height', 'auto');
+          } else {
+            video_item.setAttribute('height', '100%');
+            video_item.setAttribute('width', 'auto');
+          }
+        }
+
+        $.getJSON('/js/video_url.json', function(data){
+          if (!isMobile){
+            var video_list_length = data.length
+            var seed = Math.random()
+            index = Math.floor(seed * video_list_length)
+            
+            video_url = data[index]
+            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+
+            document.getElementById("banner_video_insert").innerHTML = video_html_res;
+            set_video_attr('video_item')
+          }
+        });
+
+        if (!isMobile){
+          window.onresize = function(){
+            set_video_attr('video_item')
+          }
+        }
+      </script>
+      
+    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
@@ -356,7 +404,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">

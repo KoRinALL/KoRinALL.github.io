@@ -1,7 +1,9 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
+  <script type="text/javascript" src="/js/jquery.js"></script>
 
 
 
@@ -24,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="澄观云谱7-空间模块">
 <meta property="og:url" content="https://korinall.github.io/2025/07/22/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B107/index.html">
-<meta property="og:site_name" content="KRL">
+<meta property="og:site_name" content="岚码集隅">
 <meta property="og:description" content="最后更新于：2025&#x2F;7&#x2F;22 PM            闲话少叙 直接开干！！！ 空间模块 一、需求分析 空间模块，主要包含以下功能  管理员管理空间 用户可以创建私人空间 私有空间权限控制 空间级别以及限额控制  1）管理员管理空间：只有管理员可以用来查询空间、编辑空间、删除空间 2）用户创建私人空间：用户只可以创建一个空间，在空间内可以上传和管理图片 3）私有空间">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250720114617036.png">
@@ -48,7 +50,7 @@
   
   
   
-  <title>澄观云谱7-空间模块 - KRL</title>
+  <title>澄观云谱7-空间模块 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -115,6 +117,52 @@
   
 
   <header>
+    <div class="full-bg-img">
+      
+      <div id="banner_video_insert"></div>
+      <script>
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = isIphone || isAndroid;
+
+        function set_video_attr(id){
+          var height = document.body.children[0].clientHeight
+          var width = document.body.children[0].clientWidth
+          var video_item = document.getElementById(id);
+
+          if (height / width < 0.56){
+            video_item.setAttribute('width', '100%');
+            video_item.setAttribute('height', 'auto');
+          } else {
+            video_item.setAttribute('height', '100%');
+            video_item.setAttribute('width', 'auto');
+          }
+        }
+
+        $.getJSON('/js/video_url.json', function(data){
+          if (!isMobile){
+            var video_list_length = data.length
+            var seed = Math.random()
+            index = Math.floor(seed * video_list_length)
+            
+            video_url = data[index]
+            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+
+            document.getElementById("banner_video_insert").innerHTML = video_html_res;
+            set_video_attr('video_item')
+          }
+        });
+
+        if (!isMobile){
+          window.onresize = function(){
+            set_video_attr('video_item')
+          }
+        }
+      </script>
+      
+    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
@@ -341,7 +389,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">

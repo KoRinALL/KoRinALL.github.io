@@ -1,7 +1,9 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
+  <script type="text/javascript" src="/js/jquery.js"></script>
 
 
 
@@ -24,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="澄观云谱6-图片优化">
 <meta property="og:url" content="https://korinall.github.io/2025/07/19/%E6%BE%84%E8%A7%82%E4%BA%91%E8%B0%B106/index.html">
-<meta property="og:site_name" content="KRL">
+<meta property="og:site_name" content="岚码集隅">
 <meta property="og:description" content="最后更新于：2025&#x2F;7&#x2F;19 PM            闲话环节 不多说了，直接开始。。。。 图片优化 本节重点 迄今为止，我们的智能图库项目已经是一个可以上线的项目 但是在此之前，还有很多优化空间，在这节中会分享很多优化的技术  查询优化～分布式缓存、本地缓存、多级缓存 上传优化～压缩、妙传、分片传、断点续传 加载优化～懒加载、缩略图、CDN加速、浏览器缓存 存储优">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/pictureLibrary/image-20250719131207543.png">
@@ -48,7 +50,7 @@
   
   
   
-  <title>澄观云谱6-图片优化 - KRL</title>
+  <title>澄观云谱6-图片优化 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -115,6 +117,52 @@
   
 
   <header>
+    <div class="full-bg-img">
+      
+      <div id="banner_video_insert"></div>
+      <script>
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = isIphone || isAndroid;
+
+        function set_video_attr(id){
+          var height = document.body.children[0].clientHeight
+          var width = document.body.children[0].clientWidth
+          var video_item = document.getElementById(id);
+
+          if (height / width < 0.56){
+            video_item.setAttribute('width', '100%');
+            video_item.setAttribute('height', 'auto');
+          } else {
+            video_item.setAttribute('height', '100%');
+            video_item.setAttribute('width', 'auto');
+          }
+        }
+
+        $.getJSON('/js/video_url.json', function(data){
+          if (!isMobile){
+            var video_list_length = data.length
+            var seed = Math.random()
+            index = Math.floor(seed * video_list_length)
+            
+            video_url = data[index]
+            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+
+            document.getElementById("banner_video_insert").innerHTML = video_html_res;
+            set_video_attr('video_item')
+          }
+        });
+
+        if (!isMobile){
+          window.onresize = function(){
+            set_video_attr('video_item')
+          }
+        }
+      </script>
+      
+    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
@@ -341,7 +389,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/hkd.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
