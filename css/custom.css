@@ -1,3 +1,7 @@
+.tocbot-link {
+    color: #d8d9da;
+}
+
 
 /* 站点导航 css */
 
@@ -199,4 +203,3 @@ body{
           animation-name: out-left;
           animation-play-state: running;
 }
-

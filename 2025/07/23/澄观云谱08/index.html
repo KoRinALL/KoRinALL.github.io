@@ -1,13 +1,29 @@
 
 
-
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
-  <script type="text/javascript" src="/js/jquery.js"></script>
+
 
 
 
 <script src="/live2d-widget/autoload.js"></script>
+<script>
+// 页面加载完成后隐藏加载动画
+document.addEventListener("readystatechange", function() {
+    const loader = document.getElementById('Loadanimation');
+    if (loader) {
+        // 停留1秒后开始淡出
+        setTimeout(function() {
+            loader.style.transition = 'opacity 2.5s';
+            loader.style.opacity = '0';
+            // 淡出完成后隐藏
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2600); // 等待淡出动画完成
+        }, 700); // 停留0.8秒
+    }
+});
+</script>
 <head>
   <meta charset="UTF-8">
 
@@ -84,12 +100,8 @@
 
 
   
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
-<link rel="stylesheet" href="/css/macpanel.css">
-<link rel="stylesheet" href="/css/reward.css">
-<link rel="stylesheet" href="/css/APlayer.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 
@@ -113,62 +125,42 @@
 
 
 <body>
-  
+  <div>
+	<div class='real_mask' style="
+		background-color: rgba(0,0,0,0.3);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		z-index: -777;
+	"></div>
+	<div id="banner_video_insert">
+	</div>	
+	<div id='vvd_banner_img'>
+	</div>
+</div>
+<div id="banner"></div>
+<link href="/css/loading.css" rel="stylesheet">
+<div id="Loadanimation" style="z-index:999999;">
+<div id="Loadanimation-center">
+   <div id="Loadanimation-center-absolute">
+       <div class="xccx_object" id="xccx_four"></div>
+       <div class="xccx_object" id="xccx_three"></div>
+       <div class="xccx_object" id="xccx_two"></div>
+       <div class="xccx_object" id="xccx_one"></div>
+   </div>
+</div>
+</div>
+
+
 
   <header>
-    <div class="full-bg-img">
-      
-      <div id="banner_video_insert"></div>
-      <script>
-        var ua = navigator.userAgent;
-        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
-            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
-            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
-            isMobile = isIphone || isAndroid;
-
-        function set_video_attr(id){
-          var height = document.body.children[0].clientHeight
-          var width = document.body.children[0].clientWidth
-          var video_item = document.getElementById(id);
-
-          if (height / width < 0.56){
-            video_item.setAttribute('width', '100%');
-            video_item.setAttribute('height', 'auto');
-          } else {
-            video_item.setAttribute('height', '100%');
-            video_item.setAttribute('width', 'auto');
-          }
-        }
-
-        $.getJSON('/js/video_url.json', function(data){
-          if (!isMobile){
-            var video_list_length = data.length
-            var seed = Math.random()
-            index = Math.floor(seed * video_list_length)
-            
-            video_url = data[index]
-            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
-
-            document.getElementById("banner_video_insert").innerHTML = video_html_res;
-            set_video_attr('video_item')
-          }
-        });
-
-        if (!isMobile){
-          window.onresize = function(){
-            set_video_attr('video_item')
-          }
-        }
-      </script>
-      
-    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong class="navbar-title">岚码集隅</strong>
+      <strong>岚码集隅</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -256,7 +248,7 @@
                   
                   
                   
-                  <a class="dropdown-item" href="/music/" target="_self">
+                  <a class="dropdown-item" href="/playlist/" target="_self">
                     <i class="iconfont icon-music"></i>
                     <span>歌单</span>
                   </a>
@@ -278,7 +270,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/site_map" target="_self">
+              <a class="nav-link" href="/site-map/" target="_self">
                 <i class="iconfont icon-code""></i>
                 <span>导航</span>
               </a>
@@ -324,30 +316,6 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-steam""></i>
-                <span>游戏</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/game/" target="_self">
-                    <i class="iconfont icon-bookmark-fill"></i>
-                    <span>收藏</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-codepen-fill""></i>
                 <span>工具</span>
               </a>
@@ -356,7 +324,7 @@
                   
                   
                   
-                  <a class="dropdown-item" href="/calculator/" target="_self">
+                  <a class="dropdown-item" href="/calc/" target="_self">
                     <i class="iconfont icon-copyright"></i>
                     <span>计算器</span>
                   </a>
@@ -388,7 +356,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/') no-repeat center center; background-size: cover;">
+     style="background: url('https://uipv4.zywvvd.com:33030/HexoFiles/new/bg-trans.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -417,7 +385,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.8k 字
+          6.9k 字
         
       </span>
     
@@ -428,7 +396,7 @@
         
         
         
-          57 分钟
+          58 分钟
         
       </span>
     
@@ -448,6 +416,71 @@
 
 </div>
 
+	<script type="text/javascript" src="/js/jquery.js"></script>
+
+	<div class="banner" id='banner' >
+
+		<div class="full-bg-img" >
+
+			
+				<script>
+					var ua = navigator.userAgent;
+					var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+						isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+						isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+						isMobile = isIphone || isAndroid;
+
+					function set_video_attr(id){
+
+						var height = document.body.clientHeight
+						var width = document.body.clientWidth
+						var video_item = document.getElementById(id);
+
+						if (height / width < 0.56){
+							video_item.setAttribute('width', '100%');
+							video_item.setAttribute('height', 'auto');
+						} else {
+							video_item.setAttribute('height', '100%');
+							video_item.setAttribute('width', 'auto');
+						}
+					}
+
+					$.getJSON('/js/video_url.json', function(data){
+						if (true){
+							var video_list_length = data.length
+							var seed = Math.random()
+							index = Math.floor(seed * video_list_length)
+							
+							video_url = data[index][0]
+							pre_show_image_url = data[index][1]
+							
+							banner_obj = document.getElementById("banner")
+							banner_obj.style.cssText = "background: url('" + pre_show_image_url + "') no-repeat; background-size: cover;"
+
+							vvd_banner_obj = document.getElementById("vvd_banner_img")
+
+							vvd_banner_content = "<img id='banner_img_item' src='" + pre_show_image_url + "' style='height: 100%; position: fixed; z-index: -999'>"
+							vvd_banner_obj.innerHTML = vvd_banner_content
+							set_video_attr('banner_img_item')
+
+							if (!isMobile) {
+								video_html_res = "<video id='video_item' style='position: fixed; z-index: -888;'  muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+								document.getElementById("banner_video_insert").innerHTML = video_html_res;
+								set_video_attr('video_item')
+							}
+						}
+					});
+
+					if (!isMobile){
+						window.onresize = function(){
+							set_video_attr('video_item')
+							}
+						}
+				</script>
+			
+			</div>
+		</div>
+    </div>
   </header>
 
   <main>
@@ -473,11 +506,11 @@
                 <div class="note note-info">
             <p>最后更新于：2025/7/23 PM</p>
           </div>
-<h1>闲话少叙</h1>
+<h1 id="闲话少叙">闲话少叙</h1>
 <p>最近在搞hexo-fluid博客，又发现了些新东西</p>
 <p>每天加一个新功能，具体功能后续更新如何操作，等我完全搞完的</p>
 <p>。。。。。。</p>
-<h1>图片功能扩展</h1>
+<h1 id="图片功能扩展">图片功能扩展</h1>
 <h2 id="扩展功能介绍">扩展功能介绍</h2>
 <p>本节主要对图片功能进行扩展，包括以下功能：</p>
 <ul>
@@ -492,7 +525,7 @@
 <li>批量更改信息</li>
 <li>批量重命名</li>
 </ul>
-<h2 id="一、图片搜索-基础属性搜索">一、图片搜索-基础属性搜索</h2>
+<h2 id="一图片搜索-基础属性搜索">一、图片搜索-基础属性搜索</h2>
 <h3 id="需求分析">需求分析</h3>
 <p>我们提供多种维度对图片进行搜索，这里有优先级之分，从高到低依次为</p>
 <ul>
@@ -527,14 +560,15 @@
 <p>2）更新getQueryWrapper函数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Date</span> <span class="hljs-variable">startEditTime</span> <span class="hljs-operator">=</span> pictureQueryRequest.getStartEditTime();<br><span class="hljs-type">Date</span> <span class="hljs-variable">endEditTime</span> <span class="hljs-operator">=</span> pictureQueryRequest.getEndEditTime();<br>queryWrapper.ge(ObjUtil.isNotEmpty(startEditTime), <span class="hljs-string">&quot;editTime&quot;</span>, startEditTime);<br>queryWrapper.lt(ObjUtil.isNotEmpty(endEditTime), <span class="hljs-string">&quot;editTime&quot;</span>, endEditTime);<br><br></code></pre></td></tr></table></figure>
 <h3 id="前端开发">前端开发</h3>
-<h4 id="1、图片搜索表单组件">1、图片搜索表单组件</h4>
+<h4 id="图片搜索表单组件">1、图片搜索表单组件</h4>
 <p>由于空间详情码量有些大，这里封装独立表单组件<code>PictureSearchForm.vue</code></p>
 <p>1）定义组件属性</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Props</span> &#123;<br>  onSearch?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">searchParams</span>: <span class="hljs-title class_">PictureQueryRequest</span></span>) =&gt;</span> <span class="hljs-built_in">void</span><br>&#125;<br><br><span class="hljs-keyword">const</span> props = defineProps&lt;<span class="hljs-title class_">Props</span>&gt;()<br><br></code></pre></td></tr></table></figure>
 <p>2）编写搜索函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 搜索条件</span><br><span class="hljs-keyword">const</span> searchParams = reactive&lt;<span class="hljs-variable constant_">API</span>.<span class="hljs-property">PictureQueryRequest</span>&gt;(&#123;&#125;)<br><br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">doSearch</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  props.<span class="hljs-property">onSearch</span>?.(searchParams)<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>3）开发页面结构</p>
-<p>预设时间如何填写，参考<a target="_blank" rel="noopener" href="https://antdv.com/components/date-picker-cn#components-date-picker-demo-presetted-ranges">Date-presets</a></p>
+<p>预设时间如何填写，参考<a
+target="_blank" rel="noopener" href="https://antdv.com/components/date-picker-cn#components-date-picker-demo-presetted-ranges">Date-presets</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div class=&quot;picture-search-form&quot;&gt;<br>  &lt;!-- 搜索表单 --&gt;<br>  &lt;a-form layout=&quot;inline&quot; :model=&quot;searchParams&quot; @finish=&quot;doSearch&quot;&gt;<br>    &lt;a-form-item label=&quot;关键词&quot; name=&quot;searchText&quot;&gt;<br>      &lt;a-input<br>        v-model:value=&quot;searchParams.searchText&quot;<br>        placeholder=&quot;从名称和简介搜索&quot;<br>        allow-clear<br>      /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;分类&quot; name=&quot;category&quot;&gt;<br>      &lt;a-auto-complete<br>        v-model:value=&quot;searchParams.category&quot;<br>        style=&quot;min-width: 180px&quot;<br>        :options=&quot;categoryOptions&quot;<br>        placeholder=&quot;请输入分类&quot;<br>        allowClear<br>      /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;标签&quot; name=&quot;tags&quot;&gt;<br>      &lt;a-select<br>        v-model:value=&quot;searchParams.tags&quot;<br>        style=&quot;min-width: 180px&quot;<br>        :options=&quot;tagOptions&quot;<br>        mode=&quot;tags&quot;<br>        placeholder=&quot;请输入标签&quot;<br>        allowClear<br>      /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;日期&quot; name=&quot;&quot;&gt;<br>      &lt;a-range-picker<br>        style=&quot;width: 400px&quot;<br>        show-time<br>        v-model:value=&quot;dateRange&quot;<br>        :placeholder=&quot;[&#x27;编辑开始日期&#x27;, &#x27;编辑结束时间&#x27;]&quot;<br>        format=&quot;YYYY/MM/DD HH:mm:ss&quot;<br>        :presets=&quot;rangePresets&quot;<br>        @change=&quot;onRangeChange&quot;<br>      /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;名称&quot; name=&quot;name&quot;&gt;<br>      &lt;a-input v-model:value=&quot;searchParams.name&quot; placeholder=&quot;请输入名称&quot; allow-clear /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;简介&quot; name=&quot;introduction&quot;&gt;<br>      &lt;a-input v-model:value=&quot;searchParams.introduction&quot; placeholder=&quot;请输入简介&quot; allow-clear /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;宽度&quot; name=&quot;picWidth&quot;&gt;<br>      &lt;a-input-number v-model:value=&quot;searchParams.picWidth&quot; /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;高度&quot; name=&quot;picHeight&quot;&gt;<br>      &lt;a-input-number v-model:value=&quot;searchParams.picHeight&quot; /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item label=&quot;格式&quot; name=&quot;picFormat&quot;&gt;<br>      &lt;a-input v-model:value=&quot;searchParams.picFormat&quot; placeholder=&quot;请输入格式&quot; allow-clear /&gt;<br>    &lt;/a-form-item&gt;<br>    &lt;a-form-item&gt;<br>      &lt;a-button type=&quot;primary&quot; html-type=&quot;submit&quot; style=&quot;width: 96px&quot;&gt;搜索&lt;/a-button&gt;<br>    &lt;/a-form-item&gt;<br>  &lt;/a-form&gt;<br>&lt;/div&gt;<br><br></code></pre></td></tr></table></figure>
 <p>日期表单变量填写</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> dateRange = ref&lt;[]&gt;([])<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 日期范围更改时触发</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> <span class="hljs-variable">dates</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> <span class="hljs-variable">dateStrings</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">onRangeChange</span> = (<span class="hljs-params"><span class="hljs-attr">dates</span>: <span class="hljs-built_in">any</span>[], <span class="hljs-attr">dateStrings</span>: <span class="hljs-built_in">string</span>[]</span>) =&gt; &#123;<br>  <span class="hljs-keyword">if</span> (dates.<span class="hljs-property">length</span> &lt; <span class="hljs-number">2</span>) &#123;<br>    searchParams.<span class="hljs-property">startEditTime</span> = <span class="hljs-literal">undefined</span><br>    searchParams.<span class="hljs-property">endEditTime</span> = <span class="hljs-literal">undefined</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    searchParams.<span class="hljs-property">startEditTime</span> = dates[<span class="hljs-number">0</span>].<span class="hljs-title function_">toDate</span>()<br>    searchParams.<span class="hljs-property">endEditTime</span> = dates[<span class="hljs-number">1</span>].<span class="hljs-title function_">toDate</span>()<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> rangePresets = <span class="hljs-title function_">ref</span>([<br>  &#123; <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;过去 7 天&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-title function_">dayjs</span>().<span class="hljs-title function_">add</span>(-<span class="hljs-number">7</span>, <span class="hljs-string">&#x27;d&#x27;</span>), <span class="hljs-title function_">dayjs</span>()] &#125;,<br>  &#123; <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;过去 14 天&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-title function_">dayjs</span>().<span class="hljs-title function_">add</span>(-<span class="hljs-number">14</span>, <span class="hljs-string">&#x27;d&#x27;</span>), <span class="hljs-title function_">dayjs</span>()] &#125;,<br>  &#123; <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;过去 30 天&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-title function_">dayjs</span>().<span class="hljs-title function_">add</span>(-<span class="hljs-number">30</span>, <span class="hljs-string">&#x27;d&#x27;</span>), <span class="hljs-title function_">dayjs</span>()] &#125;,<br>  &#123; <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;过去 90 天&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-title function_">dayjs</span>().<span class="hljs-title function_">add</span>(-<span class="hljs-number">90</span>, <span class="hljs-string">&#x27;d&#x27;</span>), <span class="hljs-title function_">dayjs</span>()] &#125;,<br>])<br><br></code></pre></td></tr></table></figure>
@@ -543,7 +577,11 @@
 <p>5）空间详情页插入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 搜索表单 --&gt;<br>&lt;PictureSearchForm /&gt;<br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721163642983.png" srcset="/img/loading.gif" lazyload alt="image-20250721163642983"></p>
+<figure>
+<img src="/img/pictureLibrary/image-20250721163642983.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721163642983" />
+<figcaption aria-hidden="true">image-20250721163642983</figcaption>
+</figure>
 <p>添加css样式，增加边距</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stata">.picture-<span class="hljs-keyword">search</span>-<span class="hljs-keyword">form</span> .ant-<span class="hljs-keyword">form</span>-item &#123;<br>  margin-top: 16px;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>6）添加重置按钮，方便一键清空数据</p>
@@ -552,35 +590,47 @@
 <p>编写doClear函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 清理</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">doClear</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-comment">// 取消所有对象的值</span><br>  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(searchParams).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> &#123;<br>    searchParams[key] = <span class="hljs-literal">undefined</span><br>  &#125;)<br>  dateRange.<span class="hljs-property">value</span> = []<br>  props.<span class="hljs-property">onSearch</span>?.(searchParams)<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721164232043.png" srcset="/img/loading.gif" lazyload alt="image-20250721164232043"></p>
-<h4 id="2、执行搜索">2、执行搜索</h4>
+<figure>
+<img src="/img/pictureLibrary/image-20250721164232043.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721164232043" />
+<figcaption aria-hidden="true">image-20250721164232043</figcaption>
+</figure>
+<h4 id="执行搜索">2、执行搜索</h4>
 <p>1）给组件传递搜索函数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 搜索表单 --&gt;<br>&lt;PictureSearchForm :onSearch=&quot;onSearch&quot; /&gt;<br><br></code></pre></td></tr></table></figure>
 <p>2）编写搜索函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 搜索条件</span><br><span class="hljs-keyword">const</span> searchParams = ref&lt;<span class="hljs-variable constant_">API</span>.<span class="hljs-property">PictureQueryRequest</span>&gt;(&#123;<br>  <span class="hljs-attr">current</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">pageSize</span>: <span class="hljs-number">12</span>,<br>  <span class="hljs-attr">sortField</span>: <span class="hljs-string">&#x27;createTime&#x27;</span>,<br>  <span class="hljs-attr">sortOrder</span>: <span class="hljs-string">&#x27;descend&#x27;</span>,<br>&#125;)<br><br><span class="hljs-comment">// 分页参数</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">onPageChange</span> = (<span class="hljs-params">page, pageSize</span>) =&gt; &#123;<br>  searchParams.<span class="hljs-property">value</span>.<span class="hljs-property">current</span> = page<br>  searchParams.<span class="hljs-property">value</span>.<span class="hljs-property">pageSize</span> = pageSize<br>  <span class="hljs-title function_">fetchData</span>()<br>&#125;<br><br><span class="hljs-comment">// 搜索</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">onSearch</span> = (<span class="hljs-params"><span class="hljs-attr">newSearchParams</span>: API.<span class="hljs-title class_">PictureQueryRequest</span></span>) =&gt; &#123;<br>  searchParams.<span class="hljs-property">value</span> = &#123;<br>    ...searchParams.<span class="hljs-property">value</span>,<br>    ...newSearchParams,<br>    <span class="hljs-attr">current</span>: <span class="hljs-number">1</span>,<br>  &#125;<br>  <span class="hljs-title function_">fetchData</span>()<br>&#125;<br><br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">fetchData</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>  loading.<span class="hljs-property">value</span> = <span class="hljs-literal">true</span><br>  <span class="hljs-comment">// 转换搜索参数</span><br>  <span class="hljs-keyword">const</span> params = &#123;<br>    <span class="hljs-attr">spaceId</span>: props.<span class="hljs-property">id</span>,<br>    ...searchParams.<span class="hljs-property">value</span>,<br>  &#125;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">listPictureVoByPageUsingPost</span>(params)<br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>) &#123;<br>    dataList.<span class="hljs-property">value</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>.<span class="hljs-property">records</span> ?? []<br>    total.<span class="hljs-property">value</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>.<span class="hljs-property">total</span> ?? <span class="hljs-number">0</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    message.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;获取数据失败，&#x27;</span> + res.<span class="hljs-property">data</span>.<span class="hljs-property">message</span>)<br>  &#125;<br>  loading.<span class="hljs-property">value</span> = <span class="hljs-literal">false</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>测试</p>
-<p><img src="/img/pictureLibrary/image-20250721165703259.png" srcset="/img/loading.gif" lazyload alt="image-20250721165703259"></p>
-<h2 id="二、图片搜索-以图搜图">二、图片搜索-以图搜图</h2>
-<h3 id="需求分析-2">需求分析</h3>
+<figure>
+<img src="/img/pictureLibrary/image-20250721165703259.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721165703259" />
+<figcaption aria-hidden="true">image-20250721165703259</figcaption>
+</figure>
+<h2 id="二图片搜索-以图搜图">二、图片搜索-以图搜图</h2>
+<h3 id="需求分析-1">需求分析</h3>
 <p>用户可以上传一张图片，去全网搜索类似的图片</p>
 <p>该功能不仅限在私有空间，公共图库也可以使用</p>
-<h3 id="方案设计-2">方案设计</h3>
+<h3 id="方案设计-1">方案设计</h3>
 <p>这里考虑两种方法：第三方API、爬虫</p>
-<h4 id="1、第三方API">1、第三方API</h4>
+<h4 id="第三方api">1、第三方API</h4>
 <p>百度提供的三方API</p>
 <p>Bing以图搜图API</p>
-<h4 id="2、爬虫">2、爬虫</h4>
+<h4 id="爬虫">2、爬虫</h4>
 <p>利用已经存在的以图搜图网站，数据抓取查询搜图返回的结果</p>
 <p>这里我们选择这种方法</p>
 <p>1）根据URL上传图片，发现接口<code>https://graph.baidu.com/upload?uptime</code></p>
-<p><img src="/img/pictureLibrary/image-20250721170738123.png" srcset="/img/loading.gif" lazyload alt="image-20250721170738123"></p>
+<figure>
+<img src="/img/pictureLibrary/image-20250721170738123.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721170738123" />
+<figcaption aria-hidden="true">image-20250721170738123</figcaption>
+</figure>
 <p>访问接口，前段时间来说是可以访问通过URL获取所有缩略图片的网址，但是现在获取文件请求无法使用，需要我们指定请求头，代码部分会讲解</p>
-<h3 id="后端开发-2">后端开发</h3>
+<h3 id="后端开发-1">后端开发</h3>
 <p>新建api包，用于存放各种api，这里图片搜索相关api放在<code>api/imagesearch</code>包下</p>
-<h4 id="1、数据模型开发">1、数据模型开发</h4>
+<h4 id="数据模型开发">1、数据模型开发</h4>
 <p>新建图片搜索结果返回类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImageSearchResult</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 缩略图地址</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String thumbUrl;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 来源地址</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String fromUrl;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="2、API开发">2、API开发</h4>
+<h4 id="api开发">2、API开发</h4>
 <p>这里调用的API比较多，统一防止在imagesearch.sub包下，每一个类包含main函数作为静态类使用</p>
 <p>1）获取以图搜图地址</p>
 <p>向百度图库发送POST请求，获取给定图片URL的相似图片地址</p>
@@ -590,101 +640,113 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GetImageFirstUrlApi</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取图片列表页面地址</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getImageFirstUrl</span><span class="hljs-params">(String url)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 使用 Jsoup 获取 HTML 内容</span><br>            <span class="hljs-type">Document</span> <span class="hljs-variable">document</span> <span class="hljs-operator">=</span> Jsoup.connect(url)<br>                    .timeout(<span class="hljs-number">5000</span>)<br>                    .get();<br><br>            <span class="hljs-comment">// 获取所有 &lt;script&gt; 标签</span><br>            <span class="hljs-type">Elements</span> <span class="hljs-variable">scriptElements</span> <span class="hljs-operator">=</span> document.getElementsByTag(<span class="hljs-string">&quot;script&quot;</span>);<br><br>            <span class="hljs-comment">// 遍历找到包含 `firstUrl` 的脚本内容</span><br>            <span class="hljs-keyword">for</span> (Element script : scriptElements) &#123;<br>                <span class="hljs-type">String</span> <span class="hljs-variable">scriptContent</span> <span class="hljs-operator">=</span> script.html();<br>                <span class="hljs-keyword">if</span> (scriptContent.contains(<span class="hljs-string">&quot;\&quot;firstUrl\&quot;&quot;</span>)) &#123;<br>                    <span class="hljs-comment">// 正则表达式提取 firstUrl 的值</span><br>                    <span class="hljs-type">Pattern</span> <span class="hljs-variable">pattern</span> <span class="hljs-operator">=</span> Pattern.compile(<span class="hljs-string">&quot;\&quot;firstUrl\&quot;\\s*:\\s*\&quot;(.*?)\&quot;&quot;</span>);<br>                    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> pattern.matcher(scriptContent);<br>                    <span class="hljs-keyword">if</span> (matcher.find()) &#123;<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">firstUrl</span> <span class="hljs-operator">=</span> matcher.group(<span class="hljs-number">1</span>);<br>                        <span class="hljs-comment">// 处理转义字符</span><br>                        firstUrl = firstUrl.replace(<span class="hljs-string">&quot;\\/&quot;</span>, <span class="hljs-string">&quot;/&quot;</span>);<br>                        <span class="hljs-keyword">return</span> firstUrl;<br>                    &#125;<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;未找到 url&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;搜索失败&quot;</span>, e);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;搜索失败&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 请求目标 URL</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://graph.baidu.com/s?card_key=&amp;entrance=GENERAL&amp;extUiData[isLogoShow]=1&amp;f=all&amp;isLogoShow=1&amp;session_id=16250747570487381669&amp;sign=1265ce97cd54acd88139901733452612&amp;tpl_from=pc&quot;</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">imageFirstUrl</span> <span class="hljs-operator">=</span> getImageFirstUrl(url);<br>        System.out.println(<span class="hljs-string">&quot;搜索成功，结果 URL：&quot;</span> + imageFirstUrl);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>3）获取图片列表</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GetImageListApi</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取图片列表</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;ImageSearchResult&gt; <span class="hljs-title function_">getImageList</span><span class="hljs-params">(String url)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 发起GET请求</span><br>            <span class="hljs-type">HttpResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> HttpUtil.createGet(url).execute();<br><br>            <span class="hljs-comment">// 获取响应内容</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">statusCode</span> <span class="hljs-operator">=</span> response.getStatus();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> response.body();<br><br>            <span class="hljs-comment">// 处理响应</span><br>            <span class="hljs-keyword">if</span> (statusCode == <span class="hljs-number">200</span>) &#123;<br>                <span class="hljs-comment">// 解析 JSON 数据并处理</span><br>                <span class="hljs-keyword">return</span> processResponse(body);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;接口调用失败&quot;</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;获取图片列表失败&quot;</span>, e);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;获取图片列表失败&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理接口响应内容</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> responseBody 接口返回的JSON字符串</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;ImageSearchResult&gt; <span class="hljs-title function_">processResponse</span><span class="hljs-params">(String responseBody)</span> &#123;<br>        <span class="hljs-comment">// 解析响应对象</span><br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">jsonObject</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONObject</span>(responseBody);<br>        <span class="hljs-keyword">if</span> (!jsonObject.containsKey(<span class="hljs-string">&quot;data&quot;</span>)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;未获取到图片列表&quot;</span>);<br>        &#125;<br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> jsonObject.getJSONObject(<span class="hljs-string">&quot;data&quot;</span>);<br>        <span class="hljs-keyword">if</span> (!data.containsKey(<span class="hljs-string">&quot;list&quot;</span>)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;未获取到图片列表&quot;</span>);<br>        &#125;<br>        <span class="hljs-type">JSONArray</span> <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> data.getJSONArray(<span class="hljs-string">&quot;list&quot;</span>);<br>        <span class="hljs-keyword">return</span> JSONUtil.toList(list, ImageSearchResult.class);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://graph.baidu.com/ajax/pcsimi?carousel=503&amp;entrance=GENERAL&amp;extUiData%5BisLogoShow%5D=1&amp;inspire=general_pc&amp;limit=30&amp;next=2&amp;render_type=card&amp;session_id=16250747570487381669&amp;sign=1265ce97cd54acd88139901733452612&amp;tk=4caaa&amp;tpl_from=pc&quot;</span>;<br>        List&lt;ImageSearchResult&gt; imageList = getImageList(url);<br>        System.out.println(<span class="hljs-string">&quot;搜索成功&quot;</span> + imageList);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="3、图片搜索服务">3、图片搜索服务</h4>
+<h4 id="图片搜索服务">3、图片搜索服务</h4>
 <p>整合先前编写的API到一个门面类中，在imagesearch包下新建</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImageSearchApiFacade</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 搜索图片</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> imageUrl</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;ImageSearchResult&gt; <span class="hljs-title function_">searchImage</span><span class="hljs-params">(String imageUrl)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">imagePageUrl</span> <span class="hljs-operator">=</span> GetImagePageUrlApi.getImagePageUrl(imageUrl);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">imageFirstUrl</span> <span class="hljs-operator">=</span> GetImageFirstUrlApi.getImageFirstUrl(imagePageUrl);<br>        List&lt;ImageSearchResult&gt; imageList = GetImageListApi.getImageList(imageFirstUrl);<br>        <span class="hljs-keyword">return</span> imageList;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 测试以图搜图功能</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">imageUrl</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://www.codefather.cn/logo.png&quot;</span>;<br>        List&lt;ImageSearchResult&gt; resultList = searchImage(imageUrl);<br>        System.out.println(<span class="hljs-string">&quot;结果列表&quot;</span> + resultList);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="4、接口开发">4、接口开发</h4>
+<h4 id="接口开发">4、接口开发</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SearchPictureByPictureRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片 id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long pictureId;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>开发接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 以图搜图</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@PostMapping(&quot;/search/picture&quot;)</span><br><span class="hljs-keyword">public</span> BaseResponse&lt;List&lt;ImageSearchResult&gt;&gt; <span class="hljs-title function_">searchPictureByPicture</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> SearchPictureByPictureRequest searchPictureByPictureRequest)</span> &#123;<br>    ThrowUtils.throwIf(searchPictureByPictureRequest == <span class="hljs-literal">null</span>, ErrorCode.PARAMS_ERROR);<br>    <span class="hljs-type">Long</span> <span class="hljs-variable">pictureId</span> <span class="hljs-operator">=</span> searchPictureByPictureRequest.getPictureId();<br>    ThrowUtils.throwIf(pictureId == <span class="hljs-literal">null</span> || pictureId &lt;= <span class="hljs-number">0</span>, ErrorCode.PARAMS_ERROR);<br>    <span class="hljs-type">Picture</span> <span class="hljs-variable">oldPicture</span> <span class="hljs-operator">=</span> pictureService.getById(pictureId);<br>    ThrowUtils.throwIf(oldPicture == <span class="hljs-literal">null</span>, ErrorCode.NOT_FOUND_ERROR);<br>    List&lt;ImageSearchResult&gt; resultList = ImageSearchApiFacade.searchImage(oldPicture.getUrl());<br>    <span class="hljs-keyword">return</span> ResultUtils.success(resultList);<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="前端开发-2">前端开发</h3>
-<h4 id="1、搜索入口">1、搜索入口</h4>
+<h3 id="前端开发-1">前端开发</h3>
+<h4 id="搜索入口">1、搜索入口</h4>
 <p>1）修改图片列表，添加搜索按钮</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template v-if=&quot;showOp&quot; #actions&gt;<br>  &lt;a-space @click=&quot;(e) =&gt; doSearch(picture, e)&quot;&gt;<br>    &lt;search-outlined /&gt;<br>    搜索<br>  &lt;/a-space&gt;<br>  &lt;a-space @click=&quot;(e) =&gt; doEdit(picture, e)&quot;&gt;<br>    &lt;edit-outlined /&gt;<br>    编辑<br>  &lt;/a-space&gt;<br>  &lt;a-space @click=&quot;(e) =&gt; doDelete(picture, e)&quot;&gt;<br>    &lt;delete-outlined /&gt;<br>    删除<br>  &lt;/a-space&gt;<br>&lt;/template&gt;<br><br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721181832864.png" srcset="/img/loading.gif" lazyload alt="image-20250721181832864"></p>
+<figure>
+<img src="/img/pictureLibrary/image-20250721181832864.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721181832864" />
+<figcaption aria-hidden="true">image-20250721181832864</figcaption>
+</figure>
 <p>2）编写搜索按钮逻辑，点击搜索后进入新页面，进入到以图搜图结果页面</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 搜索</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">doSearch</span> = (<span class="hljs-params">picture, e</span>) =&gt; &#123;<br>  e.<span class="hljs-title function_">stopPropagation</span>()<br>  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">open</span>(<span class="hljs-string">`/search_picture?pictureId=<span class="hljs-subst">$&#123;picture.id&#125;</span>`</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="2、以图搜图">2、以图搜图</h4>
-<p>1）编写搜索界面文件<code>SearchPicturePage</code> ，复制创建图片页面</p>
+<h4 id="以图搜图">2、以图搜图</h4>
+<p>1）编写搜索界面文件<code>SearchPicturePage</code>
+，复制创建图片页面</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts">&#123;<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/search_picture&#x27;</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;图片搜索&#x27;</span>,<br>  <span class="hljs-attr">component</span>: <span class="hljs-title class_">SearchPicturePage</span>,<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>2）开发页面，上方展示原始图片标题和图片，下方展示搜索结果标题和图片列表</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div id=&quot;searchPicturePage&quot;&gt;<br>    &lt;h2 style=&quot;margin-bottom: 16px&quot;&gt;以图搜图&lt;/h2&gt;<br>    &lt;h3 style=&quot;margin: 16px 0&quot;&gt;原图&lt;/h3&gt;<br>    &lt;a-card style=&quot;width: 240px&quot;&gt;<br>      &lt;template #cover&gt;<br>        &lt;img<br>          style=&quot;height: 180px; object-fit: cover&quot;<br>          :alt=&quot;picture.name&quot;<br>          :src=&quot;picture.thumbnailUrl ?? picture.url&quot;<br>        /&gt;<br>      &lt;/template&gt;<br>    &lt;/a-card&gt;<br>    &lt;h3 style=&quot;margin: 16px 0&quot;&gt;识图结果&lt;/h3&gt;<br>    &lt;!-- 图片列表 --&gt;<br>    &lt;a-list<br>      :grid=&quot;&#123; gutter: 16, xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 &#125;&quot;<br>      :data-source=&quot;dataList&quot;<br>    &gt;<br>      &lt;template #renderItem=&quot;&#123; item &#125;&quot;&gt;<br>        &lt;a-list-item style=&quot;padding: 0&quot;&gt;<br>          &lt;a :href=&quot;item.fromUrl&quot; target=&quot;_blank&quot;&gt;<br>            &lt;a-card&gt;<br>              &lt;template #cover&gt;<br>                &lt;img style=&quot;height: 180px; object-fit: cover&quot; :src=&quot;item.thumbUrl&quot; /&gt;<br>              &lt;/template&gt;<br>            &lt;/a-card&gt;<br>          &lt;/a&gt;<br>        &lt;/a-list-item&gt;<br>      &lt;/template&gt;<br>    &lt;/a-list&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script setup lang=&quot;ts&quot;&gt;<br>import &#123; computed, onMounted, ref &#125; from &#x27;vue&#x27;<br>import &#123; useRoute &#125; from &#x27;vue-router&#x27;<br>import &#123; getPictureVoByIdUsingGet, searchPictureByPictureUsingPost &#125; from &#x27;@/api/pictureController&#x27;<br>import &#123; message &#125; from &#x27;ant-design-vue&#x27;<br><br>const route = useRoute()<br><br>// 图片 id<br>const pictureId = computed(() =&gt; &#123;<br>  return route.query?.pictureId<br>&#125;)<br><br>const picture = ref&lt;API.PictureVO&gt;(&#123;&#125;)<br><br>// 获取老数据<br>const getOldPicture = async () =&gt; &#123;<br>  // 获取数据<br>  const id = route.query?.pictureId<br>  if (id) &#123;<br>    const res = await getPictureVoByIdUsingGet(&#123;<br>      id: id,<br>    &#125;)<br>    if (res.data.code === 0 &amp;&amp; res.data.data) &#123;<br>      const data = res.data.data<br>      picture.value = data<br>    &#125;<br>  &#125;<br>&#125;<br><br>onMounted(() =&gt; &#123;<br>  getOldPicture()<br>&#125;)<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
 <p>3）调用后端获取搜索图片列表接口</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> dataList = ref&lt;<span class="hljs-variable constant_">API</span>.<span class="hljs-property">ImageSearchResult</span>[]&gt;([])<br><span class="hljs-comment">// 获取搜图结果</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">fetchData</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">searchPictureByPictureUsingPost</span>(&#123;<br>    <span class="hljs-attr">pictureId</span>: pictureId.<span class="hljs-property">value</span>,<br>  &#125;)<br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">0</span> &amp;&amp; res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>) &#123;<br>    dataList.<span class="hljs-property">value</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span> ?? []<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    message.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;获取数据失败，&#x27;</span> + res.<span class="hljs-property">data</span>.<span class="hljs-property">message</span>)<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 页面加载时请求一次</span><br><span class="hljs-title function_">onMounted</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">fetchData</span>()<br>&#125;)<br><br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721184406664.png" srcset="/img/loading.gif" lazyload alt="image-20250721184406664"></p>
+<figure>
+<img src="/img/pictureLibrary/image-20250721184406664.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721184406664" />
+<figcaption aria-hidden="true">image-20250721184406664</figcaption>
+</figure>
 <p>注意：如果上传的是webp格式的图片，会出现搜索结果为空的情况，这是因为百度搜索对于webp不支持</p>
 <p>可以修改<code>/search/picture</code>接口，校验oldPicture后缀格式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> oldPicture.getUrl();<br><span class="hljs-keyword">if</span>(!url.toLowerCase().endsWith(<span class="hljs-string">&quot;.jpg&quot;</span>) &amp;&amp; !url.toLowerCase().endsWith(<span class="hljs-string">&quot;.png&quot;</span>)) &#123;<br>		url += <span class="hljs-string">&quot;?imageMogr2/format/png&quot;</span>;<br>&#125;<br>List&lt;ImageSearchResult&gt; resultList = ImageSearchApiFacade.searchImage(url);<br></code></pre></td></tr></table></figure>
-<h2 id="三、图片搜索-颜色搜索">三、图片搜索-颜色搜索</h2>
-<h3 id="需求分析-3">需求分析</h3>
+<h2 id="三图片搜索-颜色搜索">三、图片搜索-颜色搜索</h2>
+<h3 id="需求分析-2">需求分析</h3>
 <p>能够按照图片颜色搜索主色调最相似的图片</p>
 <p>参考bing</p>
-<p><img src="/img/pictureLibrary/image-20250721185410642.png" srcset="/img/loading.gif" lazyload alt="image-20250721185410642"></p>
-<h3 id="方案设计-3">方案设计</h3>
+<figure>
+<img src="/img/pictureLibrary/image-20250721185410642.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721185410642" />
+<figcaption aria-hidden="true">image-20250721185410642</figcaption>
+</figure>
+<h3 id="方案设计-2">方案设计</h3>
 <ul>
-<li>
-<p>整体流程</p>
-</li>
-<li>
-<p>如何获取主色调</p>
-</li>
-<li>
-<p>如何设计搜索算法</p>
-</li>
+<li><p>整体流程</p></li>
+<li><p>如何获取主色调</p></li>
+<li><p>如何设计搜索算法</p></li>
 </ul>
-<h4 id="1、整体流程">1、整体流程</h4>
+<h4 id="整体流程">1、整体流程</h4>
 <p>整体流程大致如下</p>
 <p>1）提取图片颜色</p>
 <p>2）存储颜色到数据库</p>
 <p>3）用户输入查询条件</p>
 <p>4）计算两者相似度</p>
 <p>5）返回结果并进行排序</p>
-<h4 id="2、如何获取主色调">2、如何获取主色调</h4>
+<h4 id="如何获取主色调">2、如何获取主色调</h4>
 <p>COS 整合到数据万象自带提取主色调功能</p>
-<p><img src="/img/pictureLibrary/image-20250721185752762.png" srcset="/img/loading.gif" lazyload alt="image-20250721185752762"></p>
-<h4 id="3、如何计算颜色相似度">3、如何计算颜色相似度</h4>
+<figure>
+<img src="/img/pictureLibrary/image-20250721185752762.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721185752762" />
+<figcaption aria-hidden="true">image-20250721185752762</figcaption>
+</figure>
+<h4 id="如何计算颜色相似度">3、如何计算颜色相似度</h4>
 <p>数据库中不支持颜色比拟像like这种，需要我们自己制定算法</p>
 <p>这里使用<strong>欧几里得距离算法</strong>，因为颜色可以使用RGB表示，这里通过该算法判断相似度</p>
-<p>颜色距离公式为 $d = \sqrt{(R_2 - R_1)^2 + (G_2 - G_1)^2 + (B_2 - B_1)^2}$。</p>
+<p>颜色距离公式为 <span class="math inline">\(d = \sqrt{(R_2 - R_1)^2 +
+(G_2 - G_1)^2 + (B_2 - B_1)^2}\)</span>。</p>
 <ul>
 <li>R1、G1、B1：第一个颜色的RGB分量</li>
 <li>R2、G2、B2：第二个颜色的RGB分量</li>
 <li>d：两个颜色之间的欧几里得距离</li>
 </ul>
 <p>距离越小相似度越高</p>
-<h3 id="后端开发-3">后端开发</h3>
-<h4 id="1、补充图片字段">1、补充图片字段</h4>
+<h3 id="后端开发-2">后端开发</h3>
+<h4 id="补充图片字段">1、补充图片字段</h4>
 <p>1）图片表新增字段</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> picture<br>    <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> picColor <span class="hljs-type">varchar</span>(<span class="hljs-number">16</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图片主色调&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
 <p>2）修改PictureMapper.xml、Picture实体类、PictureVO包装类、UploadPictureResult</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 图片主色调</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> String picColor;<br><br></code></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">result</span> <span class="hljs-attr">property</span>=<span class="hljs-string">&quot;picColor&quot;</span> <span class="hljs-attr">column</span>=<span class="hljs-string">&quot;picColor&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
-<h4 id="2、存储图片">2、存储图片</h4>
+<h4 id="存储图片">2、存储图片</h4>
 <p>1）修改PictureUploadTemplate的buildResult方法，通过imageInfo提取主色调</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">uploadPictureResult.setPicColor(imageInfo.getAve());<br></code></pre></td></tr></table></figure>
 <p>还有一个需要补充imageInfo参数</p>
 <p>获取到的值为十六进制</p>
 <p>2）图片服务的uploadPicture方法中补充设置图片颜色操作</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">picture</span><span class="hljs-selector-class">.setPicColor</span>(uploadPictureResult.<span class="hljs-built_in">getPicColor</span>());<br><br></code></pre></td></tr></table></figure>
-<h4 id="3、颜色相似度计算">3、颜色相似度计算</h4>
+<h4 id="颜色相似度计算">3、颜色相似度计算</h4>
 <p>新建util包，AI编写工具类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 工具类：计算颜色相似度</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ColorSimilarUtils</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">ColorSimilarUtils</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 工具类不需要实例化</span><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 计算两个颜色的相似度</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> color1 第一个颜色</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> color2 第二个颜色</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 相似度（0到1之间，1为完全相同）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">calculateSimilarity</span><span class="hljs-params">(Color color1, Color color2)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">r1</span> <span class="hljs-operator">=</span> color1.getRed();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">g1</span> <span class="hljs-operator">=</span> color1.getGreen();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">b1</span> <span class="hljs-operator">=</span> color1.getBlue();<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">r2</span> <span class="hljs-operator">=</span> color2.getRed();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">g2</span> <span class="hljs-operator">=</span> color2.getGreen();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">b2</span> <span class="hljs-operator">=</span> color2.getBlue();<br><br>        <span class="hljs-comment">// 计算欧氏距离</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> Math.sqrt(Math.pow(r1 - r2, <span class="hljs-number">2</span>) + Math.pow(g1 - g2, <span class="hljs-number">2</span>) + Math.pow(b1 - b2, <span class="hljs-number">2</span>));<br><br>        <span class="hljs-comment">// 计算相似度</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> - distance / Math.sqrt(<span class="hljs-number">3</span> * Math.pow(<span class="hljs-number">255</span>, <span class="hljs-number">2</span>));<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据十六进制颜色代码计算相似度</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hexColor1 第一个颜色的十六进制代码（如 0xFF0000）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hexColor2 第二个颜色的十六进制代码（如 0xFE0101）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 相似度（0到1之间，1为完全相同）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">calculateSimilarity</span><span class="hljs-params">(String hexColor1, String hexColor2)</span> &#123;<br>        <span class="hljs-type">Color</span> <span class="hljs-variable">color1</span> <span class="hljs-operator">=</span> Color.decode(hexColor1);<br>        <span class="hljs-type">Color</span> <span class="hljs-variable">color2</span> <span class="hljs-operator">=</span> Color.decode(hexColor2);<br>        <span class="hljs-keyword">return</span> calculateSimilarity(color1, color2);<br>    &#125;<br><br>    <span class="hljs-comment">// 示例代码</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 测试颜色</span><br>        <span class="hljs-type">Color</span> <span class="hljs-variable">color1</span> <span class="hljs-operator">=</span> Color.decode(<span class="hljs-string">&quot;0xFF0000&quot;</span>);<br>        <span class="hljs-type">Color</span> <span class="hljs-variable">color2</span> <span class="hljs-operator">=</span> Color.decode(<span class="hljs-string">&quot;0xFE0101&quot;</span>);<br>        <span class="hljs-type">double</span> <span class="hljs-variable">similarity</span> <span class="hljs-operator">=</span> calculateSimilarity(color1, color2);<br><br>        System.out.println(<span class="hljs-string">&quot;颜色相似度为：&quot;</span> + similarity);<br><br>        <span class="hljs-comment">// 测试十六进制方法</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">hexSimilarity</span> <span class="hljs-operator">=</span> calculateSimilarity(<span class="hljs-string">&quot;0xFF0000&quot;</span>, <span class="hljs-string">&quot;0xFE0101&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;十六进制颜色相似度为：&quot;</span> + hexSimilarity);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="4、颜色查询服务">4、颜色查询服务</h4>
+<h4 id="颜色查询服务">4、颜色查询服务</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> List&lt;PictureVO&gt; <span class="hljs-title function_">searchPictureByColor</span><span class="hljs-params">(Long spaceId, String picColor, User loginUser)</span> &#123;<br>    <span class="hljs-comment">// 1. 校验参数</span><br>    ThrowUtils.throwIf(spaceId == <span class="hljs-literal">null</span> || StrUtil.isBlank(picColor), ErrorCode.PARAMS_ERROR);<br>    ThrowUtils.throwIf(loginUser == <span class="hljs-literal">null</span>, ErrorCode.NO_AUTH_ERROR);<br>    <span class="hljs-comment">// 2. 校验空间权限</span><br>    <span class="hljs-type">Space</span> <span class="hljs-variable">space</span> <span class="hljs-operator">=</span> spaceService.getById(spaceId);<br>    ThrowUtils.throwIf(space == <span class="hljs-literal">null</span>, ErrorCode.NOT_FOUND_ERROR, <span class="hljs-string">&quot;空间不存在&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!loginUser.getId().equals(space.getUserId())) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.NO_AUTH_ERROR, <span class="hljs-string">&quot;没有空间访问权限&quot;</span>);<br>    &#125;<br>    <span class="hljs-comment">// 3. 查询该空间下所有图片（必须有主色调）</span><br>    List&lt;Picture&gt; pictureList = <span class="hljs-built_in">this</span>.lambdaQuery()<br>            .eq(Picture::getSpaceId, spaceId)<br>            .isNotNull(Picture::getPicColor)<br>            .list();<br>    <span class="hljs-comment">// 如果没有图片，直接返回空列表</span><br>    <span class="hljs-keyword">if</span> (CollUtil.isEmpty(pictureList)) &#123;<br>        <span class="hljs-keyword">return</span> Collections.emptyList();<br>    &#125;<br>    <span class="hljs-comment">// 将目标颜色转为 Color 对象</span><br>    <span class="hljs-type">Color</span> <span class="hljs-variable">targetColor</span> <span class="hljs-operator">=</span> Color.decode(picColor);<br>    <span class="hljs-comment">// 4. 计算相似度并排序</span><br>    List&lt;Picture&gt; sortedPictures = pictureList.stream()<br>            .sorted(Comparator.comparingDouble(picture -&gt; &#123;<br>                <span class="hljs-comment">// 提取图片主色调</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">hexColor</span> <span class="hljs-operator">=</span> picture.getPicColor();<br>                <span class="hljs-comment">// 没有主色调的图片放到最后</span><br>                <span class="hljs-keyword">if</span> (StrUtil.isBlank(hexColor)) &#123;<br>                    <span class="hljs-keyword">return</span> Double.MAX_VALUE;<br>                &#125;<br>                <span class="hljs-type">Color</span> <span class="hljs-variable">pictureColor</span> <span class="hljs-operator">=</span> Color.decode(hexColor);<br>                <span class="hljs-comment">// 越大越相似</span><br>                <span class="hljs-keyword">return</span> -ColorSimilarUtils.calculateSimilarity(targetColor, pictureColor);<br>            &#125;))<br>            <span class="hljs-comment">// 取前 12 个</span><br>            .limit(<span class="hljs-number">12</span>)<br>            .collect(Collectors.toList());<br><br>    <span class="hljs-comment">// 转换为 PictureVO</span><br>    <span class="hljs-keyword">return</span> sortedPictures.stream()<br>            .map(PictureVO::objToVo)<br>            .collect(Collectors.toList());<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>上述代码主要逻辑</p>
 <ul>
 <li>根据目标图片的Color对象进行比较，取靠前相似的</li>
 <li>最终利用PictureVO自带的对象转换方法转换</li>
 </ul>
-<h4 id="5、接口开发">5、接口开发</h4>
+<h4 id="接口开发-1">5、接口开发</h4>
 <p>1）请求封装类SearchPictureByColorRequest，传入空间ID和色调</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SearchPictureByColorRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片主色调</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String picColor;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 空间 id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long spaceId;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>2）接口开发</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/search/color&quot;)</span><br><span class="hljs-keyword">public</span> BaseResponse&lt;List&lt;PictureVO&gt;&gt; <span class="hljs-title function_">searchPictureByColor</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> SearchPictureByColorRequest searchPictureByColorRequest, HttpServletRequest request)</span> &#123;<br>    ThrowUtils.throwIf(searchPictureByColorRequest == <span class="hljs-literal">null</span>, ErrorCode.PARAMS_ERROR);<br>    <span class="hljs-type">String</span> <span class="hljs-variable">picColor</span> <span class="hljs-operator">=</span> searchPictureByColorRequest.getPicColor();<br>    <span class="hljs-type">Long</span> <span class="hljs-variable">spaceId</span> <span class="hljs-operator">=</span> searchPictureByColorRequest.getSpaceId();<br>    <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br>    List&lt;PictureVO&gt; result = pictureService.searchPictureByColor(spaceId, picColor, loginUser);<br>    <span class="hljs-keyword">return</span> ResultUtils.success(result);<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="前端开发-3">前端开发</h3>
-<h4 id="1、颜色搜索">1、颜色搜索</h4>
+<h3 id="前端开发-2">前端开发</h3>
+<h4 id="颜色搜索">1、颜色搜索</h4>
 <p>1）安装颜色选择器组件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install vue3-colorpicker<br></code></pre></td></tr></table></figure>
 <p>2）空间详情页新增颜色搜索</p>
@@ -693,37 +755,46 @@
 <p>3）编写颜色切换函数<code>onColorChange</code>，切换颜色调用</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-title function_">onColorChange</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"><span class="hljs-attr">color</span>: <span class="hljs-built_in">string</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">searchPictureByColorUsingPost</span>(&#123;<br>    <span class="hljs-attr">picColor</span>: color,<br>    <span class="hljs-attr">spaceId</span>: props.<span class="hljs-property">id</span>,<br>  &#125;)<br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">0</span> &amp;&amp; res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>) &#123;<br>    <span class="hljs-keyword">const</span> data = res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span> ?? [];<br>    dataList.<span class="hljs-property">value</span> = data;<br>    total.<span class="hljs-property">value</span> = data.<span class="hljs-property">length</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    message.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;获取数据失败，&#x27;</span> + res.<span class="hljs-property">data</span>.<span class="hljs-property">message</span>)<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721210653875.png" srcset="/img/loading.gif" lazyload alt="image-20250721210653875"></p>
-<h4 id="2、展示图片主色调">2、展示图片主色调</h4>
+<figure>
+<img src="/img/pictureLibrary/image-20250721210653875.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721210653875" />
+<figcaption aria-hidden="true">image-20250721210653875</figcaption>
+</figure>
+<h4 id="展示图片主色调">2、展示图片主色调</h4>
 <p>图片详情页补充颜色主色调展示</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ts">&lt;a-descriptions-item label=<span class="hljs-string">&quot;主色调&quot;</span>&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a-space</span>&gt;</span></span><br><span class="language-xml">    &#123;&#123; picture.picColor ?? &#x27;-&#x27; &#125;&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;picture.picColor&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">:style</span>=<span class="hljs-string">&quot;&#123;</span></span></span><br><span class="hljs-string"><span class="hljs-tag"><span class="language-xml">        backgroundColor: toHexColor(picture.picColor),</span></span></span><br><span class="hljs-string"><span class="hljs-tag"><span class="language-xml">        width: &#x27;16px&#x27;,</span></span></span><br><span class="hljs-string"><span class="hljs-tag"><span class="language-xml">        height: &#x27;16px&#x27;,</span></span></span><br><span class="hljs-string"><span class="hljs-tag"><span class="language-xml">      &#125;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">a-space</span>&gt;</span></span><br>&lt;/a-descriptions-item&gt;<br><br></code></pre></td></tr></table></figure>
 <p>由于后端计算出来的色值是不标准的，这里统一转化为16进制色值</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">toHexColor</span>(<span class="hljs-params">input</span>) &#123;<br>  <span class="hljs-comment">// 去掉 0x 前缀</span><br>  <span class="hljs-keyword">const</span> colorValue = input.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;0x&#x27;</span>) ? input.<span class="hljs-title function_">slice</span>(<span class="hljs-number">2</span>) : input<br><br>  <span class="hljs-comment">// 将剩余部分解析为十六进制数，再转成 6 位十六进制字符串</span><br>  <span class="hljs-keyword">const</span> hexColor = <span class="hljs-built_in">parseInt</span>(colorValue, <span class="hljs-number">16</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>).<span class="hljs-title function_">padStart</span>(<span class="hljs-number">6</span>, <span class="hljs-string">&#x27;0&#x27;</span>)<br><br>  <span class="hljs-comment">// 返回标准 #RRGGBB 格式</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-string">`#<span class="hljs-subst">$&#123;hexColor&#125;</span>`</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>由于老图片没有picColor字段，需要新创建图片</p>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721211445916.png" srcset="/img/loading.gif" lazyload alt="image-20250721211445916"></p>
-<h2 id="四、图片分享">四、图片分享</h2>
-<h3 id="需求分析-4">需求分析</h3>
+<figure>
+<img src="/img/pictureLibrary/image-20250721211445916.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721211445916" />
+<figcaption aria-hidden="true">image-20250721211445916</figcaption>
+</figure>
+<h2 id="四图片分享">四、图片分享</h2>
+<h3 id="需求分析-3">需求分析</h3>
 <p>为了增加网站用户群体数量，我们需要添加分享功能，引导更多的用户点击</p>
 <p>这里主要使用扫码分享和复制链接分享</p>
-<h3 id="方案设计-4">方案设计</h3>
-<h4 id="1、通用分享组件">1、通用分享组件</h4>
+<h3 id="方案设计-3">方案设计</h3>
+<h4 id="通用分享组件">1、通用分享组件</h4>
 <p>由于网站多处需要出发分享功能，这里独立出来一个组件</p>
-<h4 id="2、分享入口">2、分享入口</h4>
+<h4 id="分享入口">2、分享入口</h4>
 <p>主要分布于图片详情或者用户个人空间卡片操作栏等</p>
-<h4 id="3、复制链接分享">3、复制链接分享</h4>
+<h4 id="复制链接分享">3、复制链接分享</h4>
 <p>使用AntDesign复制文本组件</p>
-<h4 id="4、移动端扫码">4、移动端扫码</h4>
+<h4 id="移动端扫码">4、移动端扫码</h4>
 <p>使用组件库qrcode组件，将链接转化为二维码</p>
-<h3 id="前端开发-4">前端开发</h3>
-<h4 id="1、弹窗分享组件">1、弹窗分享组件</h4>
-<p>1）新增组件ShareModal，参考<a target="_blank" rel="noopener" href="https://antdv.com/components/modal-cn">Modal组件</a>，支持父组件传入标题和链接</p>
+<h3 id="前端开发-3">前端开发</h3>
+<h4 id="弹窗分享组件">1、弹窗分享组件</h4>
+<p>1）新增组件ShareModal，参考<a
+target="_blank" rel="noopener" href="https://antdv.com/components/modal-cn">Modal组件</a>，支持父组件传入标题和链接</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;a-modal v-model:visible=&quot;visible&quot; title=&quot;分享图片&quot; :footer=&quot;false&quot; @cancel=&quot;closeModal&quot;&gt;<br>    &lt;h4&gt;复制分享链接&lt;/h4&gt;<br>    &lt;a-typography-link copyable&gt;<br>      &#123;&#123; link &#125;&#125;<br>    &lt;/a-typography-link&gt;<br>    &lt;div style=&quot;margin-bottom: 16px&quot; /&gt;<br>    &lt;h4&gt;手机扫码查看&lt;/h4&gt;<br>    &lt;a-qrcode :value=&quot;link&quot; /&gt;<br>  &lt;/a-modal&gt;<br>&lt;/template&gt;<br><br>&lt;script setup lang=&quot;ts&quot;&gt;<br>import &#123; defineProps, ref, withDefaults, defineExpose &#125; from &#x27;vue&#x27;<br><br>/**<br> * 定义组件属性类型<br> */<br>interface Props &#123;<br>  title: string<br>  link: string<br>&#125;<br><br>/**<br> * 给组件指定初始值<br> */<br>const props = withDefaults(defineProps&lt;Props&gt;(), &#123;<br>  title: () =&gt; &#x27;分享&#x27;,<br>  link: () =&gt; &#x27;https://laoyujianli.com/share/yupi&#x27;,<br>&#125;)<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
 <p>2）定义所需变量，以及弹窗开闭函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 是否可见</span><br><span class="hljs-keyword">const</span> visible = <span class="hljs-title function_">ref</span>(<span class="hljs-literal">false</span>)<br><br><span class="hljs-comment">// 打开弹窗</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">openModal</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  visible.<span class="hljs-property">value</span> = <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-comment">// 关闭弹窗</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">closeModal</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  visible.<span class="hljs-property">value</span> = <span class="hljs-literal">false</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>3）暴露openModal函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; defineExpose &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span>;<br><br><span class="hljs-comment">// 暴露函数给父组件</span><br><span class="hljs-title function_">defineExpose</span>(&#123;<br>  openModal,<br>&#125;);<br><br></code></pre></td></tr></table></figure>
-<h4 id="2、图片列表使用组件">2、图片列表使用组件</h4>
+<h4 id="图片列表使用组件">2、图片列表使用组件</h4>
 <p>1）图片列表组件引入ShareModal，图片列表外引入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;ShareModal ref=&quot;shareModalRef&quot; :link=&quot;shareLink&quot; /&gt;<br></code></pre></td></tr></table></figure>
 <p>2）添加分享操作卡片</p>
@@ -731,73 +802,52 @@
 <p>3）编写分享函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 分享弹窗引用</span><br><span class="hljs-keyword">const</span> shareModalRef = <span class="hljs-title function_">ref</span>()<br><span class="hljs-comment">// 分享链接</span><br><span class="hljs-keyword">const</span> shareLink = ref&lt;<span class="hljs-built_in">string</span>&gt;()<br><br><span class="hljs-comment">// 分享</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">doShare</span> = (<span class="hljs-params"><span class="hljs-attr">picture</span>: API.<span class="hljs-title class_">PictureVO</span>, <span class="hljs-attr">e</span>: <span class="hljs-title class_">Event</span></span>) =&gt; &#123;<br>  e.<span class="hljs-title function_">stopPropagation</span>()<br>  shareLink.<span class="hljs-property">value</span> = <span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-variable language_">window</span>.location.protocol&#125;</span>//<span class="hljs-subst">$&#123;<span class="hljs-variable language_">window</span>.location.host&#125;</span>/picture/<span class="hljs-subst">$&#123;picture.id&#125;</span>`</span><br>  <span class="hljs-keyword">if</span> (shareModalRef.<span class="hljs-property">value</span>) &#123;<br>    shareModalRef.<span class="hljs-property">value</span>.<span class="hljs-title function_">openModal</span>()<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>效果如下</p>
-<p><img src="/img/pictureLibrary/image-20250721213428047.png" srcset="/img/loading.gif" lazyload alt="image-20250721213428047"></p>
-<h4 id="3、图片详情页添加组件">3、图片详情页添加组件</h4>
+<figure>
+<img src="/img/pictureLibrary/image-20250721213428047.png" srcset="/img/loading.gif" lazyload
+alt="image-20250721213428047" />
+<figcaption aria-hidden="true">image-20250721213428047</figcaption>
+</figure>
+<h4 id="图片详情页添加组件">3、图片详情页添加组件</h4>
 <p>1）图片详情免费下载右侧添加分享按钮</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ts">&lt;a-button <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;primary&quot;</span> ghost <span class="hljs-meta">@click</span>=<span class="hljs-string">&quot;doShare&quot;</span>&gt;<br>  分享<br>  &lt;template #icon&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">share-alt-outlined</span> /&gt;</span></span><br>  &lt;/template&gt;<br>&lt;/a-button&gt;<br><br></code></pre></td></tr></table></figure>
 <p>2）分享函数直接复制粘贴</p>
 <p>注意：图片详情页没有父组件，不需要禁用冒泡并且picture本身就是存在的</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 分享</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">doShare</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  shareLink.<span class="hljs-property">value</span> = <span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-variable language_">window</span>.location.protocol&#125;</span>//<span class="hljs-subst">$&#123;<span class="hljs-variable language_">window</span>.location.host&#125;</span>/picture/<span class="hljs-subst">$&#123;picture.value.id&#125;</span>`</span><br>  <span class="hljs-keyword">if</span> (shareModalRef.<span class="hljs-property">value</span>) &#123;<br>    shareModalRef.<span class="hljs-property">value</span>.<span class="hljs-title function_">openModal</span>()<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h2 id="五、图片的批量处理">五、图片的批量处理</h2>
-<h3 id="需求分析-5">需求分析</h3>
+<h2 id="五图片的批量处理">五、图片的批量处理</h2>
+<h3 id="需求分析-4">需求分析</h3>
 <p>用户可以对空间内的图片批量操作</p>
 <ul>
 <li>批量修改信息</li>
 <li>批量重命名</li>
 </ul>
-<h3 id="后端开发-4">后端开发</h3>
-<h4 id="1、批量修改信息">1、批量修改信息</h4>
+<h3 id="后端开发-3">后端开发</h3>
+<h4 id="批量修改信息">1、批量修改信息</h4>
 <p>1）开发请求类，接收图片ID列表</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PictureEditByBatchRequest</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 图片 id 列表</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> List&lt;Long&gt; pictureIdList;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 空间 id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long spaceId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分类</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String category;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 标签</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; tags;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>2）开发批量修改图片服务</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-meta">@Transactional(rollbackFor = Exception.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">editPictureByBatch</span><span class="hljs-params">(PictureEditByBatchRequest pictureEditByBatchRequest, User loginUser)</span> &#123;<br>    List&lt;Long&gt; pictureIdList = pictureEditByBatchRequest.getPictureIdList();<br>    <span class="hljs-type">Long</span> <span class="hljs-variable">spaceId</span> <span class="hljs-operator">=</span> pictureEditByBatchRequest.getSpaceId();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">category</span> <span class="hljs-operator">=</span> pictureEditByBatchRequest.getCategory();<br>    List&lt;String&gt; tags = pictureEditByBatchRequest.getTags();<br><br>    <span class="hljs-comment">// 1. 校验参数</span><br>    ThrowUtils.throwIf(spaceId == <span class="hljs-literal">null</span> || CollUtil.isEmpty(pictureIdList), ErrorCode.PARAMS_ERROR);<br>    ThrowUtils.throwIf(loginUser == <span class="hljs-literal">null</span>, ErrorCode.NO_AUTH_ERROR);<br>    <span class="hljs-comment">// 2. 校验空间权限</span><br>    <span class="hljs-type">Space</span> <span class="hljs-variable">space</span> <span class="hljs-operator">=</span> spaceService.getById(spaceId);<br>    ThrowUtils.throwIf(space == <span class="hljs-literal">null</span>, ErrorCode.NOT_FOUND_ERROR, <span class="hljs-string">&quot;空间不存在&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!loginUser.getId().equals(space.getUserId())) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.NO_AUTH_ERROR, <span class="hljs-string">&quot;没有空间访问权限&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 3. 查询指定图片，仅选择需要的字段</span><br>    List&lt;Picture&gt; pictureList = <span class="hljs-built_in">this</span>.lambdaQuery()<br>            .select(Picture::getId, Picture::getSpaceId)<br>            .eq(Picture::getSpaceId, spaceId)<br>            .in(Picture::getId, pictureIdList)<br>            .list();<br><br>    <span class="hljs-keyword">if</span> (pictureList.isEmpty()) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-comment">// 4. 更新分类和标签</span><br>    pictureList.forEach(picture -&gt; &#123;<br>        <span class="hljs-keyword">if</span> (StrUtil.isNotBlank(category)) &#123;<br>            picture.setCategory(category);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (CollUtil.isNotEmpty(tags)) &#123;<br>            picture.setTags(JSONUtil.toJsonStr(tags));<br>        &#125;<br>    &#125;);<br><br>    <span class="hljs-comment">// 5. 批量更新</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.updateBatchById(pictureList);<br>    ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>3）开发接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/edit/batch&quot;)</span><br><span class="hljs-keyword">public</span> BaseResponse&lt;Boolean&gt; <span class="hljs-title function_">editPictureByBatch</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> PictureEditByBatchRequest pictureEditByBatchRequest, HttpServletRequest request)</span> &#123;<br>    ThrowUtils.throwIf(pictureEditByBatchRequest == <span class="hljs-literal">null</span>, ErrorCode.PARAMS_ERROR);<br>    <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br>    pictureService.editPictureByBatch(pictureEditByBatchRequest, loginUser);<br>    <span class="hljs-keyword">return</span> ResultUtils.success(<span class="hljs-literal">true</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="2、批量重命名">2、批量重命名</h4>
+<h4 id="批量重命名">2、批量重命名</h4>
 <p>1）批量请求补充字段</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 命名规则</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> String nameRule;<br><br></code></pre></td></tr></table></figure>
 <p>2）批量修改图片补充图片名称</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 批量重命名</span><br><span class="hljs-type">String</span> <span class="hljs-variable">nameRule</span> <span class="hljs-operator">=</span> pictureEditByBatchRequest.getNameRule();<br>fillPictureWithNameRule(pictureList, nameRule);<br><br></code></pre></td></tr></table></figure>
 <p>编写填充图片名称方法，使用replaceAll替换动态变量</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * nameRule 格式：图片&#123;序号&#125;</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> pictureList</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> nameRule</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">fillPictureWithNameRule</span><span class="hljs-params">(List&lt;Picture&gt; pictureList, String nameRule)</span> &#123;<br>    <span class="hljs-keyword">if</span> (CollUtil.isEmpty(pictureList) || StrUtil.isBlank(nameRule)) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-type">long</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-keyword">for</span> (Picture picture : pictureList) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">pictureName</span> <span class="hljs-operator">=</span> nameRule.replaceAll(<span class="hljs-string">&quot;\\&#123;序号&#125;&quot;</span>, String.valueOf(count++));<br>            picture.setName(pictureName);<br>        &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        log.error(<span class="hljs-string">&quot;名称解析错误&quot;</span>, e);<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.OPERATION_ERROR, <span class="hljs-string">&quot;名称解析错误&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="前端开发-5">前端开发</h3>
-<h4 id="1、批量编辑弹窗表单">1、批量编辑弹窗表单</h4>
+<h3 id="前端开发-4">前端开发</h3>
+<h4 id="批量编辑弹窗表单">1、批量编辑弹窗表单</h4>
 <p>1）弹窗 + 表单组件快速开发</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;a-modal v-model:visible=&quot;visible&quot; title=&quot;批量编辑图片&quot; :footer=&quot;false&quot; @cancel=&quot;closeModal&quot;&gt;<br>    &lt;a-typography-paragraph type=&quot;secondary&quot;&gt;* 只对当前页面的图片生效&lt;/a-typography-paragraph&gt;<br>    &lt;!-- 表单项 --&gt;<br>    &lt;a-form layout=&quot;vertical&quot; :model=&quot;formData&quot; @finish=&quot;handleSubmit&quot;&gt;<br>      &lt;a-form-item label=&quot;分类&quot; name=&quot;category&quot;&gt;<br>        &lt;a-auto-complete<br>          v-model:value=&quot;formData.category&quot;<br>          :options=&quot;categoryOptions&quot;<br>          placeholder=&quot;请输入分类&quot;<br>          allowClear<br>        /&gt;<br>      &lt;/a-form-item&gt;<br>      &lt;a-form-item label=&quot;标签&quot; name=&quot;tags&quot;&gt;<br>        &lt;a-select<br>          v-model:value=&quot;formData.tags&quot;<br>          :options=&quot;tagOptions&quot;<br>          mode=&quot;tags&quot;<br>          placeholder=&quot;请输入标签&quot;<br>          allowClear<br>        /&gt;<br>      &lt;/a-form-item&gt;<br>      &lt;a-form-item label=&quot;命名规则&quot; name=&quot;nameRule&quot;&gt;<br>        &lt;a-input v-model:value=&quot;formData.nameRule&quot; placeholder=&quot;请输入命名规则，输入 &#123;序号&#125; 可动态生成&quot; /&gt;<br>      &lt;/a-form-item&gt;<br>      &lt;a-form-item&gt;<br>        &lt;a-button type=&quot;primary&quot; html-type=&quot;submit&quot;&gt;提交&lt;/a-button&gt;<br>      &lt;/a-form-item&gt;<br>    &lt;/a-form&gt;<br>  &lt;/a-modal&gt;<br>&lt;/template&gt;<br><br>&lt;script setup lang=&quot;ts&quot;&gt;<br>import &#123; defineProps, ref, withDefaults, defineExpose, reactive, onMounted &#125; from &#x27;vue&#x27;<br>import &#123;<br>  editPictureByBatchUsingPost,<br>  listPictureTagCategoryUsingGet,<br>&#125; from &#x27;@/api/pictureController&#x27;<br>import &#123; message &#125; from &#x27;ant-design-vue&#x27;<br><br>// 定义组件属性类型<br>interface Props &#123;<br>  pictureList: API.PictureVO[]<br>  spaceId: number<br>  onSuccess: () =&gt; void<br>&#125;<br><br>// 给组件指定初始值<br>const props = withDefaults(defineProps&lt;Props&gt;(), &#123;&#125;)<br><br>// 控制弹窗可见性<br>const visible = ref(false)<br><br>// 打开弹窗<br>const openModal = () =&gt; &#123;<br>  visible.value = true<br>&#125;<br><br>// 关闭弹窗<br>const closeModal = () =&gt; &#123;<br>  visible.value = false<br>&#125;<br><br>// 暴露函数给父组件<br>defineExpose(&#123;<br>  openModal,<br>&#125;)<br><br>// 初始化表单数据<br>const formData = reactive(&#123;<br>  category: &#x27;&#x27;, // 分类<br>  tags: [], // 标签<br>  nameRule: &#x27;&#x27;, // 命名规则<br>&#125;)<br><br>const categoryOptions = ref&lt;string[]&gt;([])<br>const tagOptions = ref&lt;string[]&gt;([])<br><br>// 获取标签和分类选项<br>const getTagCategoryOptions = async () =&gt; &#123;<br>  const res = await listPictureTagCategoryUsingGet()<br>  if (res.data.code === 0 &amp;&amp; res.data.data) &#123;<br>    // 转换成下拉选项组件接受的格式<br>    tagOptions.value = (res.data.data.tagList ?? []).map((data: string) =&gt; &#123;<br>      return &#123;<br>        value: data,<br>        label: data,<br>      &#125;<br>    &#125;)<br>    categoryOptions.value = (res.data.data.categoryList ?? []).map((data: string) =&gt; &#123;<br>      return &#123;<br>        value: data,<br>        label: data,<br>      &#125;<br>    &#125;)<br>  &#125; else &#123;<br>    message.error(&#x27;加载选项失败，&#x27; + res.data.message)<br>  &#125;<br>&#125;<br><br>onMounted(() =&gt; &#123;<br>  getTagCategoryOptions()<br>&#125;)<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
 <p>2）编写表单提交函数</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 提交表单时处理</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">handleSubmit</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"><span class="hljs-attr">values</span>: <span class="hljs-built_in">any</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">if</span> (!props.<span class="hljs-property">pictureList</span>) &#123;<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">editPictureByBatchUsingPost</span>(&#123;<br>    <span class="hljs-attr">pictureIdList</span>: props.<span class="hljs-property">pictureList</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">picture</span>) =&gt;</span> picture.<span class="hljs-property">id</span>),<br>    <span class="hljs-attr">spaceId</span>: props.<span class="hljs-property">spaceId</span>,<br>    ...values,<br>  &#125;)<br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">0</span> &amp;&amp; res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>) &#123;<br>    message.<span class="hljs-title function_">success</span>(<span class="hljs-string">&#x27;操作成功&#x27;</span>)<br>    <span class="hljs-title function_">closeModal</span>()<br>    props.<span class="hljs-property">onSuccess</span>?.()<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    message.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;操作失败，&#x27;</span> + res.<span class="hljs-property">data</span>.<span class="hljs-property">message</span>)<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h4 id="2、使用弹窗组件">2、使用弹窗组件</h4>
+<h4 id="使用弹窗组件">2、使用弹窗组件</h4>
 <p>1）空间详情引入弹窗组件</p>
 
                 
               </div>
             
             <hr/>
-
-
-                        <!-- 添加打赏模块 -->
-            <div class="reward-container">
-              
-                <button id="rewardBtn" class="reward-btn">
-                   
-                    ❤ 打赏
-                  	
-                </button>
-                <p class="tea">“觉得不错的话，给点打赏吧 ୧(๑•̀⌄•́๑)૭”</p>
-                <div id="rewardImgContainer" class="reward-img-container">
-                      <div class="singleImgContainer">
-                          <img id="wechatImg" class="reward-img" src="/img/donate/wechat.jpg" srcset="/img/loading.gif" lazyload alt="微信二维码">
-                            <p class="wechatPay">微信支付</p>
-                        </div>
-                        <div class="singleImgContainer">
-                            <img id="alipayImg" class="reward-img" src="/img/donate/SS.jpg" srcset="/img/loading.gif" lazyload alt="支付宝二维码">
-                            <p class="aliPay"></p>
-                        </div>
-                </div>
-              
-            </div>
-
-
             <div>
               <div class="post-metas my-3">
   
@@ -905,38 +955,6 @@
             </div>
 
             
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="waline"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
-      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
-        var options = Object.assign(
-          {"serverURL":"https://kotrin.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
-          {
-            el: '#waline',
-            path: window.location.pathname
-          }
-        )
-        Waline.init(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          var imgSelector = '#waline .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
           </article>
         </div>
       </div>
@@ -985,27 +1003,6 @@
   
 
 
-  
-  
-
-
-
-
-
-  <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default"});
-
-    Fluid.utils.listenDOMLoaded(function() {
-      Fluid.events.registerRefreshCallback(function() {
-        if ('mermaid' in window) {
-          mermaid.init();
-        }
-      });
-    });
-  });
-</script>
-
 
 
 
@@ -1015,7 +1012,7 @@
 
     
       <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
 
@@ -1044,16 +1041,13 @@
     
 
     
-
-
-   
   </main>
 
   <footer>
     <div class="footer-inner">
   
     <div class="footer-content">
-       <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
   
   
@@ -1200,62 +1194,14 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
   <script  src="/js/local-search.js" ></script>
 
 
 
 
   
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
-<script src="/js/typing-effect.js"></script>
-<script src="/js/reward.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script>
 
 
 
@@ -1264,7 +1210,59 @@
 <script  src="/js/boot.js" ></script>
 
 
-  
+  <div id="tooltip-rightmenu" class="tooltip-rightmenu">如需原始右键菜单请按下 <strong>Ctrl+右键</strong></div>
+
+<div id="rightmenu-wrapper" style="">
+  <ul class="list-v rightmenu" id="rightmenu-content">
+	  <li class="navigation menuNavigation-Content">
+		<a class="nav icon-only fix-cursor-default" onclick="history.back()"><i class="iconfont icon-zuojiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="history.forward()"><i class="iconfont icon-youjiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="window.location.reload()"><i class="iconfont icon-shuaxin"></i></a>
+		<a  aria-label="TOP" href="#" role="button"><i class="iconfont icon-xiangshang"></i></a>
+	  </li>
+
+		<hr class="menuLoad-Content" style="display: block;">
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+		  <span>
+			  <i class="iconfont icon-sousuo1 rightmenu-icon"></i>
+			  站内搜索
+		  </span>
+		</a>
+	  </li>
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default"  target="_blank" rel="noopener" href="https://www.zywvvd.com/messagebd/" data-group="link">
+		  <span>
+			  <i class="iconfont icon-yangshi_icon_tongyong_chat rightmenu-icon">  </i>
+			   留言吐槽 
+		   </span>
+		</a>
+	  </li>
+
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" id="help" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html" data-group="link">
+		<span>
+			  <i class="iconfont icon-a-BlackHole rightmenu-icon"></i>
+			  虫洞穿梭
+		  </span>
+		</a>
+	  </li>
+
+	<a id="scroll-top-button" aria-label="TOP" href="#" role="button" style="bottom: 20px; right: 52.6364px;">
+        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+      </a>
+
+	<hr class="menuLoad-Content" style="display: block;">
+	
+
+  </ul>
+</div>
+
+<link href="/css/custom.css"type="text/css"rel="stylesheet"/>
+<script src="/js/right_menu.js" type="text/javascript"></script>
+<link href="/css/right_menu.css"type="text/css"rel="stylesheet"/>
 
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>

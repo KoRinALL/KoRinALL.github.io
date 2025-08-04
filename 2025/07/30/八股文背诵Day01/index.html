@@ -1,13 +1,29 @@
 
 
-
 <!DOCTYPE html>
 <html lang="zh-CN" data-default-color-scheme=auto>
-  <script type="text/javascript" src="/js/jquery.js"></script>
+
 
 
 
 <script src="/live2d-widget/autoload.js"></script>
+<script>
+// 页面加载完成后隐藏加载动画
+document.addEventListener("readystatechange", function() {
+    const loader = document.getElementById('Loadanimation');
+    if (loader) {
+        // 停留1秒后开始淡出
+        setTimeout(function() {
+            loader.style.transition = 'opacity 2.5s';
+            loader.style.opacity = '0';
+            // 淡出完成后隐藏
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2600); // 等待淡出动画完成
+        }, 700); // 停留0.8秒
+    }
+});
+</script>
 <head>
   <meta charset="UTF-8">
 
@@ -22,12 +38,12 @@
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最后更新于：2025-07-30 PM            Java中HashMap原理本节中图解箭头都是向下指向的 核心HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置 Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 + 红黑树。 特性 hashCode()计算哈希值 indexFor确定在数组中的位置(1.7后移除，">
+    <meta name="description" content="最后更新于：2025-07-30 PM            Java中HashMap原理 本节中图解箭头都是向下指向的 核心 HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置 Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 + 红黑树。 特性  hashCode()计算哈希值 indexFor确定在数组中的位置(1.7后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="八股文背诵Day01">
 <meta property="og:url" content="https://korinall.github.io/2025/07/30/%E5%85%AB%E8%82%A1%E6%96%87%E8%83%8C%E8%AF%B5Day01/index.html">
 <meta property="og:site_name" content="岚码集隅">
-<meta property="og:description" content="最后更新于：2025-07-30 PM            Java中HashMap原理本节中图解箭头都是向下指向的 核心HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置 Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 + 红黑树。 特性 hashCode()计算哈希值 indexFor确定在数组中的位置(1.7后移除，">
+<meta property="og:description" content="最后更新于：2025-07-30 PM            Java中HashMap原理 本节中图解箭头都是向下指向的 核心 HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置 Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 + 红黑树。 特性  hashCode()计算哈希值 indexFor确定在数组中的位置(1.7后">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/interview/image-20250729111550722.png">
 <meta property="og:image" content="https://korinall.github.io/img/interview/image-20250729112256952.png">
@@ -82,12 +98,8 @@
 
 
   
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
-<link rel="stylesheet" href="/css/macpanel.css">
-<link rel="stylesheet" href="/css/reward.css">
-<link rel="stylesheet" href="/css/APlayer.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 
@@ -111,62 +123,42 @@
 
 
 <body>
-  
+  <div>
+	<div class='real_mask' style="
+		background-color: rgba(0,0,0,0.3);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		z-index: -777;
+	"></div>
+	<div id="banner_video_insert">
+	</div>	
+	<div id='vvd_banner_img'>
+	</div>
+</div>
+<div id="banner"></div>
+<link href="/css/loading.css" rel="stylesheet">
+<div id="Loadanimation" style="z-index:999999;">
+<div id="Loadanimation-center">
+   <div id="Loadanimation-center-absolute">
+       <div class="xccx_object" id="xccx_four"></div>
+       <div class="xccx_object" id="xccx_three"></div>
+       <div class="xccx_object" id="xccx_two"></div>
+       <div class="xccx_object" id="xccx_one"></div>
+   </div>
+</div>
+</div>
+
+
 
   <header>
-    <div class="full-bg-img">
-      
-      <div id="banner_video_insert"></div>
-      <script>
-        var ua = navigator.userAgent;
-        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
-            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
-            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
-            isMobile = isIphone || isAndroid;
-
-        function set_video_attr(id){
-          var height = document.body.children[0].clientHeight
-          var width = document.body.children[0].clientWidth
-          var video_item = document.getElementById(id);
-
-          if (height / width < 0.56){
-            video_item.setAttribute('width', '100%');
-            video_item.setAttribute('height', 'auto');
-          } else {
-            video_item.setAttribute('height', '100%');
-            video_item.setAttribute('width', 'auto');
-          }
-        }
-
-        $.getJSON('/js/video_url.json', function(data){
-          if (!isMobile){
-            var video_list_length = data.length
-            var seed = Math.random()
-            index = Math.floor(seed * video_list_length)
-            
-            video_url = data[index]
-            video_html_res = "<video id='video_item' style='position: absolute;' muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
-
-            document.getElementById("banner_video_insert").innerHTML = video_html_res;
-            set_video_attr('video_item')
-          }
-        });
-
-        if (!isMobile){
-          window.onresize = function(){
-            set_video_attr('video_item')
-          }
-        }
-      </script>
-      
-    </div>
     
 
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong class="navbar-title">岚码集隅</strong>
+      <strong>岚码集隅</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -254,7 +246,7 @@
                   
                   
                   
-                  <a class="dropdown-item" href="/music/" target="_self">
+                  <a class="dropdown-item" href="/playlist/" target="_self">
                     <i class="iconfont icon-music"></i>
                     <span>歌单</span>
                   </a>
@@ -276,7 +268,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/site_map" target="_self">
+              <a class="nav-link" href="/site-map/" target="_self">
                 <i class="iconfont icon-code""></i>
                 <span>导航</span>
               </a>
@@ -322,30 +314,6 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-steam""></i>
-                <span>游戏</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/game/" target="_self">
-                    <i class="iconfont icon-bookmark-fill"></i>
-                    <span>收藏</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-codepen-fill""></i>
                 <span>工具</span>
               </a>
@@ -354,7 +322,7 @@
                   
                   
                   
-                  <a class="dropdown-item" href="/calculator/" target="_self">
+                  <a class="dropdown-item" href="/calc/" target="_self">
                     <i class="iconfont icon-copyright"></i>
                     <span>计算器</span>
                   </a>
@@ -386,7 +354,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/') no-repeat center center; background-size: cover;">
+     style="background: url('https://uipv4.zywvvd.com:33030/HexoFiles/new/bg-trans.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -426,7 +394,7 @@
         
         
         
-          14 分钟
+          15 分钟
         
       </span>
     
@@ -446,6 +414,71 @@
 
 </div>
 
+	<script type="text/javascript" src="/js/jquery.js"></script>
+
+	<div class="banner" id='banner' >
+
+		<div class="full-bg-img" >
+
+			
+				<script>
+					var ua = navigator.userAgent;
+					var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+						isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+						isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+						isMobile = isIphone || isAndroid;
+
+					function set_video_attr(id){
+
+						var height = document.body.clientHeight
+						var width = document.body.clientWidth
+						var video_item = document.getElementById(id);
+
+						if (height / width < 0.56){
+							video_item.setAttribute('width', '100%');
+							video_item.setAttribute('height', 'auto');
+						} else {
+							video_item.setAttribute('height', '100%');
+							video_item.setAttribute('width', 'auto');
+						}
+					}
+
+					$.getJSON('/js/video_url.json', function(data){
+						if (true){
+							var video_list_length = data.length
+							var seed = Math.random()
+							index = Math.floor(seed * video_list_length)
+							
+							video_url = data[index][0]
+							pre_show_image_url = data[index][1]
+							
+							banner_obj = document.getElementById("banner")
+							banner_obj.style.cssText = "background: url('" + pre_show_image_url + "') no-repeat; background-size: cover;"
+
+							vvd_banner_obj = document.getElementById("vvd_banner_img")
+
+							vvd_banner_content = "<img id='banner_img_item' src='" + pre_show_image_url + "' style='height: 100%; position: fixed; z-index: -999'>"
+							vvd_banner_obj.innerHTML = vvd_banner_content
+							set_video_attr('banner_img_item')
+
+							if (!isMobile) {
+								video_html_res = "<video id='video_item' style='position: fixed; z-index: -888;'  muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+								document.getElementById("banner_video_insert").innerHTML = video_html_res;
+								set_video_attr('video_item')
+							}
+						}
+					});
+
+					if (!isMobile){
+						window.onresize = function(){
+							set_video_attr('video_item')
+							}
+						}
+				</script>
+			
+			</div>
+		</div>
+    </div>
   </header>
 
   <main>
@@ -471,96 +504,145 @@
                 <div class="note note-info">
             <p>最后更新于：2025-07-30 PM</p>
           </div>
-<h1 id="Java中HashMap原理"><a href="#Java中HashMap原理" class="headerlink" title="Java中HashMap原理"></a>Java中HashMap原理</h1><p><strong>本节中图解箭头都是向下指向的</strong></p>
-<h3 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h3><p>HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置</p>
-<p>Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 + 红黑树。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<h1 id="java中hashmap原理">Java中HashMap原理</h1>
+<p><strong>本节中图解箭头都是向下指向的</strong></p>
+<h3 id="核心">核心</h3>
+<p>HashMap主要用来存储键值对，通过将键的哈希值映射数组索引位置</p>
+<p>Java8前通过链表 + 数组解决哈希冲突，在Java8之后通过数组 + 链表 +
+红黑树。</p>
+<h3 id="特性">特性</h3>
+<ul>
 <li>hashCode()计算哈希值</li>
 <li>indexFor确定在数组中的位置(1.7后移除，改为<code>(n - 1) &amp; hash</code>)</li>
 <li>哈希经过一定扰动处理，防止分布不均匀</li>
 </ul>
-<h3 id="容量情况"><a href="#容量情况" class="headerlink" title="容量情况"></a>容量情况</h3><ul>
+<h3 id="容量情况">容量情况</h3>
+<ul>
 <li>初始容量为16，负载因子为0.75</li>
 <li>元素存储数量超过16 * 0.75 = 12，HashMap会x2扩容，重新分配位置</li>
 <li>这种扩容比较耗时</li>
 </ul>
-<h3 id="HashMap红黑树优化"><a href="#HashMap红黑树优化" class="headerlink" title="HashMap红黑树优化"></a>HashMap红黑树优化</h3><p>为了优化哈希冲突时的查找性能，链表长度超过8，转变为红黑树</p>
+<h3 id="hashmap红黑树优化">HashMap红黑树优化</h3>
+<p>为了优化哈希冲突时的查找性能，链表长度超过8，转变为红黑树</p>
 <p>红黑树作为二叉搜索树，可以将O(n)降低到O(logn)</p>
 <p>如果树中元素数量小于6，红黑树换回链表，以防数的开销</p>
-<h3 id="hashCode和equals重要性"><a href="#hashCode和equals重要性" class="headerlink" title="hashCode和equals重要性"></a>hashCode和equals重要性</h3><p>hashCode()函数用来计算哈希值，决定键的存储位置，equals函数用来计算两个键是否相同</p>
+<h3 id="hashcode和equals重要性">hashCode和equals重要性</h3>
+<p>hashCode()函数用来计算哈希值，决定键的存储位置，equals函数用来计算两个键是否相同</p>
 <p>在执行Put操作的时候，如果两个键的hashCode一样，但是equals比较出来为false，两个键会被视为不同键，存储在同一个桶中不同位置</p>
-<h3 id="默认容量和负载因子选择"><a href="#默认容量和负载因子选择" class="headerlink" title="默认容量和负载因子选择"></a>默认容量和负载因子选择</h3><p>默认容量是16，负载因子是0.75，这是空间和性能最平衡的搭配</p>
+<h3 id="默认容量和负载因子选择">默认容量和负载因子选择</h3>
+<p>默认容量是16，负载因子是0.75，这是空间和性能最平衡的搭配</p>
 <p>负载因子高的话，会减少空间浪费，但是增加了哈希冲突概率</p>
 <p>反之</p>
-<h3 id="哈希冲突链表图解"><a href="#哈希冲突链表图解" class="headerlink" title="哈希冲突链表图解"></a>哈希冲突链表图解</h3><p><img src="/img/interview/image-20250729111550722.png" srcset="/img/loading.gif" lazyload alt="image-20250729111550722"></p>
+<h3 id="哈希冲突链表图解">哈希冲突链表图解</h3>
+<figure>
+<img src="/img/interview/image-20250729111550722.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729111550722" />
+<figcaption aria-hidden="true">image-20250729111550722</figcaption>
+</figure>
 <p>观察代码，我们会发现我们会先判断数组是否有扩容的打算，其次根据计算出来的hash值来确定在数组中存储的位置</p>
 <p>由于数组数量有限，很容易多个元素计算到同样的位置，这里采用链表法</p>
-<p><img src="/img/interview/image-20250729112256952.png" srcset="/img/loading.gif" lazyload alt="image-20250729112256952"></p>
+<figure>
+<img src="/img/interview/image-20250729112256952.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729112256952" />
+<figcaption aria-hidden="true">image-20250729112256952</figcaption>
+</figure>
 <p>JDK1.7以前采用头插法，新节点插入到链表头部，老节点后移</p>
-<p><img src="/img/interview/image-20250729112656830.png" srcset="/img/loading.gif" lazyload alt="image-20250729112656830"></p>
+<figure>
+<img src="/img/interview/image-20250729112656830.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729112656830" />
+<figcaption aria-hidden="true">image-20250729112656830</figcaption>
+</figure>
 <p>在多线程的情况下，当多个线程执行Put函数，链表会死循环</p>
-<p><img src="/img/interview/image-20250729113825587.png" srcset="/img/loading.gif" lazyload alt="image-20250729113825587"></p>
+<figure>
+<img src="/img/interview/image-20250729113825587.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729113825587" />
+<figcaption aria-hidden="true">image-20250729113825587</figcaption>
+</figure>
 <p>当线程A、B同时插入，触发扩容</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">transfer</span><span class="hljs-params">(Entry[] newTable)</span> &#123;<br>  Entry[] src = table; <br>  <span class="hljs-type">int</span> <span class="hljs-variable">newCapacity</span> <span class="hljs-operator">=</span> newTable.length;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; src.length; j++) &#123; <br>      Entry&lt;K,V&gt; e = src[j];           <br>      <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123;<br>          src[j] = <span class="hljs-literal">null</span>; <br>          <span class="hljs-keyword">do</span> &#123; <br>              Entry&lt;K,V&gt; next = e.next; <br>             <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> indexFor(e.hash, newCapacity);<span class="hljs-comment">//线程A执行到这没cpu时间片，线程B继续执行</span><br>             e.next = newTable[i]; <br>             newTable[i] = e;  <br>             e = next;             <br>         &#125; <span class="hljs-keyword">while</span> (e != <span class="hljs-literal">null</span>);<br>     &#125;<br> &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>由于线程A没有CPU时间片，还没有进行搬运和扩容操作，线程B执行扩容成功</p>
 <p>线程2此时开始扩容，扩容成功</p>
-<p><img src="/img/interview/image-20250729120248487.png" srcset="/img/loading.gif" lazyload alt="image-20250729120248487"></p>
+<figure>
+<img src="/img/interview/image-20250729120248487.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729120248487" />
+<figcaption aria-hidden="true">image-20250729120248487</figcaption>
+</figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">e.next = newTable[i]; <span class="hljs-comment">//A.next = null</span><br>newTable[i] = e;  <br>e = next; <br></code></pre></td></tr></table></figure>
 <p>以上代码是头插法代码，起初扩容完毕后数组为空，<code>A.next</code>为空，同时A放在数组中，e变为B</p>
-<p><img src="/img/interview/image-20250729115824708.png" srcset="/img/loading.gif" lazyload alt="image-20250729115824708"></p>
+<figure>
+<img src="/img/interview/image-20250729115824708.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729115824708" />
+<figcaption aria-hidden="true">image-20250729115824708</figcaption>
+</figure>
 <p>继续执行以下代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-keyword">do</span> &#123; <br>    Entry&lt;K,V&gt; next = e.next;  <span class="hljs-comment">// e 为 B，e.next 为 A</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> indexFor(e.hash, newCapacity);<br>    e.next = newTable[i]; <span class="hljs-comment">// B.next = A</span><br>    newTable[i] = e;  <span class="hljs-comment">// newTable[i] = B</span><br>    e = next;        <span class="hljs-comment">// e = A      </span><br>&#125; <span class="hljs-keyword">while</span> (e != <span class="hljs-literal">null</span>);<br><br></code></pre></td></tr></table></figure>
 <p>由于线程2的操作e变回了A，结构如下</p>
-<p><img src="/img/interview/image-20250729120637341.png" srcset="/img/loading.gif" lazyload alt="image-20250729120637341"></p>
+<figure>
+<img src="/img/interview/image-20250729120637341.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729120637341" />
+<figcaption aria-hidden="true">image-20250729120637341</figcaption>
+</figure>
 <p>由于e不为空，接着执行以下代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-keyword">do</span> &#123; <br>    Entry&lt;K,V&gt; next = e.next;  <span class="hljs-comment">// e 为 A，e.next 为 null</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> indexFor(e.hash, newCapacity);<br>    e.next = newTable[i]; <span class="hljs-comment">// A.next = B</span><br>    newTable[i] = e;  <span class="hljs-comment">// newTable[i] = A</span><br>    e = next;        <span class="hljs-comment">// e = null      </span><br>&#125; <span class="hljs-keyword">while</span> (e != <span class="hljs-literal">null</span>); <span class="hljs-comment">// e ==null 跳出循环，此时成环。</span><br><br></code></pre></td></tr></table></figure>
 <p>此时e变为null，跳出循环，此时成环</p>
-<p><img src="/img/interview/image-20250729120916011.png" srcset="/img/loading.gif" lazyload alt="image-20250729120916011"></p>
+<figure>
+<img src="/img/interview/image-20250729120916011.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729120916011" />
+<figcaption aria-hidden="true">image-20250729120916011</figcaption>
+</figure>
 <p>在JDK1.8后，改为尾插法，同时引入红黑树</p>
 <p>当链表长度大于等于8并且数组长度大于等于64，链表转化为红黑树，红黑树节点小于6，退化回链表</p>
-<h1 id="ConcurrentHashMap1-7和1-8区别？"><a href="#ConcurrentHashMap1-7和1-8区别？" class="headerlink" title="ConcurrentHashMap1.7和1.8区别？"></a>ConcurrentHashMap1.7和1.8区别？</h1><p>ConcurrentHashMap1.7</p>
+<h1
+id="concurrenthashmap1.7和1.8区别">ConcurrentHashMap1.7和1.8区别？</h1>
+<p>ConcurrentHashMap1.7</p>
 <ul>
-<li><p>数据结构采用Segment + HashEntry数组 + 链表</p>
-</li>
-<li><p>采用分段锁，默认16个Segment，也就是16个线程可以并发执行</p>
-</li>
-<li>分段锁继承ReentranLock</li>
+<li><p>数据结构采用Segment + HashEntry数组 + 链表</p></li>
+<li><p>采用分段锁，默认16个Segment，也就是16个线程可以并发执行</p></li>
+<li><p>分段锁继承ReentranLock</p></li>
 </ul>
 <p><strong>每个Segment(段)本质上就是一个HashMap，拥有自己的锁</strong></p>
 <p>ConcurrentHashMap1.8</p>
 <ul>
-<li><p>数据结构采用数组 + 链表/红黑树</p>
-</li>
-<li><p>移除Segment，锁只应用于链表或红黑树节点上</p>
-</li>
-<li>CAS + synchronized保证线程安全，空节点使用CAS操作，非空节点使用synchronized保证线程安全</li>
+<li><p>数据结构采用数组 + 链表/红黑树</p></li>
+<li><p>移除Segment，锁只应用于链表或红黑树节点上</p></li>
+<li><p>CAS +
+synchronized保证线程安全，空节点使用CAS操作，非空节点使用synchronized保证线程安全</p></li>
 </ul>
 <p>渐进式扩容</p>
 <ul>
-<li>JDK1.8引入渐进式扩容，当元素个数达到数组容量 * 负载因子，2倍扩容，像HashMap一样最后做数据迁移工作</li>
+<li>JDK1.8引入渐进式扩容，当元素个数达到数组容量 *
+负载因子，2倍扩容，像HashMap一样最后做数据迁移工作</li>
 </ul>
-<h1 id="Java1-8对HashMap的红黑树改动"><a href="#Java1-8对HashMap的红黑树改动" class="headerlink" title="Java1.8对HashMap的红黑树改动"></a>Java1.8对HashMap的红黑树改动</h1><p>引入HashMap核心目的是为了解决哈希冲突带来的查询效率问题，JDK1.8之前使用链表解决哈希冲突，而后替换为红黑树查找性能稳定</p>
-<h3 id="1、哈希冲突带来的问题"><a href="#1、哈希冲突带来的问题" class="headerlink" title="1、哈希冲突带来的问题"></a>1、哈希冲突带来的问题</h3><p>当多个键哈希值映射到同一个桶中，发生哈希冲突。冲突后以链表形式存储，后期当元素多了，HashMap查找、删除时间复杂度可能会变为O(n)</p>
-<h3 id="2、红黑树引入"><a href="#2、红黑树引入" class="headerlink" title="2、红黑树引入"></a>2、红黑树引入</h3><p>当链表元素超过8个的时候，链表转化为红黑树</p>
+<h1 id="java1.8对hashmap的红黑树改动">Java1.8对HashMap的红黑树改动</h1>
+<p>引入HashMap核心目的是为了解决哈希冲突带来的查询效率问题，JDK1.8之前使用链表解决哈希冲突，而后替换为红黑树查找性能稳定</p>
+<h3 id="哈希冲突带来的问题">1、哈希冲突带来的问题</h3>
+<p>当多个键哈希值映射到同一个桶中，发生哈希冲突。冲突后以链表形式存储，后期当元素多了，HashMap查找、删除时间复杂度可能会变为O(n)</p>
+<h3 id="红黑树引入">2、红黑树引入</h3>
+<p>当链表元素超过8个的时候，链表转化为红黑树</p>
 <ul>
 <li>链表查询时间复杂度是O(n)</li>
 <li>红黑树查找复杂度O(logn)</li>
 </ul>
-<h3 id="3、为什么选择红黑树"><a href="#3、为什么选择红黑树" class="headerlink" title="3、为什么选择红黑树"></a>3、为什么选择红黑树</h3><ul>
-<li><p>自平衡：删除和查找元素的同时维持树的平衡，最坏情况下时间复杂度为O(logn)</p>
-</li>
-<li><p>维护成本低：针对于插入和查询操作自我调整，开销低</p>
-</li>
-<li>适合动态场景</li>
+<h3 id="为什么选择红黑树">3、为什么选择红黑树</h3>
+<ul>
+<li><p>自平衡：删除和查找元素的同时维持树的平衡，最坏情况下时间复杂度为O(logn)</p></li>
+<li><p>维护成本低：针对于插入和查询操作自我调整，开销低</p></li>
+<li><p>适合动态场景</p></li>
 </ul>
-<h1 id="Java中有哪些集合？"><a href="#Java中有哪些集合？" class="headerlink" title="Java中有哪些集合？"></a>Java中有哪些集合？</h1><p>集合分为两大类</p>
+<h1 id="java中有哪些集合">Java中有哪些集合？</h1>
+<p>集合分为两大类</p>
 <ul>
 <li>Collection集合：存储对象集合</li>
 <li>Map集合：存储键值对集合</li>
 </ul>
-<p><img src="/img/interview/image-20250729140017204.png" srcset="/img/loading.gif" lazyload alt="image-20250729140017204"></p>
+<figure>
+<img src="/img/interview/image-20250729140017204.png" srcset="/img/loading.gif" lazyload
+alt="image-20250729140017204" />
+<figcaption aria-hidden="true">image-20250729140017204</figcaption>
+</figure>
 <p>Collection接口分为List、Set、Queue接口</p>
-<h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><ul>
+<h3 id="list接口">List接口</h3>
+<ul>
 <li>ArrayList：动态数组</li>
 <li>LinkedList：双向链表</li>
 <li>Vector：开销大，线程安全的动态数组</li>
@@ -584,19 +666,25 @@
 <li>Hashtable：线程安全哈希表，不允许键或值为null</li>
 <li>ConcurrentHashMap：线程安全，适合高并发环境，不允许键或值为null</li>
 </ul>
-<h1 id="JDK1-8对HashMap除了红黑树还有什么改动"><a href="#JDK1-8对HashMap除了红黑树还有什么改动" class="headerlink" title="JDK1.8对HashMap除了红黑树还有什么改动"></a>JDK1.8对HashMap除了红黑树还有什么改动</h1><h3 id="1、头插法改尾插法"><a href="#1、头插法改尾插法" class="headerlink" title="1、头插法改尾插法"></a>1、头插法改尾插法</h3><ul>
+<h1
+id="jdk1.8对hashmap除了红黑树还有什么改动">JDK1.8对HashMap除了红黑树还有什么改动</h1>
+<h3 id="头插法改尾插法">1、头插法改尾插法</h3>
+<ul>
 <li>避免扩容死循环</li>
 </ul>
-<h3 id="2、扩容机制优化"><a href="#2、扩容机制优化" class="headerlink" title="2、扩容机制优化"></a>2、扩容机制优化</h3><h4 id="2、1会重新计算元素hash值-rehash"><a href="#2、1会重新计算元素hash值-rehash" class="headerlink" title="2、1会重新计算元素hash值(rehash)"></a>2、1会重新计算元素hash值(rehash)</h4><ul>
-<li>1.7会重新计算元素hash值<ul>
+<h3 id="扩容机制优化">2、扩容机制优化</h3>
+<h4
+id="会重新计算元素hash值rehash">2、1会重新计算元素hash值(rehash)</h4>
+<ul>
+<li>1.7会重新计算元素hash值
+<ul>
 <li>rehash扩容数组长度为原来的2倍</li>
-</ul>
-</li>
-<li>1.8不会重新计算，使用hash &amp; oldCap，判断高位时1还是0<ul>
+</ul></li>
+<li>1.8不会重新计算，使用hash &amp; oldCap，判断高位时1还是0
+<ul>
 <li>如果是1，新位置 = oldCap + 旧数组下标</li>
 <li>如果是0，新位置下标就是老位置下标</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>3、Hash计算改进</p>
 <ul>
@@ -608,31 +696,6 @@
               </div>
             
             <hr/>
-
-
-                        <!-- 添加打赏模块 -->
-            <div class="reward-container">
-              
-                <button id="rewardBtn" class="reward-btn">
-                   
-                    ❤ 打赏
-                  	
-                </button>
-                <p class="tea">“觉得不错的话，给点打赏吧 ୧(๑•̀⌄•́๑)૭”</p>
-                <div id="rewardImgContainer" class="reward-img-container">
-                      <div class="singleImgContainer">
-                          <img id="wechatImg" class="reward-img" src="/img/donate/wechat.jpg" srcset="/img/loading.gif" lazyload alt="微信二维码">
-                            <p class="wechatPay">微信支付</p>
-                        </div>
-                        <div class="singleImgContainer">
-                            <img id="alipayImg" class="reward-img" src="/img/donate/SS.jpg" srcset="/img/loading.gif" lazyload alt="支付宝二维码">
-                            <p class="aliPay"></p>
-                        </div>
-                </div>
-              
-            </div>
-
-
             <div>
               <div class="post-metas my-3">
   
@@ -734,38 +797,6 @@
             </div>
 
             
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="waline"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
-      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
-        var options = Object.assign(
-          {"serverURL":"https://kotrin.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
-          {
-            el: '#waline',
-            path: window.location.pathname
-          }
-        )
-        Waline.init(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          var imgSelector = '#waline .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
           </article>
         </div>
       </div>
@@ -814,27 +845,6 @@
   
 
 
-  
-  
-
-
-
-
-
-  <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"default"});
-
-    Fluid.utils.listenDOMLoaded(function() {
-      Fluid.events.registerRefreshCallback(function() {
-        if ('mermaid' in window) {
-          mermaid.init();
-        }
-      });
-    });
-  });
-</script>
-
 
 
 
@@ -844,7 +854,7 @@
 
     
       <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
 
@@ -873,16 +883,13 @@
     
 
     
-
-
-   
   </main>
 
   <footer>
     <div class="footer-inner">
   
     <div class="footer-content">
-       <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
   
   
@@ -1029,62 +1036,14 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
   <script  src="/js/local-search.js" ></script>
 
 
 
 
   
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
-<script src="/js/typing-effect.js"></script>
-<script src="/js/reward.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script>
 
 
 
@@ -1093,7 +1052,59 @@
 <script  src="/js/boot.js" ></script>
 
 
-  
+  <div id="tooltip-rightmenu" class="tooltip-rightmenu">如需原始右键菜单请按下 <strong>Ctrl+右键</strong></div>
+
+<div id="rightmenu-wrapper" style="">
+  <ul class="list-v rightmenu" id="rightmenu-content">
+	  <li class="navigation menuNavigation-Content">
+		<a class="nav icon-only fix-cursor-default" onclick="history.back()"><i class="iconfont icon-zuojiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="history.forward()"><i class="iconfont icon-youjiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="window.location.reload()"><i class="iconfont icon-shuaxin"></i></a>
+		<a  aria-label="TOP" href="#" role="button"><i class="iconfont icon-xiangshang"></i></a>
+	  </li>
+
+		<hr class="menuLoad-Content" style="display: block;">
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+		  <span>
+			  <i class="iconfont icon-sousuo1 rightmenu-icon"></i>
+			  站内搜索
+		  </span>
+		</a>
+	  </li>
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default"  target="_blank" rel="noopener" href="https://www.zywvvd.com/messagebd/" data-group="link">
+		  <span>
+			  <i class="iconfont icon-yangshi_icon_tongyong_chat rightmenu-icon">  </i>
+			   留言吐槽 
+		   </span>
+		</a>
+	  </li>
+
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" id="help" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html" data-group="link">
+		<span>
+			  <i class="iconfont icon-a-BlackHole rightmenu-icon"></i>
+			  虫洞穿梭
+		  </span>
+		</a>
+	  </li>
+
+	<a id="scroll-top-button" aria-label="TOP" href="#" role="button" style="bottom: 20px; right: 52.6364px;">
+        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+      </a>
+
+	<hr class="menuLoad-Content" style="display: block;">
+	
+
+  </ul>
+</div>
+
+<link href="/css/custom.css"type="text/css"rel="stylesheet"/>
+<script src="/js/right_menu.js" type="text/javascript"></script>
+<link href="/css/right_menu.css"type="text/css"rel="stylesheet"/>
 
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
