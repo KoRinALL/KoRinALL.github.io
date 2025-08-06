@@ -1,0 +1,1182 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+
+<script src="/live2d-widget/autoload.js"></script>
+<script>
+// 页面加载完成后隐藏加载动画
+document.addEventListener("readystatechange", function() {
+    const loader = document.getElementById('Loadanimation');
+    if (loader) {
+        // 停留1秒后开始淡出
+        setTimeout(function() {
+            loader.style.transition = 'opacity 2.5s';
+            loader.style.opacity = '0';
+            // 淡出完成后隐藏
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2600); // 等待淡出动画完成
+        }, 700); // 停留0.8秒
+    }
+});
+</script>
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="KotRin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的   image-2025">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-2025热门面试题">
+<meta property="og:url" content="https://korinall.github.io/2025/08/06/MySQL-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="岚码集隅">
+<meta property="og:description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的   image-2025">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
+<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801113420840.png">
+<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801115323798.png">
+<meta property="article:published_time" content="2025-08-06T11:02:54.000Z">
+<meta property="article:modified_time" content="2025-08-06T10:13:40.759Z">
+<meta property="article:author" content="KotRin">
+<meta property="article:tag" content="八股">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
+  
+  
+  
+  <title>MySQL-2025热门面试题 - 岚码集隅</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"korinall.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <div>
+	<div class='real_mask' style="
+		background-color: rgba(0,0,0,0.3);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		z-index: -777;
+	"></div>
+	<div id="banner_video_insert">
+	</div>	
+	<div id='vvd_banner_img'>
+	</div>
+</div>
+<div id="banner"></div>
+<link href="/css/loading.css" rel="stylesheet">
+<div id="Loadanimation" style="z-index:999999;">
+<div id="Loadanimation-center">
+   <div id="Loadanimation-center-absolute">
+       <div class="xccx_object" id="xccx_four"></div>
+       <div class="xccx_object" id="xccx_three"></div>
+       <div class="xccx_object" id="xccx_two"></div>
+       <div class="xccx_object" id="xccx_one"></div>
+   </div>
+</div>
+</div>
+
+
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>岚码集隅</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>文章</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/archives/" target="_self">
+                    <i class="iconfont icon-archive-fill"></i>
+                    <span>归档</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/" target="_self">
+                    <i class="iconfont icon-category-fill"></i>
+                    <span>分类</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>标签</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-user-fill""></i>
+                <span>个人</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/" target="_self">
+                    <i class="iconfont icon-archive-fill"></i>
+                    <span>关于</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/playlist/" target="_self">
+                    <i class="iconfont icon-music"></i>
+                    <span>歌单</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/repo/" target="_self">
+                    <i class="iconfont icon-gitee-fill"></i>
+                    <span>仓库</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/site-map/" target="_self">
+                <i class="iconfont icon-code""></i>
+                <span>导航</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-kakao-talk-fill"></i>
+                <span>社交</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/rss/" target="_self">
+                    <i class="iconfont icon-rss-fill"></i>
+                    <span>RSS订阅</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/shuoshuo/" target="_self">
+                    <i class="iconfont icon-comment"></i>
+                    <span>说说</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-codepen-fill""></i>
+                <span>工具</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/calc/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>计算器</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://uipv4.zywvvd.com:33030/HexoFiles/new/bg-trans.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL-2025热门面试题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-06 19:02" pubdate>
+          2025年8月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+	<script type="text/javascript" src="/js/jquery.js"></script>
+
+	<div class="banner" id='banner' >
+
+		<div class="full-bg-img" >
+
+			
+				<script>
+					var ua = navigator.userAgent;
+					var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+						isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+						isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+						isMobile = isIphone || isAndroid;
+
+					function set_video_attr(id){
+
+						var height = document.body.clientHeight
+						var width = document.body.clientWidth
+						var video_item = document.getElementById(id);
+
+						if (height / width < 0.56){
+							video_item.setAttribute('width', '100%');
+							video_item.setAttribute('height', 'auto');
+						} else {
+							video_item.setAttribute('height', '100%');
+							video_item.setAttribute('width', 'auto');
+						}
+					}
+
+					$.getJSON('/js/video_url.json', function(data){
+						if (true){
+							var video_list_length = data.length
+							var seed = Math.random()
+							index = Math.floor(seed * video_list_length)
+							
+							video_url = data[index][0]
+							pre_show_image_url = data[index][1]
+							
+							banner_obj = document.getElementById("banner")
+							banner_obj.style.cssText = "background: url('" + pre_show_image_url + "') no-repeat; background-size: cover;"
+
+							vvd_banner_obj = document.getElementById("vvd_banner_img")
+
+							vvd_banner_content = "<img id='banner_img_item' src='" + pre_show_image_url + "' style='height: 100%; position: fixed; z-index: -999'>"
+							vvd_banner_obj.innerHTML = vvd_banner_content
+							set_video_attr('banner_img_item')
+
+							if (!isMobile) {
+								video_html_res = "<video id='video_item' style='position: fixed; z-index: -888;'  muted='muted' src=" + video_url + " autoplay='autoplay' loop='loop'></video>"
+								document.getElementById("banner_video_insert").innerHTML = video_html_res;
+								set_video_attr('video_item')
+							}
+						}
+					});
+
+					if (!isMobile){
+						window.onresize = function(){
+							set_video_attr('video_item')
+							}
+						}
+				</script>
+			
+			</div>
+		</div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MySQL-2025热门面试题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="note note-info">
+            <p>最后更新于：2025-08-06 PM</p>
+          </div>
+<h1
+id="innodb引擎中聚簇索引和非聚簇索引区别">InnoDB引擎中聚簇索引和非聚簇索引区别</h1>
+<h3 id="重点回答">重点回答</h3>
+<p>聚簇索引</p>
+<ul>
+<li>叶子节点存储数据行</li>
+<li>聚簇索引就是主键索引，主要用来排序和查询</li>
+</ul>
+<p>非聚簇索引</p>
+<ul>
+<li>叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据</li>
+<li>一个树中非聚簇索引可以有很多</li>
+</ul>
+<h3 id="扩展">扩展</h3>
+<p>以上两种索引方式底层都是通过B+树实现的</p>
+<figure>
+<img src="/img/interview/image-20250801131615750.png" srcset="/img/loading.gif" lazyload
+alt="image-20250801131615750" />
+<figcaption aria-hidden="true">image-20250801131615750</figcaption>
+</figure>
+<p>主键索引</p>
+<ul>
+<li>非叶子节点存储主键和页号</li>
+<li>叶子节点存储完整数据</li>
+<li>叶子节点间通过双向链表链接</li>
+<li>B+树的优点在于可以快速定位页</li>
+</ul>
+<p>非聚簇索引</p>
+<ul>
+<li>区别在于叶子节点存储不同</li>
+</ul>
+<h1 id="mysql回表是什么">MySQL回表是什么</h1>
+<h3 id="概述">概述</h3>
+<p>回表指的是二级索引作为查询条件，由于二级索引存储的是索引的值和对应主键值，无法获得完整数据。如果想要获得完整数据，需要根据主键去聚簇索引查找，这个过程被称为回表</p>
+<h3 id="理解回表">理解回表</h3>
+<p>说白了，假如我想查找age =
+20的人的完整数据，因为age是二次索引，查找出来结果有主键，根据这个主键值去聚簇索引中查找完整数据</p>
+<h3
+id="总结一下什么是回表索引下推索引覆盖">总结一下什么是回表、索引下推、索引覆盖？</h3>
+<h4 id="回表">回表</h4>
+<p>非聚簇索引查询结果不满足目标字段要求，接着去聚簇索引中查找</p>
+<h4 id="索引覆盖">索引覆盖</h4>
+<p>执行查询语句的时候，select查询条件在联合索引中都存在，不会发生回表，因为索引覆盖了</p>
+<h4 id="索引下推">索引下推</h4>
+<p>索引下推就是从原先的根据二级索引查到主键ID回表后再where过滤改为查到数据直接where过滤，再回表，减少回表次数</p>
+<h1 id="mysql存储引擎">MySQL存储引擎</h1>
+<h2 id="重点回答-1">重点回答</h2>
+<p>1）InnoDB</p>
+<p>2）MyISAM</p>
+<p>3）MEMORY</p>
+<p>4）NDB</p>
+<p>5）ARCHIVE</p>
+<p>记一下就可以了，感觉没必要介绍其应用场景等，开发前已经定好的</p>
+<h1 id="mysql索引下推是什么">MySQL索引下推是什么？</h1>
+<h3 id="概述-1">概述</h3>
+<p>索引下推是为了减少回表查询，提高查询效率的技术。在查找数据的时候，可以下推到存储引擎层过滤，减少从表中获取的数据行</p>
+<p><strong>索引下推应用在联合索引上</strong></p>
+<h3 id="举例说明">举例说明</h3>
+<p>针对于联合索引<code>index_name_age</code>，例如有四条数据<code>(李四,18),(李四,30),(李四,50),(李四,80)</code></p>
+<p>假如我们想要查询name = 李四，age &gt; 50的数据</p>
+<p>如果没有索引下推，查询流程是会先查name =
+李四，发现有四条数据，回表数据，接着根据age &gt; 50范围查找</p>
+<p>如果有索引下推，先匹配name = 李四，接着匹配age &gt;
+50，过滤后，根据主键索引进行回表</p>
+<h1 id="mysql索引向左匹配原则">MySQL索引向左匹配原则</h1>
+<h3 id="什么是索引向左匹配原则">什么是索引向左匹配原则？</h3>
+<p>向左匹配原则指的是，在复合索引中，查询条件按照索引列的顺序从左向右进行逐一匹配，只有当查询条件按照索引列的顺序去匹配，才可以正常使用索引</p>
+<p><strong>如何创建复合索引，复合索引SQL语句是什么？</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_employee_name <span class="hljs-keyword">ON</span> employees (last_name, first_name);<br></code></pre></td></tr></table></figure>
+<h3
+id="举例说明复合索引在查询时遵循向左匹配情况">举例说明，复合索引在查询时遵循向左匹配情况？</h3>
+<p>复合索引<code>(name,age,sex)</code>，查询语句如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span> <span class="hljs-keyword">and</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
+<p>如果不按照索引顺序查询呢</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>正常来说以上情况是不符合最左匹配原则的，MySQL是无法使用复合索引的。但是现在MySQL存在优化器，会自动为你调整顺序，仍然可以使用</p>
+<h3 id="如何优化复合索引的慢查询">如何优化复合索引的慢查询</h3>
+<p>可以使用EXPLAIN语句来查看查询计划，确定是否正确使用索引。如果没有充分使用索引，判断是否违背最左匹配原则，调整顺序。其他优化策略包括限制返回行数，覆盖索引优化(确保查询只返回要的索引)</p>
+<h3 id="扩展explain语句">扩展：Explain语句</h3>
+<h4 id="概述-2">概述</h4>
+<blockquote>
+<p>EXPLAIN主要是用来分析MySQL查询的工具，通过它可以判断MySQL如何查询，查看哪些索引被用了，查询执行顺序等</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXPLAIN <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>返回结果</p>
+<figure>
+<img src="/img/interview/image-20250801113420840.png" srcset="/img/loading.gif" lazyload
+alt="image-20250801113420840" />
+<figcaption aria-hidden="true">image-20250801113420840</figcaption>
+</figure>
+<h1
+id="mysql索引数量是否越多越好为什么">MySQL索引数量是否越多越好，为什么？</h1>
+<p>并不是，索引多的也是会有一定成本的，主要分为两个维度</p>
+<p>1）从时间上</p>
+<p>当我们对表中的数据进行增删改查，索引也会随之更新，比如我们删除一条年龄等于20的记录，主键索引会发生改变，如果age字段有索引，那么age索引也要发生改变，可能还会出现B+树页分裂等问题，造成时间开销大的问题</p>
+<p>2）从空间上</p>
+<p>每一次创建普通索引后，都会新建一个B+树，每一个数据页大小为16KB，当插入数据量多的话占用空间也多</p>
+<h1 id="mysql索引类型有哪些">MySQL索引类型有哪些？</h1>
+<h2 id="分类">分类</h2>
+<p>数据结构视角，索引主要分为以下几类</p>
+<ul>
+<li>B+树索引：InnoDB和MyISAM常用索引数据结构</li>
+<li>哈希索引：Memory引擎</li>
+<li>倒排索引：全文搜索、模糊匹配、关键字搜索</li>
+<li>R-树索引：多维空间</li>
+</ul>
+<p>基于InnoDB B+树索引角度看</p>
+<ul>
+<li>聚簇索引：InnoDB主键索引就是聚簇索引。基于主键排序存储，叶子节点存储完整数据行数据</li>
+<li>非聚簇索引：非主键索引，叶子节点保存索引字段和主键的值</li>
+</ul>
+<p>索引性质来看</p>
+<ul>
+<li>普通索引(二级索引)：非主键索引和非唯一索引</li>
+<li>主键索引：每个表都有唯一索引</li>
+<li>联合索引：多列组成</li>
+<li>唯一索引：防止重复数据插入</li>
+<li>全文索引：全文搜索</li>
+<li>空间索引：地理位置查询</li>
+</ul>
+<h2 id="sql示例">SQL示例</h2>
+<p>主键索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> users (<br>    id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,<br>    username <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    password <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    <span class="hljs-keyword">PRIMARY</span> KEY(id)<br>);<br><br></code></pre></td></tr></table></figure>
+<p>唯一索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> INDEX idx_username <span class="hljs-keyword">ON</span> users(username);<br></code></pre></td></tr></table></figure>
+<p>普通索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username <span class="hljs-keyword">ON</span> users(username);<br></code></pre></td></tr></table></figure>
+<p>全文索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> FULLTEXT INDEX idx_content <span class="hljs-keyword">ON</span> articles(content);<br></code></pre></td></tr></table></figure>
+<p>联合索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username_email <span class="hljs-keyword">ON</span> users(username, email);<br></code></pre></td></tr></table></figure>
+<p>哈希索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username_hash <span class="hljs-keyword">ON</span> users(username) <span class="hljs-keyword">USING</span> HASH;<br></code></pre></td></tr></table></figure>
+<p>空间索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> SPATIAL INDEX idx_location <span class="hljs-keyword">ON</span> places(location);<br></code></pre></td></tr></table></figure>
+<h1 id="mysql覆盖索引">MySQL覆盖索引</h1>
+<h3 id="概述-3">概述</h3>
+<p>覆盖索引指的是二级索引被包含于联合索引中的所有列，从而使查询的时候可以通过二级索引而不用访问主键索引</p>
+<h3 id="示例代码">示例代码</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> employees (<br>    emp_id <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY,<br>    first_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    last_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    hire_date <span class="hljs-type">DATE</span>,<br>    department_id <span class="hljs-type">INT</span>,<br>    INDEX idx_name_hiredate (last_name, first_name, hire_date)<br>);<br><br></code></pre></td></tr></table></figure>
+<p>查询的时候查索引包含的字段，这种情况就可以使用覆盖索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
+<p>以下这种，查询了不属于联合索引中的字段，不可以使用覆盖索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date, department_id <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
+<h1
+id="数据库中脏读不可重复读幻读是什么">数据库中脏读、不可重复读、幻读是什么？</h1>
+<h2 id="重点介绍">重点介绍</h2>
+<p>1）脏读</p>
+<p>一个事务读取到另一个未提交事务中的数据</p>
+<p>2）不可重复读</p>
+<p>一个事务多次读取同一数据，其间另一个事务对这条数据发生修改，导致读到了不同的数据</p>
+<p>3）幻读</p>
+<p>一个事务多次查询符合条件的记录数量，两次读到的数量不同</p>
+<h2 id="扩展-1">扩展</h2>
+<h3 id="四种隔离级别分别是什么">四种隔离级别分别是什么？</h3>
+<table>
+
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>未提交事务他人可见，存在脏读风险</td>
+</tr>
+<tr>
+<td>读已提交</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>只能读已提交的，解决脏读问题，但是有不可重复读和幻读的问题</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>MySQL默认隔离级别，解决不可重复读问题，有幻读问题</td>
+</tr>
+<tr>
+<td>串行读</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>牺牲性能，避免所有问题</td>
+</tr>
+</tbody>
+</table>
+<h2 id="细嗦">细嗦</h2>
+<h3 id="脏读">脏读</h3>
+<p>一个事务读取到另一个未提交事务中的数据，当另一个事务发生回滚操作，导致最初事务读到了不存在的数据</p>
+<h4 id="发生的场景">发生的场景</h4>
+<ul>
+<li>事务隔离级别为：READ NOCOMMITED (读未提交)</li>
+</ul>
+<figure>
+<img src="/img/interview/image-20250801115323798.png" srcset="/img/loading.gif" lazyload
+alt="image-20250801115323798" />
+<figcaption aria-hidden="true">image-20250801115323798</figcaption>
+</figure>
+<p>解决方法：将事务隔离级别提升为读已提交</p>
+<h3 id="不可重复读">不可重复读</h3>
+<p>事务隔离级别为读已提交，解决脏读，数据发生发生改动，不可重复读出现</p>
+<h3 id="幻读">幻读</h3>
+<p>事务隔离级别为读以提交，由于事务插入或删除事务导致结果数量不一致</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/MySQL/%E5%85%AB%E8%82%A1/" class="category-chain-item">八股</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%85%AB%E8%82%A1/" class="print-no-link">#八股</a>
+      
+        <a href="/tags/MySQL/" class="print-no-link">#MySQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MySQL-2025热门面试题</div>
+      <div>https://korinall.github.io/2025/08/06/MySQL-2025热门面试题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>KotRin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/06/Java-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Java-2025热门面试题">
+                        <span class="hidden-mobile">Java-2025热门面试题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline2-peach.vercel.app/","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <div id="tooltip-rightmenu" class="tooltip-rightmenu">如需原始右键菜单请按下 <strong>Ctrl+右键</strong></div>
+
+<div id="rightmenu-wrapper" style="">
+  <ul class="list-v rightmenu" id="rightmenu-content">
+	  <li class="navigation menuNavigation-Content">
+		<a class="nav icon-only fix-cursor-default" onclick="history.back()"><i class="iconfont icon-zuojiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="history.forward()"><i class="iconfont icon-youjiantou1"></i></a>
+		<a class="nav icon-only fix-cursor-default" onclick="window.location.reload()"><i class="iconfont icon-shuaxin"></i></a>
+		<a  aria-label="TOP" href="#" role="button"><i class="iconfont icon-xiangshang"></i></a>
+	  </li>
+
+		<hr class="menuLoad-Content" style="display: block;">
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+		  <span>
+			  <i class="iconfont icon-sousuo1 rightmenu-icon"></i>
+			  站内搜索
+		  </span>
+		</a>
+	  </li>
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default"  target="_blank" rel="noopener" href="https://www.zywvvd.com/messagebd/" data-group="link">
+		  <span>
+			  <i class="iconfont icon-yangshi_icon_tongyong_chat rightmenu-icon">  </i>
+			   留言吐槽 
+		   </span>
+		</a>
+	  </li>
+
+
+	  <li class="menuLoad-Content" style="display: block;">
+		<a class="vlts-menu fix-cursor-default" id="help" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html" data-group="link">
+		<span>
+			  <i class="iconfont icon-a-BlackHole rightmenu-icon"></i>
+			  虫洞穿梭
+		  </span>
+		</a>
+	  </li>
+
+	<a id="scroll-top-button" aria-label="TOP" href="#" role="button" style="bottom: 20px; right: 52.6364px;">
+        <i class="iconfont icon-xiangshangjiantou" aria-hidden="true"></i>
+      </a>
+
+	<hr class="menuLoad-Content" style="display: block;">
+	
+
+  </ul>
+</div>
+
+<link href="/css/custom.css"type="text/css"rel="stylesheet"/>
+<script src="/js/right_menu.js" type="text/javascript"></script>
+<link href="/css/right_menu.css"type="text/css"rel="stylesheet"/>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/go.js"></script><!-- hexo injector body_end end --></body>
+</html>
