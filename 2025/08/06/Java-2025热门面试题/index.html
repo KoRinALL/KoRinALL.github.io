@@ -498,10 +498,10 @@ document.addEventListener("readystatechange", function() {
                 <div class="note note-info">
             <p>最后更新于：2025-08-06 PM</p>
           </div>
-<h1 id="序列化和反序列化">序列化和反序列化</h1>
+<h1>序列化和反序列化</h1>
 <p>1）序列化：Java对象转化为字节序列格式，方便网络传输</p>
 <p>2）反序列化：字节序列格式转化为Java对象</p>
-<h1 id="不可变类">不可变类</h1>
+<h1>不可变类</h1>
 <h3 id="概述">概述</h3>
 <p>一旦被定义就无法发生修改</p>
 <h3 id="特征">特征</h3>
@@ -519,40 +519,28 @@ document.addEventListener("readystatechange", function() {
 <li>不可变对象缓存共享安全</li>
 <li>保证状态统一</li>
 </ul>
-<h3 id="举例string">举例～String</h3>
-<p>String是一个不可变类，在我们创建一个String对象<code>String a = "nihao"</code>，a无法发生修改</p>
-<p>当我们使用<code>a + "abcdefg"</code>，它会创建一个新String对象，存储拼接后的值，先前的a指向的还是老对象，只不过引用指向了新对象</p>
+<h3 id="举例～String">举例～String</h3>
+<p>String是一个不可变类，在我们创建一个String对象<code>String a = &quot;nihao&quot;</code>，a无法发生修改</p>
+<p>当我们使用<code>a + &quot;abcdefg&quot;</code>，它会创建一个新String对象，存储拼接后的值，先前的a指向的还是老对象，只不过引用指向了新对象</p>
 <p>所以不建议频繁拼接，对象一堆谁也不乐意看</p>
-<h3 id="探究string的本质">探究String的本质</h3>
+<h3 id="探究String的本质">探究String的本质</h3>
 <p>String本质上就是一个字符数组，final修饰，表示无法继承</p>
 <p>但是数组内部还是可以发生改变</p>
-<figure>
-<img src="/img/interview/image-20250806132658654.png" srcset="/img/loading.gif" lazyload
-alt="image-20250806132658654" />
-<figcaption aria-hidden="true">image-20250806132658654</figcaption>
-</figure>
+<p><img src="/img/interview/image-20250806132658654.png" srcset="/img/loading.gif" lazyload alt="image-20250806132658654"></p>
 <p>接着使用private修饰，不对外暴露setter方法，这样外部就真的无法修改了</p>
 <p>当然如果有修改需求，replace方法就是一个很好的模范，需要创建新对象</p>
-<figure>
-<img src="/img/interview/image-20250806133109656.png" srcset="/img/loading.gif" lazyload
-alt="image-20250806133109656" />
-<figcaption aria-hidden="true">image-20250806133109656</figcaption>
-</figure>
+<p><img src="/img/interview/image-20250806133109656.png" srcset="/img/loading.gif" lazyload alt="image-20250806133109656"></p>
 <p>replace方法无疑不是拷贝老字符数组到新字符数组里，最后创建新对象</p>
-<h1 id="java中有哪些集合">Java中有哪些集合？</h1>
+<h1>Java中有哪些集合？</h1>
 <h3 id="分类">分类</h3>
 <p>集合分为两大类</p>
 <ul>
 <li>Collection集合：存储对象集合</li>
 <li>Map集合：存储键值对集合</li>
 </ul>
-<figure>
-<img src="/img/interview/image-20250729140017204.png" srcset="/img/loading.gif" lazyload
-alt="image-20250729140017204" />
-<figcaption aria-hidden="true">image-20250729140017204</figcaption>
-</figure>
+<p><img src="/img/interview/image-20250729140017204.png" srcset="/img/loading.gif" lazyload alt="image-20250729140017204"></p>
 <p>Collection接口分为List、Set、Queue接口</p>
-<h3 id="collection接口">Collection接口</h3>
+<h3 id="Collection接口">Collection接口</h3>
 <p>List接口</p>
 <ul>
 <li>ArrayList：动态数组</li>
@@ -578,10 +566,10 @@ alt="image-20250729140017204" />
 <li>Hashtable：线程安全哈希表，不允许键或值为null</li>
 <li>ConcurrentHashMap：线程安全，适合高并发环境，不允许键或值为null</li>
 </ul>
-<h1 id="什么是java中的双亲委派模型">什么是Java中的双亲委派模型</h1>
+<h1>什么是Java中的双亲委派模型</h1>
 <h3 id="核心流程">核心流程</h3>
 <p>双亲委派模型指的是对某一个类类加载的时候，会先委派给其父加载器去加载，如果发现父加载器无法加载，再由当前类加载器加载(这个委派的过程是逐层向上的)</p>
-<h3 id="分类-1">分类</h3>
+<h3 id="分类-2">分类</h3>
 <p>JDK9前，Java主要类加载器可以分为3类</p>
 <p>1）启动类加载器</p>
 <p>2）扩展类加载器</p>
@@ -593,10 +581,10 @@ alt="image-20250729140017204" />
 <p>所以说好处主要包含</p>
 <p>1）可以避免重复加载类，Object类只能由根加载器加载，防止加载恶意代码</p>
 <p>2）确保一个类在JVM中只能加载一次</p>
-<h3 id="有没有违反双亲委派的例子">有没有违反双亲委派的例子？</h3>
+<h3 id="有没有违反双亲委派的例子？">有没有违反双亲委派的例子？</h3>
 <p>答案是JDBC</p>
 <p>JDBC接口由类库定义，但是实现是各大数据库厂商提供的jar包，启动类加载器是找不到这个类的，需要使用应用程序加载器，违反自下而上</p>
-<h1 id="java的类加载过程是什么">Java的类加载过程是什么？</h1>
+<h1>Java的类加载过程是什么？</h1>
 <h3 id="类加载的本质">类加载的本质</h3>
 <blockquote>
 <p>本质是为了将类加载到JVM中，先将其转化为二进制流后加载到内存中，经过解析转化为可以使用的class类</p>
@@ -605,33 +593,45 @@ alt="image-20250729140017204" />
 <p>1）加载：通过类加载器将类文件加载到内存中，生成class对象</p>
 <p>2）连接：又可以分为三个字阶段<code>验证</code>、<code>准备</code>、<code>解析</code>，校验class文件是否合法、为静态变量划分内存空间</p>
 <p>3）初始化：整合静态变量和静态代码块初始化操作执行</p>
-<h1 id="jdk8有哪些新特性">JDK8有哪些新特性</h1>
+<h1>JDK8有哪些新特性</h1>
 <h3 id="新增特性">新增特性</h3>
 <ul>
-<li><p>Lambda表达式</p></li>
-<li><p>Stream流式接口</p></li>
-<li><p>Optional类</p></li>
-<li><p>并发类：CompletableFuture、StampedLock</p>
+<li>
+<p>Lambda表达式</p>
+</li>
+<li>
+<p>Stream流式接口</p>
+</li>
+<li>
+<p>Optional类</p>
+</li>
+<li>
+<p>并发类：CompletableFuture、StampedLock</p>
 <blockquote>
 <p>拓展：HashMap、ConcurrentHashMap，可以和面试官拉扯</p>
-</blockquote></li>
-<li><p>更NB的日期类等</p></li>
-<li><p>元空间替代永久代</p></li>
+</blockquote>
+</li>
+<li>
+<p>更NB的日期类等</p>
+</li>
+<li>
+<p>元空间替代永久代</p>
+</li>
 </ul>
 <h4 id="元空间相比于永久代">元空间相比于永久代</h4>
 <p>元空间很灵活、扩展性强，它可以调整固定大小限制，数据也可以存储本地内存，不受Java堆限制，满足各种应用程序需求</p>
-<h1 id="jdk动态代理和cglib代理区别">JDK动态代理和CGLIB代理区别？</h1>
+<h1>JDK动态代理和CGLIB代理区别？</h1>
 <p>JDK动态代理基于接口，代理类需要定义接口</p>
 <p>CGLIB基于ASM字节码生成工具，通过继承，生成目标类的字类来实现代理类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.muzi.Structural.proxy.staticProxy;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DatabaseDataQueryProxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">DataQuery</span> &#123;<br>    <span class="hljs-comment">//实现缓存，使用HashMap</span><br>    Map&lt;String,String&gt; cacheMap =<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-comment">//创建持有代理对象</span><br>    <span class="hljs-keyword">private</span> DatabaseDataQuery dataQuery;<br>    <span class="hljs-comment">//1屏蔽代理对象</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">DatabaseDataQueryProxy</span><span class="hljs-params">( )</span> &#123;<br>        <span class="hljs-built_in">this</span>.dataQuery = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatabaseDataQuery</span>();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-comment">//2 对代理对象的方法做增强</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">query</span><span class="hljs-params">(String queryKey)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> cacheMap.get(queryKey);<br>        <span class="hljs-comment">//查询缓存，命中则返回</span><br>        <span class="hljs-keyword">if</span> (s!=<span class="hljs-literal">null</span>)&#123;<br>            System.out.println(<span class="hljs-string">&quot;命中缓存，返回结果&quot;</span>);<br>            <span class="hljs-keyword">return</span> s;<br>        &#125;<br>        <span class="hljs-comment">//查询数据库</span><br>        s=dataQuery.query(queryKey);<br>        <span class="hljs-comment">//查到结果返回并放入缓存</span><br>        <span class="hljs-keyword">if</span> (s!=<span class="hljs-literal">null</span>)&#123;<br>            cacheMap.put(queryKey,s);<br>        &#125;<br>        System.out.println(<span class="hljs-string">&quot;未命中，查询数据库&quot;</span>);<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>观察上述代码，我们就发现静态代理是在编译的时候就进行了代理操作，而动态代理是在运行的时候进行的</p>
-<h1 id="什么是java中的spi">什么是Java中的SPI？</h1>
+<h1>什么是Java中的SPI？</h1>
 <p><strong>这里可以拿API和SPI进行对比</strong></p>
-<h3 id="spi">SPI</h3>
+<h3 id="SPI">SPI</h3>
 <p>接口和调用方已经写好，开发者可以扩展</p>
-<h3 id="api">API</h3>
+<h3 id="API">API</h3>
 <p>接口和实现的方法已经写好，别人可以直接拿来用里面方法实现方法</p>
-<h1 id="数组和链表在java中的区别">数组和链表在Java中的区别</h1>
+<h1>数组和链表在Java中的区别</h1>
 <h3 id="存储结构">存储结构</h3>
 <p>数组属于连续的内存块，每一块大小固定，想要改变数组大小需要重新分配内存</p>
 <p>链表基于节点，可以动态插入和删除，内存不连续但可以动态扩展</p>
@@ -644,41 +644,47 @@ alt="image-20250729140017204" />
 <h3 id="应用场景">应用场景</h3>
 <p>数组针对于大小固定、快速访问，实现缓存等数据结构</p>
 <p>链表针对于操作，例如栈、队列等</p>
-<h1 id="java1.8对hashmap的红黑树改动">Java1.8对HashMap的红黑树改动</h1>
+<h1>Java1.8对HashMap的红黑树改动</h1>
 <p>引入HashMap核心目的是为了解决哈希冲突带来的查询效率问题，JDK1.8之前使用链表解决哈希冲突，而后替换为红黑树查找性能稳定</p>
-<h3 id="哈希冲突带来的问题">1、哈希冲突带来的问题</h3>
+<h3 id="1、哈希冲突带来的问题">1、哈希冲突带来的问题</h3>
 <p>当多个键哈希值映射到同一个桶中，发生哈希冲突。冲突后以链表形式存储，后期当元素多了，HashMap查找、删除时间复杂度可能会变为O(n)</p>
-<h3 id="红黑树引入">2、红黑树引入</h3>
+<h3 id="2、红黑树引入">2、红黑树引入</h3>
 <p>当链表元素超过8个的时候，链表转化为红黑树</p>
 <ul>
 <li>链表查询时间复杂度是O(n)</li>
 <li>红黑树查找复杂度O(logn)</li>
 </ul>
-<h3 id="为什么选择红黑树">3、为什么选择红黑树</h3>
+<h3 id="3、为什么选择红黑树">3、为什么选择红黑树</h3>
 <ul>
-<li><p>自平衡：删除和查找元素的同时维持树的平衡，最坏情况下时间复杂度为O(logn)</p></li>
-<li><p>维护成本低：针对于插入和查询操作自我调整，开销低</p></li>
-<li><p>适合动态场景</p></li>
+<li>
+<p>自平衡：删除和查找元素的同时维持树的平衡，最坏情况下时间复杂度为O(logn)</p>
+</li>
+<li>
+<p>维护成本低：针对于插入和查询操作自我调整，开销低</p>
+</li>
+<li>
+<p>适合动态场景</p>
+</li>
 </ul>
-<h1
-id="jdk1.8对hashmap除了红黑树还有什么改动">JDK1.8对HashMap除了红黑树还有什么改动</h1>
-<h3 id="头插法改尾插法">1、头插法改尾插法</h3>
+<h1>JDK1.8对HashMap除了红黑树还有什么改动</h1>
+<h3 id="1、头插法改尾插法">1、头插法改尾插法</h3>
 <ul>
 <li>避免扩容死循环</li>
 </ul>
-<h3 id="扩容机制优化">2、扩容机制优化</h3>
-<h4
-id="会重新计算元素hash值rehash">2、1会重新计算元素hash值(rehash)</h4>
+<h3 id="2、扩容机制优化">2、扩容机制优化</h3>
+<h4 id="2、1会重新计算元素hash值-rehash">2、1会重新计算元素hash值(rehash)</h4>
 <ul>
 <li>1.7会重新计算元素hash值
 <ul>
 <li>rehash扩容数组长度为原来的2倍</li>
-</ul></li>
+</ul>
+</li>
 <li>1.8不会重新计算，使用hash &amp; oldCap，判断高位时1还是0
 <ul>
 <li>如果是1，新位置 = oldCap + 旧数组下标</li>
 <li>如果是0，新位置下标就是老位置下标</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>3、Hash计算改进</p>
 <ul>
@@ -782,9 +788,9 @@ id="会重新计算元素hash值rehash">2、1会重新计算元素hash值(rehash
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/06/MySQL-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="MySQL-2025热门面试题">
+                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MySQL-2025热门面试题</span>
+                        <span class="hidden-mobile">数据结构详解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -814,7 +820,7 @@ id="会重新计算元素hash值rehash">2、1会重新计算元素hash值(rehash
       Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
       Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
         var options = Object.assign(
-          {"serverURL":"https://waline2-peach.vercel.app/","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {"serverURL":"https://waline2-3l7y6fw8u-korinalls-projects.vercel.app","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
           {
             el: '#waline',
             path: window.location.pathname

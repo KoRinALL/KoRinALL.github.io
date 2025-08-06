@@ -38,12 +38,12 @@ document.addEventListener("readystatechange", function() {
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的   image-2025">
+    <meta name="description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的  主键索引  非叶子节点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL-2025热门面试题">
 <meta property="og:url" content="https://korinall.github.io/2025/08/06/MySQL-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="岚码集隅">
-<meta property="og:description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的   image-2025">
+<meta property="og:description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的  主键索引  非叶子节点">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
 <meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801113420840.png">
@@ -51,8 +51,8 @@ document.addEventListener("readystatechange", function() {
 <meta property="article:published_time" content="2025-08-06T11:02:54.000Z">
 <meta property="article:modified_time" content="2025-08-06T10:13:40.759Z">
 <meta property="article:author" content="KotRin">
-<meta property="article:tag" content="八股">
 <meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="八股">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
   
@@ -499,8 +499,7 @@ document.addEventListener("readystatechange", function() {
                 <div class="note note-info">
             <p>最后更新于：2025-08-06 PM</p>
           </div>
-<h1
-id="innodb引擎中聚簇索引和非聚簇索引区别">InnoDB引擎中聚簇索引和非聚簇索引区别</h1>
+<h1>InnoDB引擎中聚簇索引和非聚簇索引区别</h1>
 <h3 id="重点回答">重点回答</h3>
 <p>聚簇索引</p>
 <ul>
@@ -514,11 +513,7 @@ id="innodb引擎中聚簇索引和非聚簇索引区别">InnoDB引擎中聚簇�
 </ul>
 <h3 id="扩展">扩展</h3>
 <p>以上两种索引方式底层都是通过B+树实现的</p>
-<figure>
-<img src="/img/interview/image-20250801131615750.png" srcset="/img/loading.gif" lazyload
-alt="image-20250801131615750" />
-<figcaption aria-hidden="true">image-20250801131615750</figcaption>
-</figure>
+<p><img src="/img/interview/image-20250801131615750.png" srcset="/img/loading.gif" lazyload alt="image-20250801131615750"></p>
 <p>主键索引</p>
 <ul>
 <li>非叶子节点存储主键和页号</li>
@@ -530,46 +525,41 @@ alt="image-20250801131615750" />
 <ul>
 <li>区别在于叶子节点存储不同</li>
 </ul>
-<h1 id="mysql回表是什么">MySQL回表是什么</h1>
+<h1>MySQL回表是什么</h1>
 <h3 id="概述">概述</h3>
 <p>回表指的是二级索引作为查询条件，由于二级索引存储的是索引的值和对应主键值，无法获得完整数据。如果想要获得完整数据，需要根据主键去聚簇索引查找，这个过程被称为回表</p>
 <h3 id="理解回表">理解回表</h3>
-<p>说白了，假如我想查找age =
-20的人的完整数据，因为age是二次索引，查找出来结果有主键，根据这个主键值去聚簇索引中查找完整数据</p>
-<h3
-id="总结一下什么是回表索引下推索引覆盖">总结一下什么是回表、索引下推、索引覆盖？</h3>
+<p>说白了，假如我想查找age = 20的人的完整数据，因为age是二次索引，查找出来结果有主键，根据这个主键值去聚簇索引中查找完整数据</p>
+<h3 id="总结一下什么是回表、索引下推、索引覆盖？">总结一下什么是回表、索引下推、索引覆盖？</h3>
 <h4 id="回表">回表</h4>
 <p>非聚簇索引查询结果不满足目标字段要求，接着去聚簇索引中查找</p>
 <h4 id="索引覆盖">索引覆盖</h4>
 <p>执行查询语句的时候，select查询条件在联合索引中都存在，不会发生回表，因为索引覆盖了</p>
 <h4 id="索引下推">索引下推</h4>
 <p>索引下推就是从原先的根据二级索引查到主键ID回表后再where过滤改为查到数据直接where过滤，再回表，减少回表次数</p>
-<h1 id="mysql存储引擎">MySQL存储引擎</h1>
-<h2 id="重点回答-1">重点回答</h2>
+<h1>MySQL存储引擎</h1>
+<h2 id="重点回答-2">重点回答</h2>
 <p>1）InnoDB</p>
 <p>2）MyISAM</p>
 <p>3）MEMORY</p>
 <p>4）NDB</p>
 <p>5）ARCHIVE</p>
 <p>记一下就可以了，感觉没必要介绍其应用场景等，开发前已经定好的</p>
-<h1 id="mysql索引下推是什么">MySQL索引下推是什么？</h1>
-<h3 id="概述-1">概述</h3>
+<h1>MySQL索引下推是什么？</h1>
+<h3 id="概述-2">概述</h3>
 <p>索引下推是为了减少回表查询，提高查询效率的技术。在查找数据的时候，可以下推到存储引擎层过滤，减少从表中获取的数据行</p>
 <p><strong>索引下推应用在联合索引上</strong></p>
 <h3 id="举例说明">举例说明</h3>
 <p>针对于联合索引<code>index_name_age</code>，例如有四条数据<code>(李四,18),(李四,30),(李四,50),(李四,80)</code></p>
 <p>假如我们想要查询name = 李四，age &gt; 50的数据</p>
-<p>如果没有索引下推，查询流程是会先查name =
-李四，发现有四条数据，回表数据，接着根据age &gt; 50范围查找</p>
-<p>如果有索引下推，先匹配name = 李四，接着匹配age &gt;
-50，过滤后，根据主键索引进行回表</p>
-<h1 id="mysql索引向左匹配原则">MySQL索引向左匹配原则</h1>
-<h3 id="什么是索引向左匹配原则">什么是索引向左匹配原则？</h3>
+<p>如果没有索引下推，查询流程是会先查name = 李四，发现有四条数据，回表数据，接着根据age &gt; 50范围查找</p>
+<p>如果有索引下推，先匹配name = 李四，接着匹配age &gt; 50，过滤后，根据主键索引进行回表</p>
+<h1>MySQL索引向左匹配原则</h1>
+<h3 id="什么是索引向左匹配原则？">什么是索引向左匹配原则？</h3>
 <p>向左匹配原则指的是，在复合索引中，查询条件按照索引列的顺序从左向右进行逐一匹配，只有当查询条件按照索引列的顺序去匹配，才可以正常使用索引</p>
 <p><strong>如何创建复合索引，复合索引SQL语句是什么？</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_employee_name <span class="hljs-keyword">ON</span> employees (last_name, first_name);<br></code></pre></td></tr></table></figure>
-<h3
-id="举例说明复合索引在查询时遵循向左匹配情况">举例说明，复合索引在查询时遵循向左匹配情况？</h3>
+<h3 id="举例说明，复合索引在查询时遵循向左匹配情况？">举例说明，复合索引在查询时遵循向左匹配情况？</h3>
 <p>复合索引<code>(name,age,sex)</code>，查询语句如下</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span> <span class="hljs-keyword">and</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
 <p>如果不按照索引顺序查询呢</p>
@@ -577,26 +567,21 @@ id="举例说明复合索引在查询时遵循向左匹配情况">举例说明�
 <p>正常来说以上情况是不符合最左匹配原则的，MySQL是无法使用复合索引的。但是现在MySQL存在优化器，会自动为你调整顺序，仍然可以使用</p>
 <h3 id="如何优化复合索引的慢查询">如何优化复合索引的慢查询</h3>
 <p>可以使用EXPLAIN语句来查看查询计划，确定是否正确使用索引。如果没有充分使用索引，判断是否违背最左匹配原则，调整顺序。其他优化策略包括限制返回行数，覆盖索引优化(确保查询只返回要的索引)</p>
-<h3 id="扩展explain语句">扩展：Explain语句</h3>
-<h4 id="概述-2">概述</h4>
+<h3 id="扩展：Explain语句">扩展：Explain语句</h3>
+<h4 id="概述-3">概述</h4>
 <blockquote>
 <p>EXPLAIN主要是用来分析MySQL查询的工具，通过它可以判断MySQL如何查询，查看哪些索引被用了，查询执行顺序等</p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXPLAIN <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>返回结果</p>
-<figure>
-<img src="/img/interview/image-20250801113420840.png" srcset="/img/loading.gif" lazyload
-alt="image-20250801113420840" />
-<figcaption aria-hidden="true">image-20250801113420840</figcaption>
-</figure>
-<h1
-id="mysql索引数量是否越多越好为什么">MySQL索引数量是否越多越好，为什么？</h1>
+<p><img src="/img/interview/image-20250801113420840.png" srcset="/img/loading.gif" lazyload alt="image-20250801113420840"></p>
+<h1>MySQL索引数量是否越多越好，为什么？</h1>
 <p>并不是，索引多的也是会有一定成本的，主要分为两个维度</p>
 <p>1）从时间上</p>
 <p>当我们对表中的数据进行增删改查，索引也会随之更新，比如我们删除一条年龄等于20的记录，主键索引会发生改变，如果age字段有索引，那么age索引也要发生改变，可能还会出现B+树页分裂等问题，造成时间开销大的问题</p>
 <p>2）从空间上</p>
 <p>每一次创建普通索引后，都会新建一个B+树，每一个数据页大小为16KB，当插入数据量多的话占用空间也多</p>
-<h1 id="mysql索引类型有哪些">MySQL索引类型有哪些？</h1>
+<h1>MySQL索引类型有哪些？</h1>
 <h2 id="分类">分类</h2>
 <p>数据结构视角，索引主要分为以下几类</p>
 <ul>
@@ -619,7 +604,7 @@ id="mysql索引数量是否越多越好为什么">MySQL索引数量是否越多�
 <li>全文索引：全文搜索</li>
 <li>空间索引：地理位置查询</li>
 </ul>
-<h2 id="sql示例">SQL示例</h2>
+<h2 id="SQL示例">SQL示例</h2>
 <p>主键索引</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> users (<br>    id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,<br>    username <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    password <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    <span class="hljs-keyword">PRIMARY</span> KEY(id)<br>);<br><br></code></pre></td></tr></table></figure>
 <p>唯一索引</p>
@@ -634,8 +619,8 @@ id="mysql索引数量是否越多越好为什么">MySQL索引数量是否越多�
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username_hash <span class="hljs-keyword">ON</span> users(username) <span class="hljs-keyword">USING</span> HASH;<br></code></pre></td></tr></table></figure>
 <p>空间索引</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> SPATIAL INDEX idx_location <span class="hljs-keyword">ON</span> places(location);<br></code></pre></td></tr></table></figure>
-<h1 id="mysql覆盖索引">MySQL覆盖索引</h1>
-<h3 id="概述-3">概述</h3>
+<h1>MySQL覆盖索引</h1>
+<h3 id="概述-4">概述</h3>
 <p>覆盖索引指的是二级索引被包含于联合索引中的所有列，从而使查询的时候可以通过二级索引而不用访问主键索引</p>
 <h3 id="示例代码">示例代码</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> employees (<br>    emp_id <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY,<br>    first_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    last_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    hire_date <span class="hljs-type">DATE</span>,<br>    department_id <span class="hljs-type">INT</span>,<br>    INDEX idx_name_hiredate (last_name, first_name, hire_date)<br>);<br><br></code></pre></td></tr></table></figure>
@@ -643,8 +628,7 @@ id="mysql索引数量是否越多越好为什么">MySQL索引数量是否越多�
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
 <p>以下这种，查询了不属于联合索引中的字段，不可以使用覆盖索引</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date, department_id <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
-<h1
-id="数据库中脏读不可重复读幻读是什么">数据库中脏读、不可重复读、幻读是什么？</h1>
+<h1>数据库中脏读、不可重复读、幻读是什么？</h1>
 <h2 id="重点介绍">重点介绍</h2>
 <p>1）脏读</p>
 <p>一个事务读取到另一个未提交事务中的数据</p>
@@ -652,10 +636,9 @@ id="数据库中脏读不可重复读幻读是什么">数据库中脏读、不�
 <p>一个事务多次读取同一数据，其间另一个事务对这条数据发生修改，导致读到了不同的数据</p>
 <p>3）幻读</p>
 <p>一个事务多次查询符合条件的记录数量，两次读到的数量不同</p>
-<h2 id="扩展-1">扩展</h2>
-<h3 id="四种隔离级别分别是什么">四种隔离级别分别是什么？</h3>
+<h2 id="扩展-2">扩展</h2>
+<h3 id="四种隔离级别分别是什么？">四种隔离级别分别是什么？</h3>
 <table>
-
 <thead>
 <tr>
 <th>隔离级别</th>
@@ -703,11 +686,7 @@ id="数据库中脏读不可重复读幻读是什么">数据库中脏读、不�
 <ul>
 <li>事务隔离级别为：READ NOCOMMITED (读未提交)</li>
 </ul>
-<figure>
-<img src="/img/interview/image-20250801115323798.png" srcset="/img/loading.gif" lazyload
-alt="image-20250801115323798" />
-<figcaption aria-hidden="true">image-20250801115323798</figcaption>
-</figure>
+<p><img src="/img/interview/image-20250801115323798.png" srcset="/img/loading.gif" lazyload alt="image-20250801115323798"></p>
 <p>解决方法：将事务隔离级别提升为读已提交</p>
 <h3 id="不可重复读">不可重复读</h3>
 <p>事务隔离级别为读已提交，解决脏读，数据发生发生改动，不可重复读出现</p>
@@ -753,9 +732,9 @@ alt="image-20250801115323798" />
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%85%AB%E8%82%A1/" class="print-no-link">#八股</a>
-      
         <a href="/tags/MySQL/" class="print-no-link">#MySQL</a>
+      
+        <a href="/tags/%E5%85%AB%E8%82%A1/" class="print-no-link">#八股</a>
       
     </div>
   
@@ -812,18 +791,12 @@ alt="image-20250801115323798" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据结构详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/06/Java-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Java-2025热门面试题">
-                        <span class="hidden-mobile">Java-2025热门面试题</span>
+                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
+                        <span class="hidden-mobile">数据结构详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -844,7 +817,7 @@ alt="image-20250801115323798" />
       Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
       Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
         var options = Object.assign(
-          {"serverURL":"https://waline2-peach.vercel.app/","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {"serverURL":"https://waline2-3l7y6fw8u-korinalls-projects.vercel.app","placeholder":"遗憾莫过于难忘你的背影，却找不到你来过的痕迹 ...","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
           {
             el: '#waline',
             path: window.location.pathname
