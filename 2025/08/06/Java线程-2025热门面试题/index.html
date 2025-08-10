@@ -495,32 +495,36 @@ document.addEventListener("readystatechange", function() {
                 <div class="note note-info">
             <p>最后更新于：2025-08-10 PM</p>
           </div>
-<h1>Java并发库提供了哪些线程池实现</h1>
+<h1
+id="java并发库提供了哪些线程池实现">Java并发库提供了哪些线程池实现</h1>
 <p>Java内置实现线程池主要通过Executors工具类实现</p>
 <p>1）FixedThreadPool：创建固定数量线程池</p>
 <p>2）CachedThreadPool：线程数量没有上限，空闲线程会在1分钟后回收</p>
 <p>3）SingleThreadExecutor：单线程线程池</p>
 <p>4）ScheduledThreadPool：定时执行任务</p>
 <p>5）WorkStrealingPool：线程池中每一个线程都是用双端队列维护，线程从自己队列中取任务执行，如果为空去其他队列中窃取任务执行</p>
-<h1>Java高并发工具类</h1>
+<h1 id="java高并发工具类">Java高并发工具类</h1>
 <p>高并发工具类有ConcurrentHashMap、AtomicInteger、Semaphore、BlockQueue等</p>
-<h3 id="ConcurrentHashMap"><strong>ConcurrentHashMap</strong></h3>
-<h4 id="特点：线程安全高效哈希表，可以并发访问">特点：线程安全高效哈希表，可以并发访问</h4>
+<h3 id="concurrenthashmap"><strong>ConcurrentHashMap</strong></h3>
+<h4
+id="特点线程安全高效哈希表可以并发访问">特点：线程安全高效哈希表，可以并发访问</h4>
 <p><strong>如何使用：多个线程可以同时操作，不会出现线程安全问题</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">ConcurrentHashMap&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConcurrentHashMap</span>&lt;&gt;();<br>map.put(<span class="hljs-string">&quot;key1&quot;</span>, <span class="hljs-number">1</span>);<br><span class="hljs-type">Integer</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> map.get(<span class="hljs-string">&quot;key1&quot;</span>);<br>map.computeIfAbsent(<span class="hljs-string">&quot;key2&quot;</span>, k -&gt; <span class="hljs-number">2</span>);<br><br></code></pre></td></tr></table></figure>
-<h3 id="AtomicInteger">AtomicInteger</h3>
-<h4 id="特点：线程安全，对int类型的原子操作">特点：线程安全，对int类型的原子操作</h4>
+<h3 id="atomicinteger">AtomicInteger</h3>
+<h4
+id="特点线程安全对int类型的原子操作">特点：线程安全，对int类型的原子操作</h4>
 <p><strong>如何使用：频繁对数值无锁操作</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">AtomicInteger</span> <span class="hljs-variable">atomicInt</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AtomicInteger</span>(<span class="hljs-number">0</span>);<br>atomicInt.incrementAndGet(); <span class="hljs-comment">// 递增</span><br>atomicInt.decrementAndGet(); <span class="hljs-comment">// 递减</span><br>atomicInt.compareAndSet(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// 比较并设置</span><br><br></code></pre></td></tr></table></figure>
-<h3 id="Semaphore">Semaphore</h3>
-<h4 id="特点：控制资源访问线程数，限流、访问控制等">特点：控制资源访问线程数，限流、访问控制等</h4>
+<h3 id="semaphore">Semaphore</h3>
+<h4
+id="特点控制资源访问线程数限流访问控制等">特点：控制资源访问线程数，限流、访问控制等</h4>
 <p><strong>如何使用：资源有限，控制同时访问的线程数</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">3</span>);<br><span class="hljs-keyword">try</span> &#123;<br>    semaphore.acquire(); <span class="hljs-comment">// 获取许可</span><br>    <span class="hljs-comment">// 执行任务</span><br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    semaphore.release(); <span class="hljs-comment">// 释放许可</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="BlockingQueue">BlockingQueue</h3>
-<h4 id="特点：适用于生产者消费者模式">特点：适用于生产者消费者模式</h4>
+<h3 id="blockingqueue">BlockingQueue</h3>
+<h4 id="特点适用于生产者消费者模式">特点：适用于生产者消费者模式</h4>
 <p><strong>如何使用：生产者向队列中存入元素，消费者从中取，队列为空消费者线程阻塞</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java">BlockingQueue&lt;String&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedBlockingQueue</span>&lt;&gt;();<br><span class="hljs-type">Runnable</span> <span class="hljs-variable">producer</span> <span class="hljs-operator">=</span> () -&gt; &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        queue.put(<span class="hljs-string">&quot;item&quot;</span>); <span class="hljs-comment">// 放入元素</span><br>    &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>&#125;;<br><span class="hljs-type">Runnable</span> <span class="hljs-variable">consumer</span> <span class="hljs-operator">=</span> () -&gt; &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> queue.take(); <span class="hljs-comment">// 取出元素</span><br>    &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(producer).start();<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(consumer).start();<br><br></code></pre></td></tr></table></figure>
-<h1>如何控制多个线程执行顺序？</h1>
+<h1 id="如何控制多个线程执行顺序">如何控制多个线程执行顺序？</h1>
 <h3 id="方法罗列">方法罗列</h3>
 <p>1）CompletableFuture，内部thenRun确认接下来执行哪一个线程</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">CompletableFuture.runAsync(() -&gt; &#123;<span class="hljs-keyword">do</span> t1 sth&#125;)<br>   .thenRun(()-&gt; &#123;<span class="hljs-keyword">do</span> t2 sth&#125;)<br>   .thenRun(()-&gt; &#123;<span class="hljs-keyword">do</span> t3 sth&#125;);<br><br></code></pre></td></tr></table></figure>
@@ -530,27 +534,28 @@ document.addEventListener("readystatechange", function() {
 <p>4）Semaphore</p>
 <p>5）线程池</p>
 <p>等等</p>
-<h1>如何设置Java线程池线程数？</h1>
+<h1 id="如何设置java线程池线程数">如何设置Java线程池线程数？</h1>
 <h3 id="重点分析">重点分析</h3>
 <p>线程池的线程数设置具体得看执行的任务是什么类型的</p>
 <p>任务类型分为CPU密集型任务和IO密集型任务</p>
-<h3 id="CPU密集型任务">CPU密集型任务</h3>
+<h3 id="cpu密集型任务">CPU密集型任务</h3>
 <p>充分利用CPU资源，不会被IO操作影响</p>
 <p>CPU密集型任务线程数 = CPU核心数 + 1</p>
-<h3 id="IO密集型任务">IO密集型任务</h3>
+<h3 id="io密集型任务">IO密集型任务</h3>
 <p>在进行读取文件操作的时候，是无法利用CPU的，会被阻塞等待IO读取完成，所以为了提高CPU利用率，需要创建尽可能多的线程执行任务</p>
 <p>IO密集型任务线程个数 = CPU核心数 * 2甚至更多</p>
-<h1>线程池原理</h1>
+<h1 id="线程池原理">线程池原理</h1>
 <h3 id="工作原理">工作原理</h3>
 <p>线程主要前置概念：核心线程数、最大线程数、空闲存活时间、工作队列、拒绝策略</p>
 <p>1、线程默认不创建，提交任务创建</p>
 <p>2、核心线程满了不会创建新线程，把任务堆积到工作队列</p>
 <p>3、工作队列放不下了，才新建线程</p>
 <p>4、工作队列满了，线程数量也到达了最大线程数，执行拒绝策略</p>
-<p>5、线程空闲时间超过空闲存活时间，并且线程数大于核心线程数，销毁当前线程 ，直到线程数等于核心线程数</p>
+<p>5、线程空闲时间超过空闲存活时间，并且线程数大于核心线程数，销毁当前线程
+，直到线程数等于核心线程数</p>
 <p><strong>举个实际生活例子</strong></p>
 <p>我上医院看病，总共6个窗口，有3个窗口营业，如果3个口都被占了，这个时候剩余排队的人去休息区，如果休息区满了还是有排队的，那么就开一个新窗口，如果6个窗口都开了而且休息区满了，还有人想看病，明天再来吧！！！</p>
-<h1>线程池有哪些拒绝策略？</h1>
+<h1 id="线程池有哪些拒绝策略">线程池有哪些拒绝策略？</h1>
 <h3 id="分类">分类</h3>
 <ul>
 <li>默认拒绝策略，任务队列满了且没有空闲线程，抛出异常</li>
@@ -560,8 +565,8 @@ document.addEventListener("readystatechange", function() {
 </ul>
 <h3 id="自定义拒绝策略">自定义拒绝策略</h3>
 <p>实现RejectedExcutionHandler接口自定义拒绝策略。可以记录日志等</p>
-<h1>线程生命周期如何定义？</h1>
-<h3 id="重点分析-2">重点分析</h3>
+<h1 id="线程生命周期如何定义">线程生命周期如何定义？</h1>
+<h3 id="重点分析-1">重点分析</h3>
 <p>1）New：创建好线程对象，未调用start方法</p>
 <p>2）Runnable：调用start方法，线程处于就绪状态</p>
 <p>3）Blocked：线程获取对象锁，被阻塞</p>
@@ -667,9 +672,9 @@ document.addEventListener("readystatechange", function() {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/06/Java-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Java-2025热门面试题">
+                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java-2025热门面试题</span>
+                        <span class="hidden-mobile">数据结构详解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -677,8 +682,8 @@ document.addEventListener("readystatechange", function() {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/06/MySQL-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="MySQL-2025热门面试题">
-                        <span class="hidden-mobile">MySQL-2025热门面试题</span>
+                      <a href="/2025/08/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="计算机网络-2025热门面试题">
+                        <span class="hidden-mobile">计算机网络-2025热门面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
