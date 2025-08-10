@@ -38,27 +38,23 @@ document.addEventListener("readystatechange", function() {
   <meta name="author" content="KotRin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的  主键索引  非叶子节点">
+    <meta name="description" content="最后更新于：2025-08-10 PM            ConcurrentHashMap1.7和1.8区别？ ConcurrentHashMap1.7   数据结构采用Segment + HashEntry数组 + 链表   采用分段锁，默认16个Segment，也就是16个线程可以并发执行   分段锁继承ReentranLock   每个Segment(段)本质">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL-2025热门面试题">
-<meta property="og:url" content="https://korinall.github.io/2025/08/06/MySQL-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:title" content="Hash-2025热门面试题">
+<meta property="og:url" content="https://korinall.github.io/2025/08/06/Hash-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="岚码集隅">
-<meta property="og:description" content="最后更新于：2025-08-06 PM            InnoDB引擎中聚簇索引和非聚簇索引区别 重点回答 聚簇索引  叶子节点存储数据行 聚簇索引就是主键索引，主要用来排序和查询  非聚簇索引  叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据 一个树中非聚簇索引可以有很多  扩展 以上两种索引方式底层都是通过B+树实现的  主键索引  非叶子节点">
+<meta property="og:description" content="最后更新于：2025-08-10 PM            ConcurrentHashMap1.7和1.8区别？ ConcurrentHashMap1.7   数据结构采用Segment + HashEntry数组 + 链表   采用分段锁，默认16个Segment，也就是16个线程可以并发执行   分段锁继承ReentranLock   每个Segment(段)本质">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
-<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801113420840.png">
-<meta property="og:image" content="https://korinall.github.io/img/interview/image-20250801115323798.png">
 <meta property="article:published_time" content="2025-08-06T11:02:54.000Z">
-<meta property="article:modified_time" content="2025-08-10T15:58:44.103Z">
+<meta property="article:modified_time" content="2025-08-10T15:57:52.112Z">
 <meta property="article:author" content="KotRin">
 <meta property="article:tag" content="八股">
-<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Hash">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://korinall.github.io/img/interview/image-20250801131615750.png">
   
   
   
-  <title>MySQL-2025热门面试题 - 岚码集隅</title>
+  <title>Hash-2025热门面试题 - 岚码集隅</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -355,7 +351,7 @@ document.addEventListener("readystatechange", function() {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="MySQL-2025热门面试题"></span>
+            <span id="subtitle" data-typed-text="Hash-2025热门面试题"></span>
           
         </div>
 
@@ -378,7 +374,7 @@ document.addEventListener("readystatechange", function() {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.9k 字
         
       </span>
     
@@ -389,7 +385,7 @@ document.addEventListener("readystatechange", function() {
         
         
         
-          18 分钟
+          25 分钟
         
       </span>
     
@@ -491,207 +487,224 @@ document.addEventListener("readystatechange", function() {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">MySQL-2025热门面试题</h1>
+            <h1 id="seo-header">Hash-2025热门面试题</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-info">
-            <p>最后更新于：2025-08-06 PM</p>
+            <p>最后更新于：2025-08-10 PM</p>
           </div>
-<h1>InnoDB引擎中聚簇索引和非聚簇索引区别</h1>
-<h3 id="重点回答">重点回答</h3>
-<p>聚簇索引</p>
+<h1>ConcurrentHashMap1.7和1.8区别？</h1>
+<p>ConcurrentHashMap1.7</p>
 <ul>
-<li>叶子节点存储数据行</li>
-<li>聚簇索引就是主键索引，主要用来排序和查询</li>
+<li>
+<p>数据结构采用Segment + HashEntry数组 + 链表</p>
+</li>
+<li>
+<p>采用分段锁，默认16个Segment，也就是16个线程可以并发执行</p>
+</li>
+<li>
+<p>分段锁继承ReentranLock</p>
+</li>
 </ul>
-<p>非聚簇索引</p>
+<p><strong>每个Segment(段)本质上就是一个HashMap，拥有自己的锁</strong></p>
+<p>ConcurrentHashMap1.8</p>
 <ul>
-<li>叶子节点存储数据行的主键和索引列，需要拿主键才可以访问完整数据</li>
-<li>一个树中非聚簇索引可以有很多</li>
+<li>
+<p>数据结构采用数组 + 链表/红黑树</p>
+</li>
+<li>
+<p>移除Segment，锁只应用于链表或红黑树节点上</p>
+</li>
+<li>
+<p>CAS + synchronized保证线程安全，空节点使用CAS操作，非空节点使用synchronized保证线程安全</p>
+</li>
 </ul>
+<p>渐进式扩容</p>
+<ul>
+<li>JDK1.8引入渐进式扩容，当元素个数达到数组容量 * 负载因子，2倍扩容，像HashMap一样最后做数据迁移工作</li>
+</ul>
+<h1>ConcurrentHashMap的get操作是否需要加锁？</h1>
+<h3 id="重点分析">重点分析</h3>
+<p>不需要。ConcurrentHashMap为了保证线程安全使用volatile修饰节点的next指针和val值，在发生写入操作时读取到的也是最新的数据</p>
 <h3 id="扩展">扩展</h3>
-<p>以上两种索引方式底层都是通过B+树实现的</p>
-<p><img src="/img/interview/image-20250801131615750.png" srcset="/img/loading.gif" lazyload alt="image-20250801131615750"></p>
-<p>主键索引</p>
+<p>虽然说ConcurrentHashMap读操作是不必加锁的，但是常规的如put、remove需要上锁，来保证其高效的读写分离，提高并发性能</p>
+<h3 id="源码解析">源码解析</h3>
+<p>Get源码</p>
+<p>![image-20250810192432858](/Users/satrol_/Library/Application Support/typora-user-images/image-20250810192432858.png)</p>
+<p>核心代码主要体现在<code>(e = tabAt(tab, (n - 1) &amp; h)) != null</code></p>
+<p>tabAt方法内部调用<code>getObjectVolatile</code> 保证其可见性</p>
+<p>![image-20250810192936615](/Users/satrol_/Library/Application Support/typora-user-images/image-20250810192936615.png)</p>
+<p>进入<code>getObjectVolatile</code>内部，我们发现它是一个native方法也就是调用底层C++的实现方法</p>
+<p>![image-20250810193053766](/Users/satrol_/Library/Application Support/typora-user-images/image-20250810193053766.png)</p>
+<p>内部实现原理是根据对象的起始地址和字段偏移量，从内存中读取字段。通过内存屏障保证读操作是volatile修饰的，即对其他线程可见。</p>
+<p><strong>内存屏障是什么？</strong></p>
+<p>内存屏障指的是<code>getObjectVolatile</code>前后都插入一个读取屏障，保证读取字段前后不会被CPU缓存</p>
+<p>利用Unsafe获取元素，对比hash和key获取value，Node节点val、next指针都是volatile修饰的，确保可见</p>
+<p>![image-20250810193638861](/Users/satrol_/Library/Application Support/typora-user-images/image-20250810193638861.png)</p>
+<p>所以说，不管是哈希映射到某一个节点，或者是hash冲突，利用next遍历链表定位最终node获取value值，都可以保证可见性，所以说不需要加锁</p>
+<h3 id="Unsafe是什么？">Unsafe是什么？</h3>
+<p>Unsafe是Java内部类，针对于不安全操作，可以直接操作内存和线程</p>
+<p>主要功能包含</p>
 <ul>
-<li>非叶子节点存储主键和页号</li>
-<li>叶子节点存储完整数据</li>
-<li>叶子节点间通过双向链表链接</li>
-<li>B+树的优点在于可以快速定位页</li>
+<li>访问内存</li>
+<li>操作对象</li>
+<li>操作线程</li>
+<li>CAS操作</li>
 </ul>
-<p>非聚簇索引</p>
+<h1>HashMap和HashTable区别</h1>
+<h3 id="线程安全">线程安全</h3>
 <ul>
-<li>区别在于叶子节点存储不同</li>
+<li>HashMap：非线程安全</li>
+<li>HashTable：线程安全，内部使用了关键字synchronyzed关键字保证同步</li>
 </ul>
-<h1>MySQL回表是什么</h1>
-<h3 id="概述">概述</h3>
-<p>回表指的是二级索引作为查询条件，由于二级索引存储的是索引的值和对应主键值，无法获得完整数据。如果想要获得完整数据，需要根据主键去聚簇索引查找，这个过程被称为回表</p>
-<h3 id="理解回表">理解回表</h3>
-<p>说白了，假如我想查找age = 20的人的完整数据，因为age是二次索引，查找出来结果有主键，根据这个主键值去聚簇索引中查找完整数据</p>
-<h3 id="总结一下什么是回表、索引下推、索引覆盖？">总结一下什么是回表、索引下推、索引覆盖？</h3>
-<h4 id="回表">回表</h4>
-<p>非聚簇索引查询结果不满足目标字段要求，接着去聚簇索引中查找</p>
-<h4 id="索引覆盖">索引覆盖</h4>
-<p>执行查询语句的时候，select查询条件在联合索引中都存在，不会发生回表，因为索引覆盖了</p>
-<h4 id="索引下推">索引下推</h4>
-<p>索引下推就是从原先的根据二级索引查到主键ID回表后再where过滤改为查到数据直接where过滤，再回表，减少回表次数</p>
-<h1>MySQL存储引擎</h1>
-<h2 id="重点回答-2">重点回答</h2>
-<p>1）InnoDB</p>
-<p>2）MyISAM</p>
-<p>3）MEMORY</p>
-<p>4）NDB</p>
-<p>5）ARCHIVE</p>
-<p>记一下就可以了，感觉没必要介绍其应用场景等，开发前已经定好的</p>
-<h1>MySQL索引下推是什么？</h1>
-<h3 id="概述-2">概述</h3>
-<p>索引下推是为了减少回表查询，提高查询效率的技术。在查找数据的时候，可以下推到存储引擎层过滤，减少从表中获取的数据行</p>
-<p><strong>索引下推应用在联合索引上</strong></p>
-<h3 id="举例说明">举例说明</h3>
-<p>针对于联合索引<code>index_name_age</code>，例如有四条数据<code>(李四,18),(李四,30),(李四,50),(李四,80)</code></p>
-<p>假如我们想要查询name = 李四，age &gt; 50的数据</p>
-<p>如果没有索引下推，查询流程是会先查name = 李四，发现有四条数据，回表数据，接着根据age &gt; 50范围查找</p>
-<p>如果有索引下推，先匹配name = 李四，接着匹配age &gt; 50，过滤后，根据主键索引进行回表</p>
-<h1>MySQL索引向左匹配原则</h1>
-<h3 id="什么是索引向左匹配原则？">什么是索引向左匹配原则？</h3>
-<p>向左匹配原则指的是，在复合索引中，查询条件按照索引列的顺序从左向右进行逐一匹配，只有当查询条件按照索引列的顺序去匹配，才可以正常使用索引</p>
-<p><strong>如何创建复合索引，复合索引SQL语句是什么？</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_employee_name <span class="hljs-keyword">ON</span> employees (last_name, first_name);<br></code></pre></td></tr></table></figure>
-<h3 id="举例说明，复合索引在查询时遵循向左匹配情况？">举例说明，复合索引在查询时遵循向左匹配情况？</h3>
-<p>复合索引<code>(name,age,sex)</code>，查询语句如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span> <span class="hljs-keyword">and</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
-<p>如果不按照索引顺序查询呢</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>正常来说以上情况是不符合最左匹配原则的，MySQL是无法使用复合索引的。但是现在MySQL存在优化器，会自动为你调整顺序，仍然可以使用</p>
-<h3 id="如何优化复合索引的慢查询">如何优化复合索引的慢查询</h3>
-<p>可以使用EXPLAIN语句来查看查询计划，确定是否正确使用索引。如果没有充分使用索引，判断是否违背最左匹配原则，调整顺序。其他优化策略包括限制返回行数，覆盖索引优化(确保查询只返回要的索引)</p>
-<h3 id="扩展：Explain语句">扩展：Explain语句</h3>
-<h4 id="概述-3">概述</h4>
-<blockquote>
-<p>EXPLAIN主要是用来分析MySQL查询的工具，通过它可以判断MySQL如何查询，查看哪些索引被用了，查询执行顺序等</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXPLAIN <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> age <span class="hljs-operator">=</span> <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;aaaa&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>返回结果</p>
-<p><img src="/img/interview/image-20250801113420840.png" srcset="/img/loading.gif" lazyload alt="image-20250801113420840"></p>
-<h1>MySQL索引数量是否越多越好，为什么？</h1>
-<p>并不是，索引多的也是会有一定成本的，主要分为两个维度</p>
-<p>1）从时间上</p>
-<p>当我们对表中的数据进行增删改查，索引也会随之更新，比如我们删除一条年龄等于20的记录，主键索引会发生改变，如果age字段有索引，那么age索引也要发生改变，可能还会出现B+树页分裂等问题，造成时间开销大的问题</p>
-<p>2）从空间上</p>
-<p>每一次创建普通索引后，都会新建一个B+树，每一个数据页大小为16KB，当插入数据量多的话占用空间也多</p>
-<h1>MySQL索引类型有哪些？</h1>
-<h2 id="分类">分类</h2>
-<p>数据结构视角，索引主要分为以下几类</p>
+<h3 id="性能方面">性能方面</h3>
 <ul>
-<li>B+树索引：InnoDB和MyISAM常用索引数据结构</li>
-<li>哈希索引：Memory引擎</li>
-<li>倒排索引：全文搜索、模糊匹配、关键字搜索</li>
-<li>R-树索引：多维空间</li>
+<li>HashMap：由于没有线程同步，单线程性能优于HashTable</li>
+<li>HashTable：使用同步锁，性能低于HashMap。由于使用全局锁的方式，使不同操作串行化</li>
 </ul>
-<p>基于InnoDB B+树索引角度看</p>
+<h3 id="空值方面">空值方面</h3>
 <ul>
-<li>聚簇索引：InnoDB主键索引就是聚簇索引。基于主键排序存储，叶子节点存储完整数据行数据</li>
-<li>非聚簇索引：非主键索引，叶子节点保存索引字段和主键的值</li>
+<li>HashMap：允许null值</li>
+<li>HashTable：不允许，插入null值会报错</li>
 </ul>
-<p>索引性质来看</p>
+<h3 id="继承方面">继承方面</h3>
 <ul>
-<li>普通索引(二级索引)：非主键索引和非唯一索引</li>
-<li>主键索引：每个表都有唯一索引</li>
-<li>联合索引：多列组成</li>
-<li>唯一索引：防止重复数据插入</li>
-<li>全文索引：全文搜索</li>
-<li>空间索引：地理位置查询</li>
+<li>HashMap：继承AbstractMap，是Map的实现类</li>
+<li>HashTable：继承Dictonary(已经废弃)，Java2后被HashMap取代</li>
 </ul>
-<h2 id="SQL示例">SQL示例</h2>
-<p>主键索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> users (<br>    id <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,<br>    username <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    password <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    <span class="hljs-keyword">PRIMARY</span> KEY(id)<br>);<br><br></code></pre></td></tr></table></figure>
-<p>唯一索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> INDEX idx_username <span class="hljs-keyword">ON</span> users(username);<br></code></pre></td></tr></table></figure>
-<p>普通索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username <span class="hljs-keyword">ON</span> users(username);<br></code></pre></td></tr></table></figure>
-<p>全文索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> FULLTEXT INDEX idx_content <span class="hljs-keyword">ON</span> articles(content);<br></code></pre></td></tr></table></figure>
-<p>联合索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username_email <span class="hljs-keyword">ON</span> users(username, email);<br></code></pre></td></tr></table></figure>
-<p>哈希索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> INDEX idx_username_hash <span class="hljs-keyword">ON</span> users(username) <span class="hljs-keyword">USING</span> HASH;<br></code></pre></td></tr></table></figure>
-<p>空间索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> SPATIAL INDEX idx_location <span class="hljs-keyword">ON</span> places(location);<br></code></pre></td></tr></table></figure>
-<h1>MySQL覆盖索引</h1>
-<h3 id="概述-4">概述</h3>
-<p>覆盖索引指的是二级索引被包含于联合索引中的所有列，从而使查询的时候可以通过二级索引而不用访问主键索引</p>
-<h3 id="示例代码">示例代码</h3>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> employees (<br>    emp_id <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY,<br>    first_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    last_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>),<br>    hire_date <span class="hljs-type">DATE</span>,<br>    department_id <span class="hljs-type">INT</span>,<br>    INDEX idx_name_hiredate (last_name, first_name, hire_date)<br>);<br><br></code></pre></td></tr></table></figure>
-<p>查询的时候查索引包含的字段，这种情况就可以使用覆盖索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
-<p>以下这种，查询了不属于联合索引中的字段，不可以使用覆盖索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name, first_name, hire_date, department_id <br><span class="hljs-keyword">FROM</span> employees <br><span class="hljs-keyword">WHERE</span> last_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;rin&#x27;</span> <span class="hljs-keyword">AND</span> first_name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;kot&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
-<h1>数据库中脏读、不可重复读、幻读是什么？</h1>
-<h2 id="重点介绍">重点介绍</h2>
-<p>1）脏读</p>
-<p>一个事务读取到另一个未提交事务中的数据</p>
-<p>2）不可重复读</p>
-<p>一个事务多次读取同一数据，其间另一个事务对这条数据发生修改，导致读到了不同的数据</p>
-<p>3）幻读</p>
-<p>一个事务多次查询符合条件的记录数量，两次读到的数量不同</p>
+<h3 id="迭代器方面">迭代器方面</h3>
+<ul>
+<li>HashMap：使用快速失败<code>Iterator</code>，迭代过程修改Map结构，抛出异常</li>
+<li>Hashtable：使用弱一致性的<code>Enumerator</code>，修改Map结构不会抛出异常</li>
+</ul>
 <h2 id="扩展-2">扩展</h2>
-<h3 id="四种隔离级别分别是什么？">四种隔离级别分别是什么？</h3>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>读未提交</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-<td>未提交事务他人可见，存在脏读风险</td>
-</tr>
-<tr>
-<td>读已提交</td>
-<td>❌</td>
-<td>✅</td>
-<td>✅</td>
-<td>只能读已提交的，解决脏读问题，但是有不可重复读和幻读的问题</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>❌</td>
-<td>❌</td>
-<td>✅</td>
-<td>MySQL默认隔离级别，解决不可重复读问题，有幻读问题</td>
-</tr>
-<tr>
-<td>串行读</td>
-<td>❌</td>
-<td>❌</td>
-<td>❌</td>
-<td>牺牲性能，避免所有问题</td>
-</tr>
-</tbody>
-</table>
-<h2 id="细嗦">细嗦</h2>
-<h3 id="脏读">脏读</h3>
-<p>一个事务读取到另一个未提交事务中的数据，当另一个事务发生回滚操作，导致最初事务读到了不存在的数据</p>
-<h4 id="发生的场景">发生的场景</h4>
+<h3 id="ConcurrentHashMap和HashTable区别">ConcurrentHashMap和HashTable区别</h3>
 <ul>
-<li>事务隔离级别为：READ NOCOMMITED (读未提交)</li>
+<li>ConcurrentHashMap是HashTable替代方案。利用分段锁提高并发性能</li>
+<li>ConcurrentHashMap读操作无锁，写操作分段锁，高并发情况下性能大大的好</li>
 </ul>
-<p><img src="/img/interview/image-20250801115323798.png" srcset="/img/loading.gif" lazyload alt="image-20250801115323798"></p>
-<p>解决方法：将事务隔离级别提升为读已提交</p>
-<h3 id="不可重复读">不可重复读</h3>
-<p>事务隔离级别为读已提交，解决脏读，数据发生发生改动，不可重复读出现</p>
-<h3 id="幻读">幻读</h3>
-<p>事务隔离级别为读以提交，由于事务插入或删除事务导致结果数量不一致</p>
+<h1>HashMap扩容机制是怎么样的？</h1>
+<h3 id="重点分析-2">重点分析</h3>
+<p>HashMap默认容量是16，负载因子为0.75，负载因子相当于是扩容的最低容量标准，当容量大于$16 * 0.75=12$的时候，就会扩容</p>
+<p>扩容是二倍扩容，会将默认容量从16变为32</p>
+<p>扩容后，HashMap会重新计算每一个元素hash值，根据新容量的大小定位到容器指定地方，这个操作叫做rehashing</p>
+<h3 id="Rehashing流程">Rehashing流程</h3>
+<p>针对于HashMap扩容后，如何将原来的元素重新计算hash值分配到新空间的指定位置，一定会有人好奇</p>
+<p>这里我们列出HashMap内部resize方法，讲解一下代码</p>
+<p>![image-20250807124819436](/Users/satrol_/Library/Application Support/typora-user-images/image-20250807124819436.png)</p>
+<p>这个代码很有意思，也是经过AI的重重解疑才明白</p>
+<p>这里分为低位链表和高位链表，他们是什么呢？</p>
+<p>扩容前大小为16，扩容后为32，我们可以将低位理解为1～16，高位为17～32</p>
+<p>核心代码<code>(e.hash&amp;oldCap)</code>，判断值是否为0决定是插入低位位置还是高位位置</p>
+<p>举个例子</p>
+<p>例1：hash=5(00101)，oldCap=16(10000)，取&amp;结果是0(00000)</p>
+<p>例2：hash=21(10101)，oldCap=16(10000)，取&amp;结果是16(10000)</p>
+<p><strong>为什么这么判断？</strong></p>
+<p>扩容后从<code>(16 - 1) &amp; hash</code>变为了<code>(32 - 1) &amp; hash</code></p>
+<ul>
+<li>对于hash=5：
+<ul>
+<li>原位置：<code>15 &amp; 5</code> = <code>01111 &amp; 00101</code> = <code>00101</code> (5)</li>
+<li>新位置：<code>31 &amp; 5</code> = <code>11111 &amp; 00101</code> = <code>00101</code> (5) → 不变</li>
+</ul>
+</li>
+<li>对于hash=21：
+<ul>
+<li>原位置：<code>15 &amp; 21</code> = <code>01111 &amp; 10101</code> = <code>00101</code> (5)</li>
+<li>新位置：<code>31 &amp; 21</code> = <code>11111 &amp; 10101</code> = <code>10101</code> (21)</li>
+<li>21 = 5 + 16 → 正好是原位置+oldCap</li>
+</ul>
+</li>
+</ul>
+<p>通过上述规律我们就能得出结论</p>
+<p>如果<code>(e.hash&amp;oldCap) == 0</code>，那么就插入低位，位置不发生改变</p>
+<p>否则，插入高位，位置等于老数组大小 + 原先下标</p>
+<h1>HashMap有什么提高性能的技巧吗？</h1>
+<p>1）设置合理初始容量</p>
+<p>默认容量是16，当然针对于你存储的数据量可以自己设置，减少扩容次数</p>
+<p>2）调整负载因子</p>
+<p>默认0.75，负载因子过高容易发生哈希冲突，过低的话会占用过多内存</p>
+<p>3）确保hashCode分布均匀</p>
+<p>避免key的hashCode方法生成的值雷同，减少哈希冲突</p>
+<h3 id="替换优化">替换优化</h3>
+<p>如果想要保留元素插入顺序，HashMap替换为LinkedHashMap</p>
+<p>如果要保留有序的键值对，使用TreeMap</p>
+<p>如果线程安全场景，使用ConcurrentHashMap</p>
+<h1>JDK1.8对HashMap除了红黑树还改动了什么？</h1>
+<h3 id="重点汇总">重点汇总</h3>
+<p>1）hash函数改为了将key的高16位和低16位进行异或运算</p>
+<p>2）当数组中元素到达一定阈值，2倍扩容</p>
+<p>3）尾插法代替头插法，避免出现多线程操作成环</p>
+<h1>LinkedHashMap是什么？</h1>
+<h3 id="概述">概述</h3>
+<p>LinkedHashMap是HashMap子类，内部通过双向链表维持元素顺序。他是哈希表和链表的结合体，相当于增强版HashMap。</p>
+<h3 id="特点">特点</h3>
+<ul>
+<li>插入顺序：按照键值对插入顺序保存元素，迭代的元素和插入顺序一致</li>
+<li>访问顺序：可配置访问顺序排列，当访问某一元素，该元素会移到链表末尾。开启该模式后迭代顺序会按照最近访问顺序排列</li>
+<li>双向链表：LinkedHashMap内部通过双向链表维护键值对顺序，每一个节点对应一个键值对</li>
+</ul>
+<h3 id="构造方法">构造方法</h3>
+<h4 id="1）默认构造">1）默认构造</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">LinkedHashMap&lt;K, V&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashMap</span>&lt;&gt;();<br></code></pre></td></tr></table></figure>
+<h4 id="2）携带初始容量和负载因子参数">2）携带初始容量和负载因子参数</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">LinkedHashMap&lt;K, V&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashMap</span>&lt;&gt;(initialCapacity, loadFactor);<br></code></pre></td></tr></table></figure>
+<h4 id="3）开启访问顺序排列">3）开启访问顺序排列</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">LinkedHashMap&lt;K, V&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashMap</span>&lt;&gt;(initialCapacity, loadFactor, <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure>
+<p>举例如下，每一次操作会讲该值放入到链表尾部</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-comment">// 创建访问顺序模式的LinkedHashMap</span><br>LinkedHashMap&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Integer</span>&gt; <span class="hljs-built_in">map</span> = <span class="hljs-literal">new</span> LinkedHashMap&lt;&gt;(<span class="hljs-number">16</span>, <span class="hljs-number">0.75</span>f, <span class="hljs-literal">true</span>);<br><br><span class="hljs-built_in">map</span>.put(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">map</span>.put(<span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">2</span>);<br><span class="hljs-built_in">map</span>.put(<span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-number">3</span>);<br><span class="hljs-comment">// 当前顺序: a -&gt; b -&gt; c</span><br><br><span class="hljs-built_in">map</span>.get(<span class="hljs-string">&quot;a&quot;</span>); <span class="hljs-comment">// 访问a后，a被移到末尾</span><br><span class="hljs-comment">// 顺序变为: b -&gt; c -&gt; a</span><br><br><span class="hljs-built_in">map</span>.put(<span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// 修改b的值也会被视为访问</span><br><span class="hljs-comment">// 顺序变为: c -&gt; a -&gt; b</span><br></code></pre></td></tr></table></figure>
+<h3 id="操作">操作</h3>
+<p>除了LinkedHashMap继承HashMap的<code>get</code>、<code>remove</code>、<code>put</code>方法，还提供了一种钩子方法<code>removeEldestEntry</code>，可以在新增元素的基础上，删除最老的数据。这是实现LRU缓存的一种常见方式。</p>
+<p>LRU(最近最少使用)是淘汰最久没有访问的数据，保留最新数据的一种策略</p>
+<p><code>removeEldestEntry</code>控制缓存最大容量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">LinkedHashMap&lt;Integer, String&gt; lruCache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashMap</span>&lt;Integer, String&gt;(<span class="hljs-number">16</span>, <span class="hljs-number">0.75f</span>, <span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">removeEldestEntry</span><span class="hljs-params">(Map.Entry&lt;Integer, String&gt; eldest)</span> &#123;<br>        <span class="hljs-keyword">return</span> size() &gt; <span class="hljs-number">3</span>; <span class="hljs-comment">// 当缓存大小超过 3 时，移除最旧的元素</span><br>    &#125;<br>&#125;;<br><br>lruCache.put(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;one&quot;</span>);<br>lruCache.put(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;two&quot;</span>);<br>lruCache.put(<span class="hljs-number">3</span>, <span class="hljs-string">&quot;three&quot;</span>);<br>lruCache.put(<span class="hljs-number">4</span>, <span class="hljs-string">&quot;four&quot;</span>); <span class="hljs-comment">// 插入新元素后，最旧的元素（1 -&gt; one）会被移除</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="性能">性能</h3>
+<p>1）时间复杂度：和HashMap一样新增、查找都是O(1)，由于内部维护双向链表，需要一定的空间开销</p>
+<p>2）顺序维护开销：LinkedHashMap维护插入和访问的顺序，需要在新增和查找操作上有一定开销</p>
+<h1>为什么HashMap扩容时是2的N次方</h1>
+<h3 id="重点分析-3">重点分析</h3>
+<p>采用2次方作为容量，主要是为了提高hash分布均匀性和计算效率</p>
+<p>HashMap通过<code>(n - 1) &amp; hash</code>计算索引位置，只有在数组容量是2的N次方才可以保证索引均匀。位运算效率高于<code>hash % n</code></p>
+<p>扩容只需要简单位运算就可以判断位置，提升rehash效率</p>
+<h3 id="哈希分布均匀性">哈希分布均匀性</h3>
+<p>数组容量为2的N次方，减一后可以保证后几位都是1，与hash值进行&amp;操作确保哈希码最低几位均匀分布</p>
+<h1>为什么HashMap负载因子默认是0.75？</h1>
+<h3 id="重点分析-4">重点分析</h3>
+<p>负载因子为0.75是在时间和空间得到的一个平衡值，避免过多扩容以及哈希冲突，确保插入和查找效率</p>
+<h3 id="负载因子是什么？">负载因子是什么？</h3>
+<p>用来估定HashMap的一种满载程度，当HashMap存储的数量大于<code>容量 X 负载因子</code>，HashMap扩容</p>
+<h3 id="负载因子为什么不选择1-0？">负载因子为什么不选择1.0？</h3>
+<p>负载因子1.0会确实会减少扩容次数，但是很容易发生哈希冲突</p>
+<h3 id="不同场景下负载因子的调整">不同场景下负载因子的调整</h3>
+<p>1）高并发：为了减少哈希冲突，减少负载因子0.5</p>
+<p>2）内存有限：减少扩容次数，提高负载因子</p>
+<h1>为什么JDK8对HashMap进行红黑树改动？</h1>
+<h3 id="重点分析-5">重点分析</h3>
+<p>JDK8以前，采用数组 + 链表的方式解决哈希冲突，但是随着链表元素增多，时间复杂度由O(1)退化为O(n)</p>
+<p>JDK8之后，引入红黑树，在链表长度大于等于8，链表转化为红黑树。当链表元素小于6，再次转化为链表</p>
+<p>红黑树保证时间复杂度为O(logn)，明显优于链表的O(n)</p>
+<h3 id="转化机制">转化机制</h3>
+<p>链表转红黑树</p>
+<ul>
+<li>链表元素大于等于8，数组元素大于等于64，转换</li>
+<li>数组长度小于64，只扩容不转换</li>
+</ul>
+<h4 id="为什么数组长度大于等于64才转为红黑树？">为什么数组长度大于等于64才转为红黑树？</h4>
+<p>哈希冲突大多发生在数组容量小的情况，扩容后会减少哈希冲突。没必要在小容量数组中转换树</p>
+<p>所以设计64相当于是一个阈值</p>
+<h4 id="为什么节点小于等于6需要从红黑树转回链表？">为什么节点小于等于6需要从红黑树转回链表？</h4>
+<p>平衡一下空间和时间，节点数据不多，链表操作效率也一样高，没必要浪费内存开个红黑树</p>
+<p>为什么定6不是8，主要受为了防止两种结构反复横跳，节点在8个后反复删除和添加，不停转换肯定有一定开销</p>
+<h1>哈希碰撞是什么？如何解决呢？</h1>
+<h3 id="概述-2">概述</h3>
+<p>Hash碰撞指的是不同的输入数据哈希计算出来的哈希值是一样的，会被映射到哈希表同一个的位置，发生碰撞。</p>
+<p>包含三种方法解决</p>
+<p>1）拉链法：哈希表每一个位置变成一个链表</p>
+<p>2）开放寻址法：上厕所(这个坑满了，去下一个)</p>
+<p>3）双重哈希：哈希碰撞，使用第二个哈希函数</p>
+<p><strong>以上方法后期算法文章细讲，直接写码看着直观</strong></p>
 
                 
               </div>
@@ -715,7 +728,7 @@ document.addEventListener("readystatechange", function() {
   
     <span>></span>
     
-  <a href="/categories/%E5%85%AB%E8%82%A1/MySQL/" class="category-chain-item">MySQL</a>
+  <a href="/categories/%E5%85%AB%E8%82%A1/Hash/" class="category-chain-item">Hash</a>
   
   
 
@@ -734,7 +747,7 @@ document.addEventListener("readystatechange", function() {
       
         <a href="/tags/%E5%85%AB%E8%82%A1/" class="print-no-link">#八股</a>
       
-        <a href="/tags/MySQL/" class="print-no-link">#MySQL</a>
+        <a href="/tags/Hash/" class="print-no-link">#Hash</a>
       
     </div>
   
@@ -746,8 +759,8 @@ document.addEventListener("readystatechange", function() {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MySQL-2025热门面试题</div>
-      <div>https://korinall.github.io/2025/08/06/MySQL-2025热门面试题/</div>
+      <div>Hash-2025热门面试题</div>
+      <div>https://korinall.github.io/2025/08/06/Hash-2025热门面试题/</div>
     </div>
     <div class="license-meta">
       
@@ -791,9 +804,9 @@ document.addEventListener("readystatechange", function() {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/06/Java%E7%BA%BF%E7%A8%8B-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Java线程-2025热门面试题">
+                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java线程-2025热门面试题</span>
+                        <span class="hidden-mobile">数据结构详解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -801,8 +814,8 @@ document.addEventListener("readystatechange", function() {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" title="数据结构详解">
-                        <span class="hidden-mobile">数据结构详解</span>
+                      <a href="/2025/08/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-2025%E7%83%AD%E9%97%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" title="计算机网络-2025热门面试题">
+                        <span class="hidden-mobile">计算机网络-2025热门面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
